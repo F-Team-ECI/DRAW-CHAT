@@ -3,6 +3,6 @@
 # DRAW-CHAT
 
 ## Integrantes: 
->- Germán Andres Ospina Quintero
 >- David Alejandro Vasquez Carreño
 >- Michael Jefferson Ballesteros Coca
+>- Germán Andres Ospina Quintero
