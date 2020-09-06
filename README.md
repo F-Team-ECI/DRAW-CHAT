@@ -6,3 +6,6 @@
 >- David Alejandro Vasquez Carreño
 >- Michael Jefferson Ballesteros Coca
 >- Germán Andres Ospina Quintero
+
+## Diagrama de clases
+![](https://drive.google.com/file/d/1tOw6smLdOhlrbRD7vaViTHvAixb17L2J/view?usp=sharing)
