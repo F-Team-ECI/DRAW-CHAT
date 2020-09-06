@@ -1,5 +1,5 @@
 # Escuela Colombiana de Ingeniería Julio Garavito
-# Proyecto Arquitectura de software 2020-1
+# Proyecto de Arquitectura de Software 2020-2
 # DRAW-CHAT
 
 ## Integrantes: 
