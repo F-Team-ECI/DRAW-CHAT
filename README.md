@@ -2,7 +2,7 @@
 ## Escuela Colombiana de Ingeniería Julio Garavito
 
 
-## DRAW-CHAT
+## DRAW-CHAT  
 
 DRAW-CHAT es un proyecto basado en la creación de un chat en vivo entre contactos telefónicos vía aplicación web.
 El chat es capaz de soportar la incorporación de nuevos contactos con teléfonos únicos, con marca de región. También
