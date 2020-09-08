@@ -15,8 +15,9 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 [![CircleCI](https://circleci.com/gh/F-Team-ECI/DRAW-CHAT.svg?style=svg)](https://circleci.com/gh/F-Team-ECI/DRAW-CHAT)
 [![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://draw-chatdb.herokuapp.com/)
 
-## Diagrama de clases
+## Diseño
 
+Para ver el diseño de la aplicacion [Click Aqui](https://github.com/F-Team-ECI/DRAW-CHAT/tree/master/design)
 
 
 ## Construido con
@@ -24,8 +25,11 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 + [Maven](https://maven.apache.org/) - Manejo de dependencias
 + [Git](https://git-scm.com/) - Control de versiones
 + [Java](https://www.java.com/es/) - Lenguaje de programación
++ [Spring](https://spring.io/) - Framework
 
 ## Autores
+
+**F TEAM** 
 
 +  **David Alejandro Vasquez Carreño** - *Trabajo inicial* - [alejovasquero](https://github.com/alejovasquero)
 +  **Germán Andres Ospina Quintero** - *Trabajo inicial* - [germanAOQ](https://github.com/germanAOQ)
