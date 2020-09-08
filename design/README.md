@@ -8,14 +8,14 @@
 
 ## Diagrama de Clases
 
-![](design\class\DIAGRAMA DE CLASES.png)
+![](class\classDiagram.png)
 
 ## Diagrama de Componentes
 
-![](design\components\DRAW COMPONENTS.png)
+![](components\componentsDiagram.png)
 
 ## Diagrama de Base De Datos
 
-![](design\database\Base de datos.png)
+![](database\databaseDiagram.png)
 
 

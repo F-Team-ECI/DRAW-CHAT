@@ -2,116 +2,9 @@
 ## Escuela Colombiana de Ingeniería Julio Garavito
 
 
-## DRAW-CHAT  
+## DRAW-CHAT
 
-DRAW-CHAT es un proyecto basado en la creación de un chat en vivo entre contactos telefónicos vía aplicación web.
-El chat es capaz de soportar la incorporación de nuevos contactos con teléfonos únicos, con marca de región. También
-se da soporte para la incorporación y administración básica de grupos de usuarios de la aplicación.
-Nuestra principal propuesta de valor para nuestro chat en vivo es la incorporación de un lienzo de pintura en vivo,
-donde todos los integrantes de grupo serán capaces de realizar dibujos básicos en la aplicación, con una sesión por grupo.
-
-## Estado del proyecto
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/705ddfc80a624ca3b89eb01df591f302)](https://www.codacy.com/gh/F-Team-ECI/DRAW-CHAT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=F-Team-ECI/DRAW-CHAT&amp;utm_campaign=Badge_Grade)
-
-[![CircleCI](https://circleci.com/gh/F-Team-ECI/DRAW-CHAT.svg?style=svg)](https://circleci.com/gh/F-Team-ECI/DRAW-CHAT)
-
-[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://draw-chatdb.herokuapp.com/)
-
-[Jira](https://github.com/F-Team-ECI/DRAW-CHAT/tree/master/design)
-
-
-
-## Diseño
-
-## Diagrama de Clases
-
-![](design\class\classDiagram.png)
-
-## Diagrama de Componentes
-
-![](design\components\componentsDiagram.png)
-
-## Diagrama de Base De Datos
-
-![](design\database\databaseDiagram.png)
-
-# DISEÑO Funcionalidades
-
-## Añadir Contacto
-
-![](design\secuence/AñadirContacto.png)
-
-## Borrar Mensaje
-
-![](design\secuence/BorrarMensaje.png)
-
-## Crear Una Sesion de Dibujo
-
-![](design\secuence/newBoard.png)
-
-## Enviar Mensaje
-
-![](design\secuence/MensajeDual.png)
-
-## Crear Grupo
-
-![](design\secuence/CrearGrupo.png)
-
-## Promover Administrador
-
-![](design\secuence/makeAdmin.png)
-
-
-# DISEÑO INTERFACES
-
-## Login
-
-![](design/interfaces/Login.JPG)
-
-## Chat
-
-![](design/interfaces/Chat.JPG)
-
-## Tablero
-
-![](design/interfaces/Tablero.JPG)
-
-## Menu
-
-![](design/interfaces/Menu.JPG)
-
-## Contactos
-
-![](design/interfaces/Contactos.JPG)
-
-
-## CrearGrupo
-
-![](design/interfaces/CrearGrupo.JPG)
-
-
-## Opciones de Chat
-
-![](design/interfaces/OpcionChat.JPG)
-
-## Principal como usuario nuevo
-
-![](design/interfaces/Principal.JPG)
-
-## Principal como usuario registrado
-
-![](design/interfaces/Principal2.JPG)
-
-## Ajustes
-
-![](design/interfaces/Ajustes.JPG)
-
-## Info
-
-![](design/interfaces/Info.JPG)
-
-
-## Casos de Uso
+# DISEÑO Casos de Uso
 
 ## Usuario
 
@@ -185,7 +78,7 @@ El envío de archivos comprende imágenes y documentos.
 - Los archivos deben ser guardados dentro de la base de datos para llevar el historial.
 
 
-![](design/use-cases/USUARIO.png)
+![](USUARIO.png)
 
 ## Usuario Grupo
 
@@ -213,7 +106,7 @@ Con objetivo de estudio, se delegará la eliminación  usuarios a cualquiera.
 **Criterios de aceptación:**
 - Los únicos usuarios que pueden eliminar administradores son otros otros admnistradores.
 
-![](design/use-cases/USUARIO-GRUPO.png)
+![](USUARIO-GRUPO.png)
 
 ## Usuario Tablero
 
@@ -256,7 +149,7 @@ PARA PODER dibujar con los demás miembros del grupo
 - Solo puede haber una sesión abierta (pestaña) por integrante
 - Una vez todos los miembros de la sesión abandonen, la sesión se cerrará, y su contenido será borrado de memoria.
 
-![](design/use-cases/USUARIO-TABLERO.png)
+![](USUARIO-TABLERO.png)
 
 ## Administrador Grupo
 
@@ -283,22 +176,4 @@ Al promover a un miembro como administrador, este miembro debería ser capaz de 
 **Criterios de aceptación:**
 - El administrador debe poder elegir de la lista de miembros del grupo
 
-![](design/use-cases/ADMIN.png)
-
-## Construido con
-
-+ [Maven](https://maven.apache.org/) - Manejo de dependencias
-+ [Git](https://git-scm.com/) - Control de versiones
-+ [Java](https://www.java.com/es/) - Lenguaje de programación
-+ [Spring](https://spring.io/) - Framework
-
-## Autores
-
-**F TEAM** 
-
-+  **David Alejandro Vasquez Carreño** - *Trabajo inicial* - [alejovasquero](https://github.com/alejovasquero)
-+  **Germán Andres Ospina Quintero** - *Trabajo inicial* - [germanAOQ](https://github.com/germanAOQ)
-+  **Michael Jefferson Ballesteros Coca** - *Trabajo inicial* - [Wasawsky](https://github.com/Wasawsky)
-
-
-Este proyecto está licenciado bajo la licencia del MIT - Vea el [LICENSE](LICENSE) para más detalles
+![](ADMIN.png)

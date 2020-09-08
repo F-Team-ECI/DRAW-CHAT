@@ -8,44 +8,46 @@
 
 ## Login
 
-![](design/interfaces/Login.JPG)
-
-## Ajustes
-
-![](design/interfaces/Ajustes.JPG)
+![](Login.JPG)
 
 ## Chat
 
-![](design/interfaces/Chat.JPG)
-
-## Contactos
-
-![](design/interfaces/Contactos.JPG)
-
-## CrearGrupo
-
-![](design/interfaces/CrearGrupo.JPG)
-
-## Info
-
-![](design/interfaces/Info.JPG)
-
-## Menu
-
-![](design/interfaces/Menu.JPG)
-
-## OpcionChat
-
-![](design/interfaces/OpcionChat.JPG)
-
-## Principal
-
-![](design/interfaces/Principal.JPG)
-
-## Principal2
-
-![](design/interfaces/Principal2.JPG)
+![](Chat.JPG)
 
 ## Tablero
 
-![](design/interfaces/Tablero.JPG)
+![](Tablero.JPG)
+
+## Menu
+
+![](Menu.JPG)
+
+## Contactos
+
+![](Contactos.JPG)
+
+
+## CrearGrupo
+
+![](CrearGrupo.JPG)
+
+
+## Opciones de Chat
+
+![](OpcionChat.JPG)
+
+## Principal como usuario nuevo
+
+![](Principal.JPG)
+
+## Principal como usuario registrado
+
+![](Principal2.JPG)
+
+## Ajustes
+
+![](Ajustes.JPG)
+
+## Info
+
+![](Info.JPG)
