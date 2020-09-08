@@ -8,14 +8,14 @@
 
 ## Diagrama de Clases
 
-![](https://github.com/F-Team-ECI/DRAW-CHAT/blob/master/design/class/DIAGRAMA%20DE%20CLASES.png)
+![](class/DIAGRAMA DE CLASES.png)
 
 ## Diagrama de Componentes
 
-![](https://github.com/F-Team-ECI/DRAW-CHAT/blob/master/design/components/DRAW%20COMPONENTS.png)
+![](components/DRAW COMPONENTS.png)
 
 ## Diagrama de Base De Datos
 
-![](https://github.com/F-Team-ECI/DRAW-CHAT/blob/master/design/database/Base%20de%20datos.png)
+![](database/Base de datos.png)
 
 
