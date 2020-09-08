@@ -16,7 +16,8 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 [![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://draw-chatdb.herokuapp.com/)
 
 ## Diagrama de clases
-[Diagrama de clases](https://drive.google.com/file/d/1tOw6smLdOhlrbRD7vaViTHvAixb17L2J/view?usp=sharing)
+
+
 
 ## Construido con
 
