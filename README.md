@@ -12,8 +12,14 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 
 ## Estado del proyecto
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/705ddfc80a624ca3b89eb01df591f302)](https://www.codacy.com/gh/F-Team-ECI/DRAW-CHAT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=F-Team-ECI/DRAW-CHAT&amp;utm_campaign=Badge_Grade)
+
 [![CircleCI](https://circleci.com/gh/F-Team-ECI/DRAW-CHAT.svg?style=svg)](https://circleci.com/gh/F-Team-ECI/DRAW-CHAT)
+
 [![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://draw-chatdb.herokuapp.com/)
+
+[Jira](https://github.com/F-Team-ECI/DRAW-CHAT/tree/master/design)
+
+
 
 ## Diseño
 
