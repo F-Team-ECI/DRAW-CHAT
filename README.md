@@ -17,7 +17,7 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 
 [![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://draw-chatdb.herokuapp.com/)
 
-[Jira](https://github.com/F-Team-ECI/DRAW-CHAT/tree/master/design)
+[Jira](https://f-team-eci.atlassian.net/jira/software/projects/DCARSW/boards/1)
 
 
 
