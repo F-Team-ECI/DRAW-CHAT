@@ -25,41 +25,41 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 
 ## Diagrama de Clases
 
-![](design\class\classDiagram.png)
+![](design/class/classDiagram.png)
 
 ## Diagrama de Componentes
 
-![](design\components\componentsDiagram.png)
+![](design/components/componentsDiagram.png)
 
 ## Diagrama de Base De Datos
 
-![](design\database\databaseDiagram.png)
+![](design/database/databaseDiagram.png)
 
 # DISEÑO Funcionalidades
 
 ## Añadir Contacto
 
-![](design\secuence/AñadirContacto.png)
+![](design/secuence/AñadirContacto.png)
 
 ## Borrar Mensaje
 
-![](design\secuence/BorrarMensaje.png)
+![](design/secuence/BorrarMensaje.png)
 
 ## Crear Una Sesion de Dibujo
 
-![](design\secuence/newBoard.png)
+![](design/secuence/newBoard.png)
 
 ## Enviar Mensaje
 
-![](design\secuence/MensajeDual.png)
+![](design/secuence/MensajeDual.png)
 
 ## Crear Grupo
 
-![](design\secuence/CrearGrupo.png)
+![](design/secuence/CrearGrupo.png)
 
 ## Promover Administrador
 
-![](design\secuence/makeAdmin.png)
+![](design/secuence/makeAdmin.png)
 
 
 # DISEÑO INTERFACES
