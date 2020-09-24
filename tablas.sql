@@ -1,11 +1,11 @@
 create table Usuario(
 	telefono varchar(250) primary key,
-	nombre: varchar(250),
-	apellido: varchar(250),
-	contraseña: varchar(250),
-	fechaRegistro: date,
-	fechaConexion: date,
-	estado: varchar(250)
+	nombre varchar(250),
+	apellido varchar(250),
+	contraseña varchar(250),
+	fechaRegistro date,
+	fechaConexion date,
+	estado varchar(250)
 );
 
 create table Contacto(
