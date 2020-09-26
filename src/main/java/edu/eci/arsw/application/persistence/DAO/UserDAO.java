@@ -11,5 +11,6 @@ import edu.eci.arsw.application.entities.User;
 @Service
 @Transactional
 public interface UserDAO extends JpaRepository<User, String>{
-    
+
+
 }
