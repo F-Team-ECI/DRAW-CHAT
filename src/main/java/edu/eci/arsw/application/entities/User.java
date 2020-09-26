@@ -1,6 +1,6 @@
 package edu.eci.arsw.application.entities;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -13,15 +13,15 @@ public class User {
 	private String nombre;
 	private String apellido;
 	private String contraseña;
-	private Date fechaRegistro;
-	private Date fechaConexion;
+	private Timestamp fechaRegistro;
+	private Timestamp fechaConexion;
 	private String estado;
 
     public User() {
     }
 
-    public User(String telefono, String nombre, String apellido, String contraseña, Date fechaRegistro,
-            Date fechaConexion, String estado) {
+    public User(String telefono, String nombre, String apellido, String contraseña, Timestamp fechaRegistro,
+        Timestamp fechaConexion, String estado) {
         this.telefono = telefono;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -63,19 +63,19 @@ public class User {
         this.contraseña = contraseña;
     }
 
-    public Date getFechaRegistro() {
+    public Timestamp getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(Timestamp fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Date getFechaConexion() {
+    public Timestamp getFechaConexion() {
         return fechaConexion;
     }
 
-    public void setFechaConexion(Date fechaConexion) {
+    public void setFechaConexion(Timestamp fechaConexion) {
         this.fechaConexion = fechaConexion;
     }
 
