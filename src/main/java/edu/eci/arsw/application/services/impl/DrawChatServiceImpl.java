@@ -1,5 +1,7 @@
 package edu.eci.arsw.application.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +22,13 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
-    public void getUsers() throws AppException {
-        drawPersistenceService.getUsers();
+    public List<User> getUsers() throws AppException {
+        return drawPersistenceService.getUsers();
     }
 
     @Override
-    public void getUser(String telefono) throws AppException {
-        drawPersistenceService.getUser(telefono);
+    public User getUser(String telefono) throws AppException {
+        return drawPersistenceService.getUser(telefono);
     }
     
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.User;
+import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DrawPersistenceService;
 import edu.eci.arsw.application.persistence.DAO.UserDAO;
 
@@ -22,16 +23,20 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-    public void getUsers() {
-        List<User> user = userDAO.findAll();
-        for (User us : user) {
-            System.out.println(us);
-        }
+    public List<User> getUsers() {
+        return userDAO.findAll();
     }
 
     @Override
-    public void getUser(String telefono) {
+    public User getUser(String telefono) throws AppException {
         Optional<User> user = userDAO.findById(telefono);
-        System.out.println(user);
+        User usuario = new User();
+        
+        if(user.isPresent()){
+            usuario = user.get();
+        }else{
+            throw new AppException("No se pudo encontrar el usuario");
+        }
+        return usuario;
     }
 }

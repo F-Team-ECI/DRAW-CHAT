@@ -3,6 +3,9 @@ package edu.eci.arsw.application.controllers.impl;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,8 @@ public class DrawController implements BaseController {
     @Autowired
     private DrawChatService drawChatService;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     @RequestMapping(path="/adduser", method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody User user){
         
@@ -39,8 +44,8 @@ public class DrawController implements BaseController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getUsers(){
         try {
-            drawChatService.getUsers();
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            String json = objectToJson(drawChatService.getUsers());
+            return new ResponseEntity<>(json,HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
@@ -50,11 +55,21 @@ public class DrawController implements BaseController {
     @RequestMapping(value="/{telefono}", method = RequestMethod.GET)
     public ResponseEntity<?> getUser(@PathVariable String telefono){
         try {
-            drawChatService.getUser(telefono);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            String json = objectToJson(drawChatService.getUser(telefono));
+            return new ResponseEntity<>(json, HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
         }
+    }
+
+    private String objectToJson(Object a) {
+        String json = null;
+        try {
+            json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(a);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }
