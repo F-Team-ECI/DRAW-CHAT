@@ -23,22 +23,8 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<User> getUsers() {
         return userDAO.findAll();
-=======
-    public void getUsers() {
-        //List<User> user = userDAO.findAll();
-        //for (User us : user) {
-        //    System.out.println(us);
-        //}
-        userDAO.findById("0005");
-        List<User> user = userDAO.findAll();
-        for (User us : user) {
-            System.out.println(us);
-        }
-
->>>>>>> e4cd67ff7d8c3ce1f0ca193a6136feaadb261ed9
     }
 
     @Override
@@ -48,6 +34,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         
         if(user.isPresent()){
             usuario = user.get();
+            System.out.println(usuario.getFecharegistro());
         }else{
             throw new AppException("No se pudo encontrar el usuario");
         }

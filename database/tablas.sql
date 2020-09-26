@@ -3,8 +3,8 @@ create table Usuario(
 	nombre varchar(250),
 	apellido varchar(250),
 	contraseña varchar(250),
-	fechaRegistro date,
-	fechaConexion date,
+	fechaRegistro TIMESTAMP,
+	fechaConexion TIMESTAMP,
 	estado varchar(250)
 );
 
