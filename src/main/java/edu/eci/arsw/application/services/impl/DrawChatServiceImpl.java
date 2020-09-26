@@ -16,7 +16,7 @@ public class DrawChatServiceImpl implements DrawChatService {
 
     @Override
     public void addUser(User user) throws AppException {
-        
+        drawPersistenceService.addUser(user);
     }
 
     @Override
