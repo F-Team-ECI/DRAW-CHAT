@@ -9,4 +9,5 @@ import edu.eci.arsw.application.exceptions.AppException;
 public interface DrawChatService {
     public void addUser(User user) throws AppException;
     public void getUsers() throws AppException;
+    public void getUser(String telefono) throws AppException;
 }

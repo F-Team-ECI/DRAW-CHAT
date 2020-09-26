@@ -8,4 +8,5 @@ import edu.eci.arsw.application.entities.User;
 public interface DrawPersistenceService {
     public void addUser(User user);
     public void getUsers();
+    public void getUser(String telefono);
 }

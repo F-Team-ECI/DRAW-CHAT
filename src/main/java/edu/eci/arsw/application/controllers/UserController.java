@@ -24,6 +24,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> register(@RequestBody String body){
         User nuevo = null;
+        /*
         try {
             nuevo = mapper.readValue(body, User.class);
         } catch (JsonProcessingException e) {
@@ -35,5 +36,7 @@ public class UserController {
         }
         userDAO.createUser(nuevo);
         return new ResponseEntity<>("202 CREATED", HttpStatus.CREATED);
+        */
+        return null;
     }
 }

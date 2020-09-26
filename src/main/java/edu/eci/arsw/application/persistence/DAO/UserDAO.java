@@ -12,7 +12,5 @@ import edu.eci.arsw.application.entities.User;
 @Transactional
 public interface UserDAO extends JpaRepository<User, String>{
 
-    public User getUserByPhone(String phone);
 
-    public void createUser(User user);
 }

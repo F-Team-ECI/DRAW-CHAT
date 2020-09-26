@@ -16,12 +16,17 @@ public class DrawChatServiceImpl implements DrawChatService {
 
     @Override
     public void addUser(User user) throws AppException {
-        
+        drawPersistenceService.addUser(user);
     }
 
     @Override
     public void getUsers() throws AppException {
         drawPersistenceService.getUsers();
+    }
+
+    @Override
+    public void getUser(String telefono) throws AppException {
+        drawPersistenceService.getUser(telefono);
     }
     
 }

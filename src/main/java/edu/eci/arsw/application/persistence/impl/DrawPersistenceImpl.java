@@ -1,6 +1,7 @@
 package edu.eci.arsw.application.persistence.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,22 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public void getUsers() {
-
         //List<User> user = userDAO.findAll();
         //for (User us : user) {
         //    System.out.println(us);
         //}
         userDAO.findById("0005");
+        List<User> user = userDAO.findAll();
+        for (User us : user) {
+            System.out.println(us);
+        }
 
     }
 
+    @Override
+    public void getUser(String telefono) {
+        Optional<User> user = userDAO.findById(telefono);
+        System.out.println(user);
+    }
 
 }
