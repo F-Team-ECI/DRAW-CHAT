@@ -23,5 +23,10 @@ public class DrawChatServiceImpl implements DrawChatService {
     public void getUsers() throws AppException {
         drawPersistenceService.getUsers();
     }
+
+    @Override
+    public void getUser(String telefono) throws AppException {
+        drawPersistenceService.getUser(telefono);
+    }
     
 }
