@@ -1,33 +1,42 @@
 package edu.eci.arsw.application.entities;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table ( name = "usuario" )
 public class User {
     @Id
-    @GeneratedValue ( strategy = GenerationType. IDENTITY )
+    @GeneratedValue ( strategy = GenerationType.AUTO )
     private String telefono;
 	private String nombre;
 	private String apellido;
-	private String contraseña;
-	private Timestamp fechaRegistro;
-	private Timestamp fechaConexion;
-	private String estado;
+    private String contraseña;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone="America/Bogota")
+    private Timestamp fecharegistro;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone="America/Bogota")
+    private Timestamp fechaconexion;
+
+    private String estado;
+    
     public User() {
     }
 
-    public User(String telefono, String nombre, String apellido, String contraseña, Timestamp fechaRegistro,
-        Timestamp fechaConexion, String estado) {
+    public User(String telefono, String nombre, String apellido, String contraseña, Timestamp fecharegistro, Timestamp fechaconexion, String estado) {
         this.telefono = telefono;
         this.nombre = nombre;
         this.apellido = apellido;
         this.contraseña = contraseña;
-        this.fechaRegistro = fechaRegistro;
-        this.fechaConexion = fechaConexion;
+        this.fecharegistro = fecharegistro;
+        this.fechaconexion = fechaconexion;
         this.estado = estado;
     }
     
@@ -63,20 +72,20 @@ public class User {
         this.contraseña = contraseña;
     }
 
-    public Timestamp getFechaRegistro() {
-        return fechaRegistro;
+    public Date getFecharegistro() {
+        return fecharegistro;
     }
 
-    public void setFechaRegistro(Timestamp fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
+    public void setFecharegistro(Timestamp fecharegistro) {
+        this.fecharegistro = fecharegistro;
     }
 
-    public Timestamp getFechaConexion() {
-        return fechaConexion;
+    public Timestamp getFechaconexion() {
+        return fechaconexion;
     }
 
-    public void setFechaConexion(Timestamp fechaConexion) {
-        this.fechaConexion = fechaConexion;
+    public void setFechaconexion(Timestamp fechaconexion) {
+        this.fechaconexion = fechaconexion;
     }
 
     public String getEstado() {
@@ -86,13 +95,4 @@ public class User {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    @Override
-    public String toString() {
-        return "User [apellido=" + apellido + ", contraseña=" + contraseña + ", estado=" + estado + ", fechaConexion="
-                + fechaConexion + ", fechaRegistro=" + fechaRegistro + ", nombre=" + nombre + ", telefono=" + telefono
-                + "]";
-    }
-
-    
 }

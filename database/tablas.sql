@@ -3,8 +3,8 @@ create table Usuario(
 	nombre varchar(250),
 	apellido varchar(250),
 	contraseña varchar(250),
-	fechaRegistro date,
-	fechaConexion date,
+	fechaRegistro TIMESTAMP,
+	fechaConexion TIMESTAMP,
 	estado varchar(250)
 );
 
@@ -16,21 +16,24 @@ create table Contacto(
 	foreign key(dirigido) references usuario (telefono)
 );
 
+create table Grupo(
+	nombre varchar(250) primary key,
+	lema varchar(250),
+	fechaCreacion TIMESTAMP,
+	chat int,
+	foreign key(chat) references chat (id)
+);
 
 create table Chat(
+	id int primary key,
 	usuario1 varchar(205),
 	usuario2 varchar(250),
 	tipo varchar(250),
-	primary key(usuario1, usuario2),
 	foreign key(usuario1) references Usuario (telefono),
 	foreign key(usuario2) references Usuario (telefono)
 );
 
-create table Grupo(
-	nombre varchar(250) primary key,
-	lema varchar(250),
-	fechaCreacion date
-);
+
 
 create table GruposUsuario(
 	usuario varchar(250),
@@ -68,9 +71,10 @@ create table mensaje(
 	usuario1 varchar(250),
 	usuario2 varchar(250),
 	contenido varchar(250),
-	fecha date,
+	fecha TIMESTAMP,
 	primary key(id),
 	foreign key(usuario1, usuario2) references chat (usuario1, usuario2),
 	foreign key(grupo) references grupo (nombre),
 	foreign key(emisor) references usuario (telefono)
 );
+
