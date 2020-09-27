@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class User {
     @Id
     @GeneratedValue ( strategy = GenerationType.AUTO )
+    private int id;
     private long telefono;
 
 	private String nombre;

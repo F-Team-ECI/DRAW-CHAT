@@ -1,6 +1,7 @@
 create table Usuario(
-	telefono int primary key,
+	id serial primary key,
 	nombre varchar(250),
+	telefono BIGINT,
 	apellido varchar(250),
 	contraseña varchar(250),
 	fechaRegistro TIMESTAMP,
