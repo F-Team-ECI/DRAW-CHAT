@@ -17,6 +17,7 @@ public class User {
     @GeneratedValue ( strategy = GenerationType.AUTO )
     private int id;
     private long telefono;
+
 	private String nombre;
 	private String apellido;
     private String contraseña;

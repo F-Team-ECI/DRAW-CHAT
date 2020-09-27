@@ -18,13 +18,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        System.out.println("AQUÓ:  " + s);
-        drawPersistenceService.getUsers();
-        if(!s.equals("pepe")){
+        edu.eci.arsw.application.entities.User current = null;
+        try{
+            current = drawPersistenceService.getUser(Long.parseLong(s));
+            System.out.println(current);
+        } catch (NumberFormatException e){
             throw new UsernameNotFoundException("User not Found");
         }
-
-        UserDetails user = (UserDetails) new User("pepe", new BCryptPasswordEncoder().encode("pepe"), new ArrayList<>());
+        if(current == null){
+            throw new UsernameNotFoundException("User not Found");
+        }
+        UserDetails user = (UserDetails) new User(s, current.getContraseña(), new ArrayList<>());
         return user;
     }
 }

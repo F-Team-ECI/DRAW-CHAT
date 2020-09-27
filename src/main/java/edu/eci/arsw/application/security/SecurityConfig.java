@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers( "/favicon.png",  "/users").permitAll()
+                .antMatchers( "/favicon.png",  "/users", "/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/", false)
-                .failureUrl("/login?error=true")
+                .failureUrl("/login?error")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()

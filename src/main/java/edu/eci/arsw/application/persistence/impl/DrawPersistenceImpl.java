@@ -29,6 +29,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public User getUser(long telefono){
+<<<<<<< HEAD
         List<User> user = userDAO.findAll();
         User usuario = null;
         
@@ -41,6 +42,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
             }
         }
         return usuario;
+=======
+        return  userDAO.findById(telefono).get();
+>>>>>>> d5c99972534e8a760eb52bcdf47284bf8affbce5
     }
 
 }

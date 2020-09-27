@@ -53,9 +53,6 @@ public class UserController {
         try {
             User nuevo = mapper.readValue(user, User.class);
             System.out.println(nuevo.toString());
-            Timestamp ts = Timestamp.valueOf("2020-03-22 02:39:54");
-            nuevo.setFechaconexion(ts);
-            nuevo.setFecharegistro(ts);
             nuevo.setEstado(StateEnum.DISCONNECTED.toString());
             if (drawChatService.getUser(nuevo.getTelefono()) == null) {
                 drawChatService.addUser(nuevo);
