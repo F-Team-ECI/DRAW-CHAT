@@ -34,9 +34,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         
         if(user.isPresent()){
             usuario = user.get();
-            System.out.println(usuario.getFecharegistro());
+            System.out.println(usuario);
         }else{
-            throw new AppException("No se pudo encontrar el usuario");
+            usuario = null;
         }
         return usuario;
     }

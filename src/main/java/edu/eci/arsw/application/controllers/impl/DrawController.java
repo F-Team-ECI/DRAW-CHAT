@@ -63,6 +63,17 @@ public class DrawController implements BaseController {
         }
     }
 
+    @RequestMapping(value="/test/{telefono}", method = RequestMethod.GET)
+    public ResponseEntity<?> getUserDescription(@PathVariable String telefono){
+        try {
+            drawChatService.getUser(telefono);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
+        }
+    }
+
     private String objectToJson(Object a) {
         String json = null;
         try {

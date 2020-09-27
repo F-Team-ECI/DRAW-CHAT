@@ -2,8 +2,13 @@ package edu.eci.arsw.application.entities;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table ( name = "usuario" )
@@ -14,8 +19,12 @@ public class User {
 	private String nombre;
 	private String apellido;
     private String contraseña;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone="America/Bogota")
     private Timestamp fecharegistro;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone="America/Bogota")
     private Timestamp fechaconexion;
+
     private String estado;
     
     public User() {
@@ -86,13 +95,4 @@ public class User {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    @Override
-    public String toString() {
-        return "User [apellido=" + apellido + ", contraseña=" + contraseña + ", estado=" + estado + ", fechaConexion="
-                + fechaconexion + ", fechaRegistro=" + fecharegistro + ", nombre=" + nombre + ", telefono=" + telefono
-                + "]";
-    }
-
-    
 }
