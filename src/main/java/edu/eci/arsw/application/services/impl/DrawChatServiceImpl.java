@@ -8,6 +8,8 @@ import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DrawPersistenceService;
 import edu.eci.arsw.application.services.DrawChatService;
 
+import java.util.List;
+
 @Service
 public class DrawChatServiceImpl implements DrawChatService {
 
@@ -20,13 +22,13 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
-    public void getUsers() throws AppException {
-        drawPersistenceService.getUsers();
+    public List<User> getUsers() throws AppException {
+        return drawPersistenceService.getUsers();
     }
 
     @Override
-    public void getUser(String telefono) throws AppException {
-        drawPersistenceService.getUser(telefono);
+    public User getUser(String telefono) throws AppException {
+        return drawPersistenceService.getUser(telefono);
     }
     
 }

@@ -4,9 +4,11 @@ import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.User;
 
+import java.util.List;
+
 @Service
 public interface DrawPersistenceService {
     public void addUser(User user);
-    public void getUsers();
-    public void getUser(String telefono);
+    public List<User> getUsers();
+    public User getUser(String telefono);
 }

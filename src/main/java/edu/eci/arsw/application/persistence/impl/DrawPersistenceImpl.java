@@ -22,7 +22,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-    public void getUsers() {
+    public List<User> getUsers() {
         //List<User> user = userDAO.findAll();
         //for (User us : user) {
         //    System.out.println(us);
@@ -32,13 +32,15 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         for (User us : user) {
             System.out.println(us);
         }
+        return userDAO.findAll();
 
     }
 
     @Override
-    public void getUser(String telefono) {
+    public User getUser(String telefono) {
         Optional<User> user = userDAO.findById(telefono);
         System.out.println(user);
+        return user.get();
     }
 
 }

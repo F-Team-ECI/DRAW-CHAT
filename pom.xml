@@ -116,6 +116,16 @@
         <artifactId>javax.persistence-api</artifactId>
         <version>2.2</version>
     </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
+      <dependency>
+          <groupId>org.webjars</groupId>
+          <artifactId>webjars-locator</artifactId>
+          <version>0.40</version>
+      </dependency>
+
+
+
       <dependency>
           <groupId>org.webjars</groupId>
           <artifactId>bootstrap</artifactId>

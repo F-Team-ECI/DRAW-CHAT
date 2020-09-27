@@ -24,37 +24,7 @@ public class DrawController implements BaseController {
     @Autowired
     private DrawChatService drawChatService;
 
-    @RequestMapping(path="/adduser", method = RequestMethod.POST)
-    public ResponseEntity<?> addUser(@RequestBody User user){
-        
-        try {
-            drawChatService.addUser(user);
-            return new ResponseEntity<>("HTTP 201 Created",HttpStatus.CREATED);
-        } catch (AppException ex){
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("HTTP 400 Bad Request",HttpStatus.BAD_REQUEST);
-        } 
-    }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getUsers(){
-        try {
-            drawChatService.getUsers();
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        } catch (Exception ex) {
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
-        }
-    }
 
-    @RequestMapping(value="/{telefono}", method = RequestMethod.GET)
-    public ResponseEntity<?> getUser(@PathVariable String telefono){
-        try {
-            drawChatService.getUser(telefono);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        } catch (Exception ex) {
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
-        }
-    }
+
 }
