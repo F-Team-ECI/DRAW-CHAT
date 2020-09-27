@@ -11,6 +11,7 @@ import edu.eci.arsw.application.services.DrawChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -52,16 +53,12 @@ public class UserController {
         System.out.println(user);
         try {
             User nuevo = mapper.readValue(user, User.class);
-            System.out.println(nuevo.toString());
+            nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
             nuevo.setEstado(StateEnum.DISCONNECTED.toString());
-            if (drawChatService.getUser(nuevo.getTelefono()) == null) {
-                drawChatService.addUser(nuevo);
-            }
-        } catch (JsonProcessingException e){
+            drawChatService.addUser(nuevo);
+        } catch (JsonProcessingException | AppException e){
             Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
-        } catch (AppException e) {
-            e.printStackTrace();
         }
         return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
     }

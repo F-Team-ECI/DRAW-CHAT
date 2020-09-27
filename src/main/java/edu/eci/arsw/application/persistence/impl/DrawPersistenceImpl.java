@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.User;
@@ -18,8 +19,32 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     private UserDAO userDAO;
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws  AppException{
+        User current = getUser(user.getTelefono());
+        System.out.println(current);
+        if(current!=null){
+            throw new AppException("User already registered");
+        } else if(user == null){
+            throw new AppException("Invalid user");
+        } else if(!correctUSer(user)){
+            throw new AppException("Incorrect credentials");
+        }
         userDAO.save(user);
+    }
+
+
+    private boolean correctUSer(User user) {
+        boolean ans = true;
+        if (user.getContraseña() == null || Long.toString(user.getTelefono()).length() != 10) {
+            ans = false;
+        }
+        if (user.getNombre() == null || user.getNombre().length() < 3) {
+            ans = false;
+        }
+        if (user.getApellido() == null || user.getApellido().length() < 3) {
+            ans = false;
+        }
+        return ans;
     }
 
     @Override
@@ -29,7 +54,16 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public User getUser(long telefono){
-        return  userDAO.findById(telefono).get();
+        List<User> user = userDAO.findAll();
+        User usuario = null;
+        for (User us : user) {
+            if(us.getTelefono()==telefono){
+                usuario = us;
+                System.out.println(usuario.toString());
+                break;
+            }
+        }
+        return usuario;
     }
 
 }
