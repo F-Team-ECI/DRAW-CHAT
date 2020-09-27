@@ -3,6 +3,7 @@ package edu.eci.arsw.application.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.eci.arsw.application.controllers.impl.DrawController;
+import edu.eci.arsw.application.entities.StateEnum;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DAO.UserDAO;
@@ -51,10 +52,11 @@ public class UserController {
         System.out.println(user);
         try {
             User nuevo = mapper.readValue(user, User.class);
-            System.out.println(nuevo);
-            nuevo.setEstado("2020-03-22 02:39:54");
-            nuevo.setEstado("2020-03-22 02:39:54");
-            //nuevo.setFechaconexion(new Timestamp("2020-03-22 02:39:54"));
+            System.out.println(nuevo.toString());
+            Timestamp ts = Timestamp.valueOf("2020-03-22 02:39:54");
+            nuevo.setFechaconexion(ts);
+            nuevo.setFecharegistro(ts);
+            nuevo.setEstado(StateEnum.DISCONNECTED.toString());
             if (drawChatService.getUser(nuevo.getTelefono()) == null) {
                 drawChatService.addUser(nuevo);
             }
@@ -79,7 +81,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/{telefono}", method = RequestMethod.GET)
-    public ResponseEntity<?> getUser(@PathVariable String telefono){
+    public ResponseEntity<?> getUser(@PathVariable int telefono){
         try {
             drawChatService.getUser(telefono);
             return new ResponseEntity<>(drawChatService.getUser(telefono), HttpStatus.OK);

@@ -29,7 +29,7 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
-    public User getUser(String telefono) throws AppException {
+    public User getUser(int telefono) throws AppException {
         return drawPersistenceService.getUser(telefono);
     }
     

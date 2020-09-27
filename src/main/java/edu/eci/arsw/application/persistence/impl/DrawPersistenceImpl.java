@@ -28,13 +28,13 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-    public User getUser(String telefono) throws AppException {
+    public User getUser(int telefono){
         Optional<User> user = userDAO.findById(telefono);
         User usuario = new User();
 
         if(user.isPresent()){
             usuario = user.get();
-            System.out.println(usuario);
+            System.out.println(usuario.toString());
         }else{
             usuario = null;
         }

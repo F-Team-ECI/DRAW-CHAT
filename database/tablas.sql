@@ -1,5 +1,5 @@
 create table Usuario(
-	telefono varchar(250) primary key,
+	telefono int primary key,
 	nombre varchar(250),
 	apellido varchar(250),
 	contraseña varchar(250),
@@ -9,72 +9,66 @@ create table Usuario(
 );
 
 create table Contacto(
-	propietario varchar(250),
-	dirigido varchar(250),
+	propietario int,
+	dirigido int,
 	primary key(propietario, dirigido),
 	foreign key(propietario) references usuario (telefono),
 	foreign key(dirigido) references usuario (telefono)
 );
 
+create table Chat(
+	id int primary key,
+	usuario1 int,
+	usuario2 int,
+	tipo varchar(250),
+	foreign key(usuario1) references Usuario (telefono),
+	foreign key(usuario2) references Usuario (telefono)
+);
+
 create table Grupo(
-	nombre varchar(250) primary key,
+	id int primary key,
+	nombre varchar(250),
 	lema varchar(250),
 	fechaCreacion TIMESTAMP,
 	chat int,
 	foreign key(chat) references chat (id)
 );
 
-create table Chat(
-	id int primary key,
-	usuario1 varchar(205),
-	usuario2 varchar(250),
-	tipo varchar(250),
-	foreign key(usuario1) references Usuario (telefono),
-	foreign key(usuario2) references Usuario (telefono)
-);
-
-
-
 create table GruposUsuario(
-	usuario varchar(250),
-	grupo varchar(250),
+	usuario int,
+	grupo int,
 	rol varchar(250),
 	primary key (usuario, grupo),
 	foreign key(usuario) references Usuario (telefono),
-	foreign key(grupo) references Grupo (nombre)
+	foreign key(grupo) references Grupo (id)
 );
 
 create table Permiso(
 	nombre varchar(250),
-	usuario varchar(250),
-	grupo varchar(250),
+	usuario int,
+	grupo int,
 	estado boolean,
 	descripcion varchar(250),
 	primary key(nombre, usuario, grupo),
 	foreign key(usuario, grupo) references gruposusuario (usuario, grupo)
-	/* foreign key(grupo) references gruposusuario (grupo) */
 );
 
 create table SesionTablero(
 	id int primary key,
-	grupo varchar(250),
+	grupo int,
 	fecha date,
-	foreign key(grupo) references Grupo (nombre)
+	foreign key(grupo) references Grupo (id)
 	
 );
 
 create table mensaje(
 	id int,
 	chat int,
-	emisor varchar(250),
-	grupo varchar(250),
-	usuario1 varchar(250),
-	usuario2 varchar(250),
+	emisor int,
 	contenido varchar(250),
 	fecha TIMESTAMP,
 	primary key(id),
-	foreign key(usuario1, usuario2) references chat (usuario1, usuario2),
-	foreign key(grupo) references grupo (nombre),
+	foreign key(chat) references chat (id),
 	foreign key(emisor) references usuario (telefono)
 );
 
