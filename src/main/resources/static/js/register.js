@@ -20,12 +20,19 @@ register = (function(){
                 "contraseña": password
             }
             console.log(user);
-            $.post( "/users",user , function(data, status){
-                handleResponse(data, status);
+            $.ajax({
+                url: '/users',
+                    type: "POST",
+                    dataType: 'json',
+                    data: JSON.stringify(user),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function (data, status, xhr) {
+                        $('p').append('status: ' + status + ', data: ' + data);
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+                            $('p').append('Error' + errorMessage);
+                    }
             });
-
-
         }
-
     }
 })();

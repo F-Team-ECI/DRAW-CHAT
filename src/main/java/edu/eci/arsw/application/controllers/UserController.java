@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,6 +52,9 @@ public class UserController {
         try {
             User nuevo = mapper.readValue(user, User.class);
             System.out.println(nuevo);
+            nuevo.setEstado("2020-03-22 02:39:54");
+            nuevo.setEstado("2020-03-22 02:39:54");
+            //nuevo.setFechaconexion(new Timestamp("2020-03-22 02:39:54"));
             if (drawChatService.getUser(nuevo.getTelefono()) == null) {
                 drawChatService.addUser(nuevo);
             }
