@@ -31,6 +31,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     public User getUser(long telefono){
         List<User> user = userDAO.findAll();
         User usuario = null;
+        
 
         for (User us : user) {
             if(us.getTelefono()==telefono){
