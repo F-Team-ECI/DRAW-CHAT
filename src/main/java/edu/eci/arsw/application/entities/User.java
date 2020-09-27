@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class User {
     @Id
     @GeneratedValue ( strategy = GenerationType.AUTO )
-    private int telefono;
+    private long telefono;
 
 	private String nombre;
 	private String apellido;
@@ -31,7 +31,7 @@ public class User {
     public User() {
     }
 
-    public User(int telefono, String nombre, String apellido, String contraseña, Timestamp fecharegistro, Timestamp fechaconexion, String estado) {
+    public User(long telefono, String nombre, String apellido, String contraseña, Timestamp fecharegistro, Timestamp fechaconexion, String estado) {
         this.telefono = telefono;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -41,11 +41,11 @@ public class User {
         this.estado = estado;
     }
     
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 

@@ -13,6 +13,6 @@ public interface DrawPersistenceService {
     public void addUser(User user);
     public List<User> getUsers();
 
-    public User getUser(int telefono);
+    public User getUser(long telefono);
 
 }

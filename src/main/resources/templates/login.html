@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Draw Chat Login</title>
 
@@ -10,7 +11,8 @@
 <div class="container">
     <div class="container">
         <div class="container">
-
+            <H1 class="titulo">DRAW CHAT</H1>
+            <h2 class="titulo">Bienvenido</h2>
 
             <form class="col-12" th:action="@{/login}" method="post">
                 <div class="form-group" id="user-group">
@@ -22,11 +24,11 @@
                 <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>  Ingresar </button>
             </form>
 
-            <div th:if="${param.error}" class="alert alert-danger" role="alert">
-                Invalid username and password.
+            <div th:if="${param.error}" class="alert error" role="alert">
+                Usuario o contraseña inválidos.
             </div>
-            <div th:if="${param.logout}" class="alert alert-success" role="alert">
-                You have been logged out.
+            <div th:if="${param.logout}" class="alert success" role="alert">
+                Sesión cerrada con éxito.
             </div>
 
         </div>

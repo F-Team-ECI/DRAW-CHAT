@@ -13,5 +13,5 @@ import java.util.List;
 public interface DrawChatService {
     public void addUser(User user) throws AppException;
     public List<User> getUsers() throws AppException;
-    public User getUser(int telefono) throws AppException;
+    public User getUser(long telefono) throws AppException;
 }

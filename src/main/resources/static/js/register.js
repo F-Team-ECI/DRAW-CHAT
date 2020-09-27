@@ -14,7 +14,7 @@ register = (function(){
             var phone  = $('#phone').val();
 
             user = {
-                "telefono": phone,
+                "telefono": Number(phone),
                 "nombre": name,
                 "apellido": lastName,
                 "contraseña": password

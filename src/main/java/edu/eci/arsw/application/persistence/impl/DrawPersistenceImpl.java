@@ -28,7 +28,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-    public User getUser(int telefono){
+    public User getUser(long telefono){
         Optional<User> user = userDAO.findById(telefono);
         User usuario = new User();
 
