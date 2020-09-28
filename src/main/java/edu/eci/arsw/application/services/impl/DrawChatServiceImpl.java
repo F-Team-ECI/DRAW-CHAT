@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.eci.arsw.application.entities.Chat;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DrawPersistenceService;
 import edu.eci.arsw.application.services.DrawChatService;
-
-import java.util.List;
 
 @Service
 public class DrawChatServiceImpl implements DrawChatService {
@@ -32,5 +31,20 @@ public class DrawChatServiceImpl implements DrawChatService {
     public User getUser(long telefono) throws AppException {
         return drawPersistenceService.getUser(telefono);
     }
+
+    @Override
+    public List<User> getContacts(long telefono) throws AppException {
+        return drawPersistenceService.getContacts(telefono);
+    }
+
+    @Override
+    public void addContact(long tUsuario1, long tUsuario2) throws AppException {
+        drawPersistenceService.addContact(tUsuario1, tUsuario2);
+    }
     
+    @Override
+    public Chat getChat(long tUsuario1, long tUsuario2) throws AppException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -1,38 +1,35 @@
 package edu.eci.arsw.application.entities;
 
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Entity
 @Table ( name = "usuario" )
 public class User {
     @Id
     @GeneratedValue ( strategy = GenerationType.AUTO )
-    private int id;
     private long telefono;
 
 	private String nombre;
 	private String apellido;
     private String contraseña;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone="America/Bogota")
-    private Timestamp fecharegistro;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone="America/Bogota")
-    private Timestamp fechaconexion;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecharegistro;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaconexion;
 
     private String estado;
-    
+
     public User() {
     }
 
-    public User(long telefono, String nombre, String apellido, String contraseña, Timestamp fecharegistro, Timestamp fechaconexion, String estado) {
+    public User(long telefono, String nombre, String apellido, String contraseña, Date fecharegistro, Date fechaconexion, String estado) {
         this.telefono = telefono;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -78,15 +75,15 @@ public class User {
         return fecharegistro;
     }
 
-    public void setFecharegistro(Timestamp fecharegistro) {
+    public void setFecharegistro(Date fecharegistro) {
         this.fecharegistro = fecharegistro;
     }
 
-    public Timestamp getFechaconexion() {
+    public Date getFechaconexion() {
         return fechaconexion;
     }
 
-    public void setFechaconexion(Timestamp fechaconexion) {
+    public void setFechaconexion(Date fechaconexion) {
         this.fechaconexion = fechaconexion;
     }
 

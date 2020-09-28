@@ -68,4 +68,15 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     }
 
+    @Override
+    public List<User> getContacts(long telefono) {
+        List<User> contacts = userDAO.getContacts(telefono);
+        return contacts;
+    }
+
+    @Override
+    public void addContact(long tUsuario1, long tUsuario2) throws AppException {
+
+    }
+
 }

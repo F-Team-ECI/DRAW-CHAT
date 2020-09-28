@@ -17,3 +17,4 @@ drop table sesiontablero cascade;
 drop table mensaje cascade;
 
 insert into Usuario (id, telefono, nombre, apellido, contraseña, fechaRegistro, fechaConexion, estado) values (1,3185560092, 'aquiles', 'baeza', '$2a$10$6JSFtjNIhokAFObN03JrAec9F5pf4auzS0upvlY0f1LzlVEk.9lhi', '2020-03-22 02:39:54', '2020-01-11 16:41:19', 'Online');
+select * from (select c.dirigido from usuario u join contacto c on u.telefono = c.propietario where u.telefono = 4444444444) as conid join usuario u on u.telefono = conid.dirigido
