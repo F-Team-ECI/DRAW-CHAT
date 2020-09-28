@@ -1,5 +1,13 @@
 package edu.eci.arsw;
 
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import edu.eci.arsw.application.exceptions.AppException;
+import edu.eci.arsw.application.services.impl.DrawChatServiceImpl;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -7,32 +15,26 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
+@RunWith(SpringRunner.class)
+@DataJpaTest
+public class AppTest {
+	
+	@Autowired
+	DrawChatServiceImpl dcsi;
+	
+	
+    public void addUser() {
+    	
     }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    
+    public void getUsers() {
+    	
     }
+    
+    public void getUser() {
+    	
+    }
+    
+    
 }
