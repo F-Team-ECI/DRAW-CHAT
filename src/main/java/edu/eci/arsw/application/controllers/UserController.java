@@ -63,6 +63,18 @@ public class UserController {
         return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
     }
 
+    @RequestMapping(value="/contacts",method = RequestMethod.POST)
+    public ResponseEntity<?> addContact(@RequestBody String user){
+        try {
+            long tel=111111111;
+            drawChatService.addContact(tel,tel);
+        } catch (AppException e){
+            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getUsers(){
         try {
@@ -75,10 +87,20 @@ public class UserController {
     }
 
     @RequestMapping(value="/{telefono}", method = RequestMethod.GET)
-    public ResponseEntity<?> getUser(@PathVariable int telefono){
+    public ResponseEntity<?> getUser(@PathVariable long telefono){
         try {
             drawChatService.getUser(telefono);
             return new ResponseEntity<>(drawChatService.getUser(telefono), HttpStatus.OK);
+        } catch (Exception ex) {
+            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value="/contacts/{telefono}", method = RequestMethod.GET)
+    public ResponseEntity<?> getContactsByUser(@PathVariable long telefono){
+        try {
+            return new ResponseEntity<>(drawChatService.getContacts(telefono), HttpStatus.OK);
         } catch (Exception ex) {
             Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);

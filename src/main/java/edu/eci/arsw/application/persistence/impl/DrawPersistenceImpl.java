@@ -19,6 +19,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Autowired
     private UserDAO userDAO;
+    
 
     @Override
     public void addUser(User user) throws  AppException{
@@ -72,14 +73,25 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public User getCurrentUserSession() {
-        String n
+        String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            String username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         } else {
-            String username = principal.toString();
+            username = principal.toString();
         }
-        System.out.println();
+        System.out.println(username);
+        return getUser(Long.parseLong(username));
+    }
+
+    public List<User> getContacts(long telefono) {
+        List<User> contacts = userDAO.getContacts(telefono);
+        return contacts;
+    }
+
+    @Override
+    public void addContact(long tUsuario1, long tUsuario2) throws AppException {
+
     }
 
 }

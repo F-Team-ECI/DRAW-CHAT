@@ -1,7 +1,6 @@
 create table Usuario(
-	id serial primary key,
 	nombre varchar(250),
-	telefono BIGINT,
+	telefono BIGINT primary key,
 	apellido varchar(250),
 	contraseña varchar(250),
 	fechaRegistro TIMESTAMP,
@@ -10,8 +9,8 @@ create table Usuario(
 );
 
 create table Contacto(
-	propietario int,
-	dirigido int,
+	propietario BIGINT,
+	dirigido BIGINT,
 	primary key(propietario, dirigido),
 	foreign key(propietario) references usuario (telefono),
 	foreign key(dirigido) references usuario (telefono)
@@ -19,8 +18,8 @@ create table Contacto(
 
 create table Chat(
 	id int primary key,
-	usuario1 int,
-	usuario2 int,
+	usuario1 BIGINT,
+	usuario2 BIGINT,
 	tipo varchar(250),
 	foreign key(usuario1) references Usuario (telefono),
 	foreign key(usuario2) references Usuario (telefono)
@@ -36,7 +35,7 @@ create table Grupo(
 );
 
 create table GruposUsuario(
-	usuario int,
+	usuario BIGINT,
 	grupo int,
 	rol varchar(250),
 	primary key (usuario, grupo),
@@ -46,7 +45,7 @@ create table GruposUsuario(
 
 create table Permiso(
 	nombre varchar(250),
-	usuario int,
+	usuario BIGINT,
 	grupo int,
 	estado boolean,
 	descripcion varchar(250),
@@ -63,12 +62,11 @@ create table SesionTablero(
 );
 
 create table mensaje(
-	id int,
+	id int primary key,
 	chat int,
-	emisor int,
+	emisor BIGINT,
 	contenido varchar(250),
 	fecha TIMESTAMP,
-	primary key(id),
 	foreign key(chat) references chat (id),
 	foreign key(emisor) references usuario (telefono)
 );

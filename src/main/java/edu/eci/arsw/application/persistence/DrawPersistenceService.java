@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.User;
 
-import java.util.List;
-
 @Service
 public interface DrawPersistenceService {
     public void addUser(User user) throws AppException;
@@ -18,5 +16,10 @@ public interface DrawPersistenceService {
     public User getUser(long telefono);
 
     public User getCurrentUserSession();
+
+    public List<User> getContacts(long telefono);
+
+    public void addContact(long tUsuario1, long tUsuario2) throws AppException;
+
 
 }
