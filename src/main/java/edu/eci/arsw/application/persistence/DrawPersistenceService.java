@@ -17,4 +17,6 @@ public interface DrawPersistenceService {
 
     public User getUser(long telefono);
 
+    public User getCurrentUserSession();
+
 }
