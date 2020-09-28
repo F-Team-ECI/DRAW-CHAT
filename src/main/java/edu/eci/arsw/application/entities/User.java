@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Table ( name = "usuario" )
 public class User {
     @Id
-    @GeneratedValue ( strategy = GenerationType.AUTO )
     private long telefono;
 
 	private String nombre;

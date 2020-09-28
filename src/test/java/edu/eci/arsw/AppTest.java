@@ -16,8 +16,8 @@ import junit.framework.TestSuite;
  * Unit test for simple App.
  */
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
+//@RunWith(SpringRunner.class)
+//@DataJpaTest
 public class AppTest {
 	
 	@Autowired
