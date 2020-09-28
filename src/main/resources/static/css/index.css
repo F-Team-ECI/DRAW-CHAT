@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: maroon;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+  height: 88vh; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row{
+  width: 100%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column.left {
+	width: 30%;
+	background-color: white;
+}
+
+.column.right {
+  background-color: lightseagreen;
+	width: 70%;
+}
+

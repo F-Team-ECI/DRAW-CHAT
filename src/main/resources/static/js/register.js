@@ -27,10 +27,10 @@ register = (function(){
                     data: JSON.stringify(user),
                     contentType: 'application/json;charset=UTF-8',
                     success: function (data, status, xhr) {
-                        $('p').append('status: ' + status + ', data: ' + data);
+                        console.log('status: ' + status + ', data: ' + data);
                     },
                     error: function (jqXhr, textStatus, errorMessage) {
-                            $('p').append('Error' + errorMessage);
+                        console.log('Error' + errorMessage);
                     }
             });
         }

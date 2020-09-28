@@ -1,9 +1,54 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<title>DRAW CHAT</title>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="static/css/index.css" th:href="@{/css/index.css}" />
+<link rel="stylesheet" href="../static/css/index.css" type="text/css" />
+<link rel="stylesheet" href="../static/css/dropdown.css" th:href="@{/css/dropdown.css}" type="text/css" />
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="static/css/login.css" th:href="@{/css/login.css}" />
+
+<script src="../static/js/components/dropdown.js"></script>
+
+<body>
+    <div style="height: 8vh">
+        <div class="navbar">
+            <a class="main">DRAW CHAT</a>
+            <a id="user">Current User undefined</a>
+           
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Ajustes
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a>Cuenta</a>
+                    <a href="/login?logout">Cerrar sesión</a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="column left">
+            HFFF
+        </div>
+
+        <div class="column right">
+            FFF
+        </div>
+
+    </div>
+
 
 </body>
+
 </html>
