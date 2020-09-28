@@ -4,15 +4,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.BootstrapWith;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import edu.eci.arsw.application.DrawChatApp;
@@ -51,6 +59,7 @@ public class AppServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		service.deleteUser(1111111111);
 		assertTrue(temp);
 		
     }
@@ -78,6 +87,20 @@ public class AppServiceTest {
 		}
     }
     
+	@Test
+	public void addContact() {
+		BigDecimal bd0 = new BigDecimal("3185560092");
+		BigDecimal bd1 = new BigDecimal("3185560091");
+		try {
+			service.addContact(bd1.longValue(),bd0.longValue());
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		assertTrue(true);
+	}
+	
     public void getUser() {
     	
     }

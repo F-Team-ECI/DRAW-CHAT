@@ -20,6 +20,8 @@ public interface DrawPersistenceService {
     public List<User> getContacts(long telefono);
 
     public void addContact(long tUsuario1, long tUsuario2) throws AppException;
+    
+    public void deleteUser(long telefono);
 
 
 }

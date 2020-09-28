@@ -62,4 +62,10 @@ public class DrawChatServiceImpl implements DrawChatService {
         System.out.println(username);
         return getUser(Long.parseLong(username));
     }
+
+	@Override
+	public void deleteUser(long telefono) {
+		drawPersistenceService.deleteUser(telefono);
+		
+	}
 }

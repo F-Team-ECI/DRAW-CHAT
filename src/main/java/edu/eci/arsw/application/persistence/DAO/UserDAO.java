@@ -17,4 +17,5 @@ public interface UserDAO extends JpaRepository<User, Long>{
 
     @Query(value = "select * from (select c.dirigido from usuario u join contacto c on u.telefono = c.propietario where u.telefono = :telefono) as conid join usuario u on u.telefono = conid.dirigido",nativeQuery = true)
     public List<User> getContacts(long telefono);
+    
 }

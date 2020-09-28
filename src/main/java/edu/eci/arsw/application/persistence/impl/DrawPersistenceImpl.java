@@ -80,7 +80,14 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public void addContact(long tUsuario1, long tUsuario2) throws AppException {
-
+    	
     }
+
+
+	@Override
+	public void deleteUser(long telefono) {
+		userDAO.delete(getUser(telefono));
+		
+	}
 
 }
