@@ -11,13 +11,6 @@ import edu.eci.arsw.application.services.impl.DrawChatServiceImpl;
 /**
  * Unit test for simple App.
  */
-
-<<<<<<< HEAD
-//@RunWith(SpringRunner.class)
-//@DataJpaTest
-=======
-
->>>>>>> 1b8050f65293e8c07ab0f50834af473f7388351f
 public class AppTest {
 	
 	@Autowired
