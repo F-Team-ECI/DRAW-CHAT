@@ -17,4 +17,7 @@ public interface DrawChatService {
     public List<User> getContacts(long telefono) throws AppException;
     public void addContact(long tUsuario1,long tUsuario2) throws AppException;
     public Chat getChat(long tUsuario1,long tUsuario2) throws AppException;
+    public User getCurrentUserSession() throws AppException;
+
+
 }

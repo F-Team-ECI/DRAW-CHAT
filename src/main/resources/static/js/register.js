@@ -33,6 +33,21 @@ register = (function(){
                         console.log('Error' + errorMessage);
                     }
             });
+        },
+
+        me: function(callback){
+            ans = {};
+            $.ajax({
+                url: '/users/me',
+                    type: "GET",
+                    success: function (data, status, xhr) {
+                        console.log('status: ' + status + ', data: ' + data);
+                        callback(data);
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+                        console.log('Error' + errorMessage);
+                    }
+            });
         }
     }
 })();

@@ -11,24 +11,29 @@
 <link rel="stylesheet" href="static/css/index.css" th:href="@{/css/index.css}" />
 <link rel="stylesheet" href="../static/css/index.css" type="text/css" />
 <link rel="stylesheet" href="../static/css/dropdown.css" th:href="@{/css/dropdown.css}" type="text/css" />
+<link rel="stylesheet" href="../static/css/modal.css" th:href="@{/css/modal.css}" />
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="static/css/login.css" th:href="@{/css/login.css}" />
 
-<script src="../static/js/components/dropdown.js"></script>
+<script src="../static/js/components/modal.js"></script>
+<script src="../static/js/register.js"></script>
+
+<script src="/js/register.js"></script>
+<script src="/js/components/modal.js"></script>
+
 
 <body>
     <div style="height: 8vh">
         <div class="navbar">
             <a class="main">DRAW CHAT</a>
             <a id="user">Current User undefined</a>
-           
+
             <div class="dropdown">
                 <button class="dropbtn" onclick="myFunction()">Ajustes
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content" id="myDropdown">
-                    <a>Cuenta</a>
+                    <a onclick="display()">Cuenta</a>
                     <a href="/login?logout">Cerrar sesión</a>
 
                 </div>
@@ -46,6 +51,14 @@
             FFF
         </div>
 
+    </div>
+
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
     </div>
 
 

@@ -10,6 +10,7 @@ import edu.eci.arsw.application.persistence.DAO.UserDAO;
 import edu.eci.arsw.application.services.DrawChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -104,6 +105,19 @@ public class UserController {
         } catch (Exception ex) {
             Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getCurrentUser() {
+        try {
+            return new ResponseEntity<>(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(
+                    drawChatService.getCurrentUserSession()
+            ), HttpStatus.OK);
+        } catch (JsonProcessingException | AppException e) {
+            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>("500 Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

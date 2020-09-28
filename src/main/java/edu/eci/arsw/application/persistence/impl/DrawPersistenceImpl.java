@@ -71,18 +71,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     }
 
-    @Override
-    public User getCurrentUserSession() {
-        String username;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println(username);
-        return getUser(Long.parseLong(username));
-    }
+
 
     public List<User> getContacts(long telefono) {
         List<User> contacts = userDAO.getContacts(telefono);
