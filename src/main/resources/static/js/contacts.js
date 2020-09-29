@@ -13,7 +13,7 @@ contacts = (function(){
 
         seeContacts: function(){
             seeAll.css({ display: "block" });
-            
+            drawapp.setContacts();
         },
 
         closeSeeContacts(){

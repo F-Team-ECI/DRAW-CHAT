@@ -65,10 +65,12 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/{telefono}/contacts", method = RequestMethod.GET)
-    public ResponseEntity<?> getContactsByUser(@PathVariable long telefono){
+    @RequestMapping(value="/{telefono}/contacts", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getContactsByUser(@PathVariable String telefono){
+        long number = Long.parseLong(telefono);
         try {
-            return new ResponseEntity<>(drawChatService.getContacts(telefono), HttpStatus.OK);
+            System.out.println(drawChatService.getContacts(number));
+            return new ResponseEntity<>(drawChatService.getContacts(number), HttpStatus.OK);
         } catch (Exception ex) {
             Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);

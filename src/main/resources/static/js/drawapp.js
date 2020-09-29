@@ -12,7 +12,15 @@ var drawapp = (function () {
     }
 
     register.me(setUser);
-    console.log("HHHH")
+
+    var setContacts = function(data, status, xhr){
+        console.log(data);
+        data.map(function(con){
+            $("#contactList").append("<div>"+con.telefono+"</div>")
+        })
+        var cont = $("#contactList:hidden");
+        cont.css({ display: "block" });
+    }
     return {
 
         saveContact: function () {
@@ -33,7 +41,17 @@ var drawapp = (function () {
             });
         },
         setContacts: function(){
-            
+            console.log(userR)
+            $.ajax({
+                url: '/users/'+userR.telefono+'/contacts',
+                type: "GET",
+                success: function (data, status, xhr) {
+                    setContacts(data, status, xhr);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    console.log('Error' + errorMessage);
+                }
+            });
         }
     }
 
