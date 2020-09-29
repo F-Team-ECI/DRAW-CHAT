@@ -66,6 +66,5 @@ public class DrawChatServiceImpl implements DrawChatService {
 	@Override
 	public void deleteUser(long telefono) {
 		drawPersistenceService.deleteUser(telefono);
-		
 	}
 }

@@ -68,10 +68,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
             }
         }
         return usuario;
-
     }
-
-
 
     public List<User> getContacts(long telefono) {
         List<User> contacts = userDAO.getContacts(telefono);
@@ -80,14 +77,27 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public void addContact(long tUsuario1, long tUsuario2) throws AppException {
-    	
+        boolean check = checkPhone(tUsuario1) && checkPhone(tUsuario2);
+        if(check == false){
+            throw new AppException("User not registered on Application");
+        }
+        userDAO.setContact(tUsuario1,tUsuario2);
+        System.out.println("Contacto Registrado");
+        
     }
 
+    private boolean checkPhone(long telefono) {
+        boolean check=true;
+        Optional<User> user = userDAO.findById(telefono);
+        if(user.isEmpty()){
+            check=false;
+        }
+        return check;
+    }
 
 	@Override
 	public void deleteUser(long telefono) {
 		userDAO.delete(getUser(telefono));
 		
 	}
-
 }
