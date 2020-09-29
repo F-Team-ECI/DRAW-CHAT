@@ -89,8 +89,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     private boolean checkPhone(long telefono) {
         boolean check=true;
         Optional<User> user = userDAO.findById(telefono);
-
-        if(user.isEmpty()){
+        if(user==null){
             check=false;
         }
         return check;
