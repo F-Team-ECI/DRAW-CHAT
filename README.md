@@ -35,6 +35,10 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 
 ![](design/database/databaseDiagram.png)
 
+## Diagrama de despliegue (inicial)
+
+![](design/deployment/Deployment.png)
+
 # DISEÑO Funcionalidades
 
 ## Añadir Contacto
