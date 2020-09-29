@@ -79,7 +79,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     public void addContact(long tUsuario1, long tUsuario2) throws AppException {
         boolean check = checkPhone(tUsuario1) && checkPhone(tUsuario2);
         if(check == false){
-            throw new AppException("User not registered on Application");
+            throw new AppException(AppException.USER_NOT_REGISTERED);
         }
         userDAO.setContact(tUsuario1,tUsuario2);
         System.out.println("Contacto Registrado");
@@ -89,10 +89,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     private boolean checkPhone(long telefono) {
         boolean check=true;
         Optional<User> user = userDAO.findById(telefono);
-        if(user==null){
-            check=false;
-        }
-        return check;
+        return user.isPresent();
     }
 
 	@Override

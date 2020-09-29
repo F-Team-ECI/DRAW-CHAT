@@ -6,7 +6,6 @@ import edu.eci.arsw.application.controllers.impl.DrawController;
 import edu.eci.arsw.application.entities.StateEnum;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
-import edu.eci.arsw.application.persistence.DAO.UserDAO;
 import edu.eci.arsw.application.services.DrawChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,9 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,26 +26,7 @@ public class UserController {
     private DrawChatService drawChatService;
 
     private ObjectMapper mapper = new ObjectMapper();
-    /*
-    @PostMapping
-    public ResponseEntity<?> register(@RequestBody String body){
-        User nuevo = null;
 
-        try {
-            nuevo = mapper.readValue(body, User.class);
-        } catch (JsonProcessingException e) {
-            return new ResponseEntity<>("400 BAD REQUEST", HttpStatus.BAD_REQUEST);
-        }
-        User user = userDAO.getUserByPhone(nuevo.getTelefono());
-        if(user != null){
-            return new ResponseEntity<>("400 FORBIDDEN", HttpStatus.FORBIDDEN);
-        }
-        userDAO.createUser(nuevo);
-        return new ResponseEntity<>("202 CREATED", HttpStatus.CREATED);
-
-        return null;
-    }
-    */
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody String user){
@@ -60,18 +37,6 @@ public class UserController {
             nuevo.setEstado(StateEnum.DISCONNECTED.toString());
             drawChatService.addUser(nuevo);
         } catch (JsonProcessingException | AppException e){
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
-            return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value="/contacts",method = RequestMethod.POST)
-    public ResponseEntity<?> addContact(@RequestBody String user){
-        try {
-            long tel=111111111;
-            drawChatService.addContact(tel,tel);
-        } catch (AppException e){
             Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
         }
@@ -100,7 +65,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/contacts/{telefono}", method = RequestMethod.GET)
+    @RequestMapping(value="/{telefono}/contacts", method = RequestMethod.GET)
     public ResponseEntity<?> getContactsByUser(@PathVariable long telefono){
         try {
             return new ResponseEntity<>(drawChatService.getContacts(telefono), HttpStatus.OK);

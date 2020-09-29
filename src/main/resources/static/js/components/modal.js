@@ -40,7 +40,11 @@ $(document).ready(function () {
         }
 
         if (event.target.id === "contactsModal") {
-            modalContacts.css({ display: "none" });
+            contacts.closeAdd();
+        }
+
+        if (event.target.id === "allContacts") {
+            contacts.closeSeeContacts();
         }
     }
     //  DROPDOWN

@@ -3,6 +3,8 @@
     xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <title>DRAW CHAT</title>
 
+<link rel="icon" href="../static/img/favicon.png" type="img/png">
+<link rel="icon" href="/img/favicon.png" type="img/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="/webjars/jquery/jquery.min.js"></script>
 <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,11 +21,13 @@
 <script src="../static/js/register.js"></script>
 <script src="../static/js/components/contactsModal.js"></script>
 <script src="../static/js/drawapp.js"></script>
+<script src="../static/js/contacts.js"></script>
 
 <script src="/js/register.js"></script>
 <script src="/js/components/modal.js"></script>
 <script src="/js/components/contactsModal.js"></script>
 <script src="/js/drawapp.js"></script>
+<script src="/js/contacts.js"></script>
 
 
 <body>
@@ -31,7 +35,8 @@
         <div class="navbar">
             <a class="main">DRAW CHAT</a>
             <a id="user">Conectando...</a>
-            <a id="contacts" onclick="contactsOpen()">Contactos</a>>
+            <a id="contacts" onclick="contacts.addContact()">Contactos</a>
+            <a id="myContacts" onclick="contacts.seeContacts()">Mis contactos</a>
             <div class="dropdown">
                 <button class="dropbtn" onclick="dropdown()">Ajustes
                     <i class="fa fa-caret-down"></i>
@@ -39,11 +44,9 @@
                 <div class="dropdown-content" id="myDropdown">
                     <a onclick="display()">Cuenta</a>
                     <a href="/login?logout">Cerrar sesión</a>
-
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="row">
@@ -69,11 +72,21 @@
         <div class="modal-content">
             <span id="closeContacts" class="close">&times;</span>
             <h1 class="contactsTitle">Añadir Contacto</h1>
-            <input type="text" placeholder="Inserte el teléfono"></input>
-            <<>
+            <input id="newPhone" class="phoneContact"  type="number" placeholder="Inserte el teléfono"></input>
+            <button class="button-contact" onclick="drawapp.saveContact()">Añadir contacto</button>
         
         </div>
+    </div>
 
+    <div id="allContacts" class="modal">
+        <div class="modal-content">
+            <span id="closeSeeContacts" class="close">&times;</span>
+            <h1 class="contactsTitle">Mis Contactos</h1>
+            <div id="contactList" style="display: none;">
+                HELLO
+            </div>
+        
+        </div>
     </div>
 
 

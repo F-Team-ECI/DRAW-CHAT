@@ -1,5 +1,5 @@
-var contactsOpen;
 var modalContacts;
+var seeAll;
 
 $(document).ready(function () {
 
@@ -7,11 +7,20 @@ $(document).ready(function () {
 
     var btn = $("#myBtn:hidden");
     var span = document.getElementById("closeContacts");
-    contactsOpen = function (element) {
-        console.log(modal)
-        modalContacts.css({ display: "block" });
-    }
+
     span.onclick = function () {
-        modalContacts.css({ display: "none" });
+        contacts.closeAdd();
     }
+
+
+
+    //ADDING SEE ALL CONTACTS MODAL
+
+    seeAll = $("#allContacts:hidden");
+
+    var close = document.getElementById("closeSeeContacts");
+    close.onclick = function () {
+        contacts.closeSeeContacts();
+    }
+
 });
