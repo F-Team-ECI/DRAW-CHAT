@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: Candara
+
 }
 
 body {
@@ -33,3 +35,11 @@ body {
 	width: 70%;
 }
 
+input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}

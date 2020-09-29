@@ -1,14 +1,7 @@
 var display;
-var modal;
-var myFunction;
+var dropdown;
 $(document).ready(function () {
 
-    var setUser = function(user){
-        console.log(user);
-        $("#user").text(user.nombre + " "+ user.apellido);
-    }
-    
-    var user = register.me(setUser);
 
     // Get the modal
     modal = $("#myModal:hidden");
@@ -17,7 +10,7 @@ $(document).ready(function () {
     var btn = $("#myBtn:hidden");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementById("closeConfig");
 
     // When the user clicks the button, open the modal 
     display = function (element) {
@@ -42,19 +35,16 @@ $(document).ready(function () {
                 }
             }
         }
-        console.log(event.target.id)
         if (event.target.id === "myModal") {
             modal.css({ display: "none" });
         }
+
+        if (event.target.id === "contactsModal") {
+            modalContacts.css({ display: "none" });
+        }
     }
-
-
-
-
-
-
     //  DROPDOWN
-    myFunction =  function() {
+    dropdown =  function() {
         document.getElementById("myDropdown").classList.toggle("show");
     }
 

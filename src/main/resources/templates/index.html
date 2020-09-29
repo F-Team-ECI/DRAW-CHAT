@@ -17,19 +17,23 @@
 
 <script src="../static/js/components/modal.js"></script>
 <script src="../static/js/register.js"></script>
+<script src="../static/js/components/contactsModal.js"></script>
+<script src="../static/js/drawapp.js"></script>
 
 <script src="/js/register.js"></script>
 <script src="/js/components/modal.js"></script>
+<script src="/js/components/contactsModal.js"></script>
+<script src="/js/drawapp.js"></script>
 
 
 <body>
     <div style="height: 8vh">
         <div class="navbar">
             <a class="main">DRAW CHAT</a>
-            <a id="user">Current User undefined</a>
-
+            <a id="user">Conectando...</a>
+            <a id="contacts" onclick="contactsOpen()">Contactos</a>>
             <div class="dropdown">
-                <button class="dropbtn" onclick="myFunction()">Ajustes
+                <button class="dropbtn" onclick="dropdown()">Ajustes
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content" id="myDropdown">
@@ -56,9 +60,20 @@
 
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span id="closeConfig" class="close">&times;</span>
             <p>Some text in the Modal..</p>
         </div>
+    </div>
+
+    <div id="contactsModal" class="modal">
+        <div class="modal-content">
+            <span id="closeContacts" class="close">&times;</span>
+            <h1 class="contactsTitle">Añadir Contacto</h1>
+            <input type="text" placeholder="Inserte el teléfono"></input>
+            <<>
+        
+        </div>
+
     </div>
 
 
