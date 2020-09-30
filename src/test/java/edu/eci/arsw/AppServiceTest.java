@@ -22,6 +22,10 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.SqlGroup;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 import edu.eci.arsw.application.DrawChatApp;
 import edu.eci.arsw.application.controllers.UserController;
@@ -36,6 +40,7 @@ import edu.eci.arsw.application.services.impl.DrawChatServiceImpl;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DrawChatApp.class)
+@ActiveProfiles("test")
 public class AppServiceTest {
 	
 	@Autowired
@@ -46,7 +51,6 @@ public class AppServiceTest {
 
 	}
 
-	/*
 	@Test
     public void addUserWithCorrectCredential() {
 		User user = new User();
@@ -95,15 +99,18 @@ public class AppServiceTest {
     
 	@Test
 	public void addContact() {
+		/**
 		BigDecimal bd0 = new BigDecimal("3185560092");
 		BigDecimal bd1 = new BigDecimal("3185560091");
 
+		
 		try {
 			//service.addContact(bd1.longValue(),bd0.longValue());
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 
 		assertTrue(true);
 	}
@@ -112,5 +119,4 @@ public class AppServiceTest {
     	
     }
     
-    */
 }
