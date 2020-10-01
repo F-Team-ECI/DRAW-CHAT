@@ -121,4 +121,11 @@
     .titulo{
         text-align: center;
         color: white;
+        opacity: 0.5;
+        background: black;
+    }
+
+    .container.signin {
+        opacity: 0.6;
+        background: black;
     }
