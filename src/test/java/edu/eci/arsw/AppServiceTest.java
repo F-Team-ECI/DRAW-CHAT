@@ -47,8 +47,35 @@ public class AppServiceTest {
 	DrawChatService service;
 
 	@Test
-	public void test() {
-
+	public void addUserWithIncorrectNameLength() {
+		User user = new User();
+		user.setTelefono(1111111115);
+		user.setNombre("p");
+		user.setApellido("prueba5");
+		user.setContraseña("lxcmzxmz");
+		
+		try {
+			service.addUser(user);
+		} catch (AppException e) {
+			assertTrue(e.getMessage().equals("Incorrect credentials"));
+		}
+		
+	}
+	
+	@Test
+	public void addUserWithIncorrectLastNameLength() {
+		User user = new User();
+		user.setTelefono(1111111115);
+		user.setNombre("psddsdssd");
+		user.setApellido("p");
+		user.setContraseña("lxcmzxmz");
+		
+		try {
+			service.addUser(user);
+		} catch (AppException e) {
+			assertTrue(e.getMessage().equals("Incorrect credentials"));
+		}
+		
 	}
 
 	@Test
@@ -90,6 +117,7 @@ public class AppServiceTest {
 	@Test
     public void getUsers() {
     	try {
+    		
 			service.getUsers();
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
@@ -99,24 +127,83 @@ public class AppServiceTest {
     
 	@Test
 	public void addContact() {
-		/**
 		BigDecimal bd0 = new BigDecimal("3185560092");
 		BigDecimal bd1 = new BigDecimal("3185560091");
 
 		
 		try {
-			//service.addContact(bd1.longValue(),bd0.longValue());
+			User u = service.getUser(bd1.longValue());
+			service.addContact(bd1.longValue(),bd0.longValue());
+			assertTrue(service.getContacts(bd0.longValue()).contains(u));
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
 
-		assertTrue(true);
 	}
 	
-    public void getUser() {
-    	
+	@Test
+    public void deleteUserAfterInsert() {
+		User user = new User();
+		user.setTelefono(1111111111);
+		user.setNombre("prueba");
+		user.setApellido("prueba");
+		user.setContraseña("sadasdasdas");
+		
+		try {
+			service.addUser(user);
+			service.deleteUser(1111111111);
+			assertTrue(!service.getUsers().contains(user));
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
     }
+	
+	@Test(expected = AppException.class)
+    public void AddUserWithoutNombre() throws AppException {
+		User user = new User();
+		user.setTelefono(1111111111);
+		user.setApellido("prueba");
+		user.setContraseña("sadasdasdas");
+		
+		service.addUser(user);
+		
+    }
+	
+	@Test(expected = NullPointerException.class)
+    public void getCurrentUserSessionWouldBeNull() throws AppException {
+    	service.getCurrentUserSession();
+    }
+	
+	@Test
+    public void AddUserAddContact() {
+		User user = new User();
+		user.setTelefono(1111111112);
+		user.setNombre("prueba2");
+		user.setApellido("prueba2");
+		user.setContraseña("csacsacascaca");
+		
+		BigDecimal bd1 = new BigDecimal("3185560091");
+		
+		try {
+			service.addContact(user.getTelefono(),bd1.longValue());
+			assertTrue(service.getContacts(user.getTelefono()).contains(service.getUser(bd1.longValue())));
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    }
+	
+	
+	
+    
+    
     
 }
