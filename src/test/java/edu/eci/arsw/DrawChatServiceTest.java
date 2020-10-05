@@ -1,6 +1,8 @@
 package edu.eci.arsw;
 
 import static org.junit.Assert.assertArrayEquals;
+import org.junit.runners.MethodSorters; 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,7 +47,8 @@ import edu.eci.arsw.application.services.impl.DrawChatServiceImpl;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DrawChatApp.class)
 @ActiveProfiles("test")
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
+//@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class DrawChatServiceTest {
 	
 	@Autowired
@@ -54,7 +58,7 @@ public class DrawChatServiceTest {
 	DrawPersistenceImpl persistence;
 
 	@Test
-    public void shouldNotBeUsers() {
+    public void addEmptyUsers() {
     	try {
     		
 			assertEquals(0,service.getUsers().size());
@@ -66,7 +70,7 @@ public class DrawChatServiceTest {
     }
 	
 	@Test 
-	public void ItShouldThreeUsers() {
+	public void addThreeUsers() {
 		List<User> users = null;
 		
 		User user1 = new User();
