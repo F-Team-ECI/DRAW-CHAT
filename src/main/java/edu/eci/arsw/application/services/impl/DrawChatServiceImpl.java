@@ -43,12 +43,6 @@ public class DrawChatServiceImpl implements DrawChatService {
     public void addContact(long tUsuario1, long tUsuario2) throws AppException {
         drawPersistenceService.addContact(tUsuario1, tUsuario2);
     }
-    
-    @Override
-    public Chat getChat(long tUsuario1, long tUsuario2) throws AppException {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public User getCurrentUserSession() throws AppException{
@@ -63,8 +57,19 @@ public class DrawChatServiceImpl implements DrawChatService {
         return getUser(Long.parseLong(username));
     }
 
-	@Override
+    @Override
+    public void updateUser(User user) throws AppException {
+        drawPersistenceService.updateUser(user);
+    }
+
+    @Override
 	public void deleteUser(long telefono) {
 		drawPersistenceService.deleteUser(telefono);
-	}
+    }
+    
+    @Override
+    public Chat getChat(long tUsuario1, long tUsuario2) throws AppException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

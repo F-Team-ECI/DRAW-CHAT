@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.eci.arsw.application.entities.User;
 
+/**
+ * Mapper Usuario
+ */
 @Repository
 @Service
 @Transactional
@@ -22,5 +25,4 @@ public interface UserDAO extends JpaRepository<User, Long>{
     @Modifying
     @Query(value = "insert into contacto (propietario, dirigido) values (:tUsuario1, :tUsuario2);", nativeQuery = true)
     public void setContact(long tUsuario1, long tUsuario2);
-    
 }

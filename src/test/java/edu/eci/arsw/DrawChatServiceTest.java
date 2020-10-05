@@ -2,53 +2,41 @@ package edu.eci.arsw;
 
 import static org.junit.Assert.assertArrayEquals;
 import org.junit.runners.MethodSorters; 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.BootstrapWith;
-import org.springframework.test.context.ContextConfiguration;
+
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.SqlGroup;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 import edu.eci.arsw.application.DrawChatApp;
-import edu.eci.arsw.application.controllers.UserController;
+import edu.eci.arsw.application.entities.StateEnum;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.impl.DrawPersistenceImpl;
 import edu.eci.arsw.application.services.DrawChatService;
-import edu.eci.arsw.application.services.impl.DrawChatServiceImpl;
 
 
 /**
- * Unit test for simple App.
+ * Principal unit test App services
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DrawChatApp.class)
 @ActiveProfiles("test")
-//@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DrawChatServiceTest {
 	
 	@Autowired
@@ -98,7 +86,6 @@ public class DrawChatServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		assertEquals(3, users.size());
 	}
 	
@@ -109,13 +96,11 @@ public class DrawChatServiceTest {
 		user.setNombre("p");
 		user.setApellido("prueba5");
 		user.setContraseña("lxcmzxmz");
-		
 		try {
 			service.addUser(user);
 		} catch (AppException e) {
 			assertTrue(e.getMessage().equals("Incorrect credentials"));
 		}
-		
 	}
 	
 	@Test
@@ -125,13 +110,11 @@ public class DrawChatServiceTest {
 		user.setNombre("psddsdssd");
 		user.setApellido("p");
 		user.setContraseña("lxcmzxmz");
-		
 		try {
 			service.addUser(user);
 		} catch (AppException e) {
 			assertTrue(e.getMessage().equals("Incorrect credentials"));
 		}
-		
 	}
 
 	@Test
@@ -164,10 +147,7 @@ public class DrawChatServiceTest {
 		user.setNombre("prueba");
 		user.setApellido("prueba");
 		user.setContraseña("sadasdasdas");
-		boolean temp = false;
 		service.addUser(user);
-		
-		
     }
     
 	@Test
@@ -415,9 +395,39 @@ public class DrawChatServiceTest {
 	public void getMessageFromAChat() {
 	}
 	
-	
-	
-    
-    
+	/*BORRAR ESTO*/
+	@Test 
+	public void produccionTest() {
+
+		User user =new User(1111111111,//telefono, 
+							"Andres",//nombre, 
+							"Carreto",//apellido, 
+							"serdan",//contraseña, 
+							new Date(),//fecharegistro, 
+							new Date(),//fechaconexion, 
+							StateEnum.DISCONNECTED.toString()/*estado*/);
+		System.out.println("Nuevo Usuario");
+		System.out.println(user);
+		User upUser =new User(1111111111,//telefono, 
+							"An",//nombre, 
+							"Orj",//apellido, 
+							" ",//contraseña, 
+							null,//fecharegistro, 
+							null,//fechaconexion, 
+							StateEnum.ONLINE.toString()/*estado*/);
+		System.out.println("Update Usuario");
+		System.out.println(upUser);
+		try {
+			service.addUser(user);
+			System.out.println("Antes");
+			System.out.println(service.getUser(user.getTelefono()));
+			service.updateUser(upUser);
+			System.out.println("Despues");
+			System.out.println(service.getUser(upUser.getTelefono()));
+		} catch (Exception e) {
+			System.out.println("Hubo un problema");
+			e.printStackTrace();
+		}
+	}
     
 }
