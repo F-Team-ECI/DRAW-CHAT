@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controlador Usuario
+ */
 @RestController
 @RequestMapping("/users")
 @Service
@@ -77,6 +80,20 @@ public class UserController {
         }
     }
 
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<?> updateUser(@RequestBody String user){
+        System.out.println(user);
+        try {
+            User nuevo = mapper.readValue(user, User.class);
+            //nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
+            //nuevo.setEstado(StateEnum.DISCONNECTED.toString());
+            drawChatService.updateUser(nuevo);
+        } catch (JsonProcessingException | AppException e){
+            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("200 OK", HttpStatus.OK);
+    }
 
     @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getCurrentUser() {
