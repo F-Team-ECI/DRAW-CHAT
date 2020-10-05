@@ -15,14 +15,16 @@ import edu.eci.arsw.application.DrawChatApp;
 import edu.eci.arsw.application.controllers.UserController;
 import edu.eci.arsw.application.services.DrawChatService;
 
-
+/**
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DrawChatApp.class)
 @ActiveProfiles("test")
 @DirtiesContext(classMode = ClassMode.BEFORE_CLASS) 
 @AutoConfigureMockMvc
+*/
 public class DrawChatControllerTest {
 
+	/**
 	@Autowired
 	private DrawChatService service;
 	
@@ -31,7 +33,7 @@ public class DrawChatControllerTest {
 	
 	@Autowired
 	private MockMvc mvc;
-	
+	*/
 	@Test
 	public void test(){
 	}
