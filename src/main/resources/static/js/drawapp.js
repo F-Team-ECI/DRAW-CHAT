@@ -31,10 +31,10 @@ var drawapp = (function () {
             + "<table>")
         data.map(function (con) {
             $("#contactTable").append("<tr>"
-                + "<td>"+ con.telefono+ "</th>"
-                + "<td>"+ con.nombre+ "</th>"
-                + "<td>"+ con.apellido+ "</th>"
-                + "<td>"+ con.estado+ "</th>"
+                + "<td>" + con.telefono + "</th>"
+                + "<td>" + con.nombre + "</th>"
+                + "<td>" + con.apellido + "</th>"
+                + "<td>" + con.estado + "</th>"
                 + "</tr>")
         })
         var cont = $("#contactList:hidden");
@@ -50,10 +50,14 @@ var drawapp = (function () {
             data: JSON.stringify(data),
             contentType: 'application/json;charset=UTF-8',
             success: function (data, status, xhr) {
-                console.log(status)
+                console.log(status);
+                $("#ajustesSuccess").css({ display: "block" });
+                $("#ajustesFail").css({ display: "none" });
             },
             error: function (jqXhr, textStatus, errorMessage) {
                 console.log('Error' + errorMessage);
+                $("#ajustesFail").css({ display: "block" });
+                $("#ajustesSuccess").css({ display: "none" });
             }
         });
         return request;
@@ -72,9 +76,13 @@ var drawapp = (function () {
                 contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                 success: function (data, status, xhr) {
                     console.log(xhr.status);
+                    $("#contectSuccess").css({ display: "block" });
+                    $("#contactIncorrect").css({ display: "none" });
                 },
                 error: function (jqXhr, textStatus, errorMessage) {
                     console.log('Error' + errorMessage);
+                    $("#contactIncorrect").css({ display: "block" });
+                    $("#contectSuccess").css({ display: "none" });
                 }
             });
         },

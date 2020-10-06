@@ -70,6 +70,15 @@
             <input id="ajusteApellido" class="phoneContact"  type="text" style="float:left" placeholder="Nuevo Apellido"></input>
             <input id="ajusteContraseña" class="phoneContact"  type="password" placeholder="Nueva contraseña"></input>
             <button class="button-contact" onclick="drawapp.updateSettings()">Guardar ajustes</button>
+
+            <div id="ajustesFail" class="alert error" role="alert" style="display: none">
+                Cambios erroneos.
+            </div>
+    
+            <div id="ajustesSuccess" class="alert success" role="alert" style="display: none">
+                Ajustes guardados.
+            </div>
+
         </div>
     </div>
 
@@ -79,6 +88,14 @@
             <h1 class="contactsTitle">Añadir Contacto</h1>
             <input id="newPhone" class="phoneContact"  type="number" placeholder="Inserte el teléfono"></input>
             <button class="button-contact" onclick="drawapp.saveContact()">Añadir contacto</button>
+
+            <div id="contactIncorrect" class="alert error" role="alert" style="display: none">
+                Contecto erróneo.
+            </div>
+    
+            <div id="contectSuccess" class="alert success" role="alert" style="display: none">
+                Contacto añadido.
+            </div>
         
         </div>
     </div>
