@@ -2,7 +2,9 @@ package edu.eci.arsw.application.entities;
 
 import javax.persistence.*;
 
-
+/**
+ * Entidad chat de la aplicacion
+ */
 @Entity
 @Table ( name = "chat" )
 public class Chat extends MessageCenter{

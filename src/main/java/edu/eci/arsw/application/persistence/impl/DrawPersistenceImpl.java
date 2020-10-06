@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.User;
@@ -24,27 +21,30 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     @Override
     public void addUser(User user) throws  AppException{
         User current = getUser(user.getTelefono());
-        System.out.println(current);
+        System.out.println(user);
         if(current!=null){
             throw new AppException("User already registered");
-        } else if(user == null){
-            throw new AppException("Invalid user");
-        } else if(!correctUSer(user)){
+        } else if(!correctUser(user)){
             throw new AppException("Incorrect credentials");
         }
         userDAO.save(user);
     }
 
 
-    private boolean correctUSer(User user) {
+    /**
+     * Verificar que el usuario sea valido
+     * @param user el usuario a verificar
+     * @return true si es valido, false si no lo es
+     */
+    private boolean correctUser(User user) {
         boolean ans = true;
-        if (user.getContraseña() == null || Long.toString(user.getTelefono()).length() != 10) {
+        if (user.getContraseña() == null || !user.validTelefono() || !user.validPass()) {
             ans = false;
         }
-        if (user.getNombre() == null || user.getNombre().length() < 3) {
+        if (user.getNombre() == null || !user.validName()) {
             ans = false;
         }
-        if (user.getApellido() == null || user.getApellido().length() < 3) {
+        if (user.getApellido() == null || !user.validApellido()) {
             ans = false;
         }
         return ans;
@@ -78,7 +78,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     @Override
     public void addContact(long tUsuario1, long tUsuario2) throws AppException {
         boolean check = checkPhone(tUsuario1) && checkPhone(tUsuario2);
-        if(check == false){
+        if(!check){
             throw new AppException(AppException.USER_NOT_REGISTERED);
         }
         userDAO.setContact(tUsuario1,tUsuario2);
@@ -86,8 +86,12 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         
     }
 
+    /**
+     * Validar el telefono del usuario este en la base de datos
+     * @param telefono el numero de telefono del usuario
+     * @return true si es valido, false si no lo es
+     */
     private boolean checkPhone(long telefono) {
-        boolean check=true;
         Optional<User> user = userDAO.findById(telefono);
         return user.isPresent();
     }
@@ -97,4 +101,15 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 		userDAO.delete(getUser(telefono));
 		
 	}
+
+    @Override
+    public void updateUser(User user) {
+        User loaded = getUser(user.getTelefono());
+
+        if(user.getNombre() != null && user.validName()){loaded.setNombre(user.getNombre());}
+        if(user.getApellido() != null && user.validApellido()){loaded.setApellido(user.getApellido());}
+        if(user.getContraseña() != null && user.validPass()){loaded.setContraseña(user.getContraseña());}
+        if(user.getEstado() != null){loaded.setEstado(user.getEstado());}
+        userDAO.save(loaded);
+    }
 }

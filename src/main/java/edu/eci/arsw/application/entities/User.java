@@ -1,12 +1,16 @@
 package edu.eci.arsw.application.entities;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-
-
+/**
+ * Entidad usuario de la aplicacion
+ */
 @Entity
 @Table ( name = "usuario" )
 public class User {
@@ -94,10 +98,46 @@ public class User {
         this.estado = estado;
     }
 
+    /**
+     * El numero de telefono debe ser de 10 digitos
+     * @return true si es valido, false si no lo es
+     */
+    public boolean validTelefono() {
+        return Long.toString(telefono).length() == 10;
+    }
+
+    /**
+     * El nombre debe tener mas de 3 caracteres
+     * @return true si es valido, false si no lo es
+     */
+    public boolean validName() {
+        return nombre.length() >= 3;
+    }
+
+    /**
+     * El apellido debe tener mas de 3 caracteres
+     * @return true si es valido, false si no lo es
+     */
+    public boolean validApellido() {
+        return apellido.length() >= 3;
+    }
+
+    /**
+     * La contraseña debe tener mas de 3 caracteres
+     * @return true si es valido, false si no lo es
+     */
+    public boolean validPass() {
+        return contraseña.length() > 3;
+    }
+
     @Override
     public String toString() {
-        return "User [apellido=" + apellido + ", contraseña=" + contraseña + ", estado=" + estado + ", fechaconexion="
-                + fechaconexion + ", fecharegistro=" + fecharegistro + ", nombre=" + nombre + ", telefono=" + telefono
-                + "]";
+        return "User [telefono=" + telefono +
+                     ", nombre=" + nombre + 
+                     ", apellido=" + apellido + 
+                     ", contraseña=" + contraseña + 
+                     ", fecharegistro=" + fecharegistro + 
+                     ", fechaconexion=" + fechaconexion + 
+                     ", estado=" + estado + "]";
     }
 }
