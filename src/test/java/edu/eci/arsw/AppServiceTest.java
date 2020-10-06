@@ -128,7 +128,7 @@ public class AppServiceTest {
 	@Test
 	public void addContact() {
 		BigDecimal bd0 = new BigDecimal("3185560092");
-		BigDecimal bd1 = new BigDecimal("3185560091");
+		BigDecimal bd1 = new BigDecimal("3185560093");
 
 		
 		try {

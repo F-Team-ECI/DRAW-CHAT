@@ -89,4 +89,15 @@ public class UserController {
             return new ResponseEntity<>("500 Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping
+    public ResponseEntity<?> updateUser(@RequestBody String user){
+        try {
+            User settings = mapper.readValue(user, User.class);
+            drawChatService.
+        } catch (JsonProcessingException e) {
+            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

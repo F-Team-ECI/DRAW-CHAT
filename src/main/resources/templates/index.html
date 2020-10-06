@@ -64,7 +64,12 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span id="closeConfig" class="close">&times;</span>
-            <p>Some text in the Modal..</p>
+            <h1 class="contactsTitle">Ajustes</h1>
+            <h5>Deje vacios los campos que no desea cambiar</h5>
+            <input id="ajusteNombre" class="phoneContact" style="float:right" type="text" placeholder="Nuevo Nombre"></input>
+            <input id="ajusteApellido" class="phoneContact"  type="text" style="float:left" placeholder="Nuevo Apellido"></input>
+            <input id="ajusteContraseña" class="phoneContact"  type="password" placeholder="Nueva contraseña"></input>
+            <button class="button-contact" onclick="drawapp.updateSettings()">Guardar ajustes</button>
         </div>
     </div>
 
