@@ -8,6 +8,8 @@ contacts = (function(){
         },
 
         closeAdd: function(){
+            $("#contactIncorrect").css({ display: "none" });
+            $("#contectSuccess").css({ display: "none" });
             modalContacts.css({ display: "none" });
         },
 

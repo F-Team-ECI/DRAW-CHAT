@@ -23,14 +23,17 @@ register = (function(){
             $.ajax({
                 url: '/users',
                     type: "POST",
-                    dataType: 'json',
                     data: JSON.stringify(user),
                     contentType: 'application/json;charset=UTF-8',
                     success: function (data, status, xhr) {
                         console.log('status: ' + status + ', data: ' + data);
+                        $("#incorrect").css({ display: "none" });
+                        $("#rsuccess").css({ display: "block" });
                     },
                     error: function (jqXhr, textStatus, errorMessage) {
                         console.log('Error' + errorMessage);
+                        $("#incorrect").css({ display: "block" });
+                        $("#rsuccess").css({ display: "none" });
                     }
             });
         },
