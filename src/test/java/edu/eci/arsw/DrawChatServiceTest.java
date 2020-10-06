@@ -37,6 +37,7 @@ import edu.eci.arsw.application.services.DrawChatService;
 @SpringBootTest(classes = DrawChatApp.class)
 @ActiveProfiles("test")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS) 
 public class DrawChatServiceTest {
 	
 	@Autowired
