@@ -58,3 +58,19 @@ body {
 .button-contact:hover {
         opacity: 0.8;
 }
+
+.contactList table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+}
+
+.contactList td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+}
+
+.contactList tr:nth-child(even) {
+        background-color: #dddddd;
+}

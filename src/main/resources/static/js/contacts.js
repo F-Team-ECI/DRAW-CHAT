@@ -13,6 +13,8 @@ contacts = (function(){
 
         seeContacts: function(){
             seeAll.css({ display: "block" });
+            $("#contactsLoad").css({ display: "block" })
+            $("#contactList").empty();
             drawapp.setContacts();
         },
 

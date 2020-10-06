@@ -3,6 +3,7 @@ var drawapp = (function () {
     var setUser = function (user) {
         console.log(user);
         userR = user;
+        console.log("SETTING USER");
         $("#user").text(user.nombre + " " + user.apellido);
     }
 
@@ -19,8 +20,22 @@ var drawapp = (function () {
 
     var setContacts = function (data, status, xhr) {
         console.log(data);
+        $("#contactsLoad").css({ display: "none" })
+        $("#contactList").append("<table id='contactTable'>"
+            + "<tr>"
+            + "<th>TELÉFONO</th>"
+            + "<th>NOMBRE</th>"
+            + "<th>APELLIDO</th>"
+            + "<th>ESTADO</th>"
+            + "</tr>"
+            + "<table>")
         data.map(function (con) {
-            $("#contactList").append("<div>" + con.telefono + "</div>")
+            $("#contactTable").append("<tr>"
+                + "<td>"+ con.telefono+ "</th>"
+                + "<td>"+ con.nombre+ "</th>"
+                + "<td>"+ con.apellido+ "</th>"
+                + "<td>"+ con.estado+ "</th>"
+                + "</tr>")
         })
         var cont = $("#contactList:hidden");
         cont.css({ display: "block" });
@@ -29,6 +44,19 @@ var drawapp = (function () {
 
     var sendUpdateSettings = function (data) {
         console.log(data);
+        var request = $.ajax({
+            url: '/users',
+            type: "PUT",
+            data: JSON.stringify(data),
+            contentType: 'application/json;charset=UTF-8',
+            success: function (data, status, xhr) {
+                console.log(status)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log('Error' + errorMessage);
+            }
+        });
+        return request;
     }
 
     return {
@@ -43,7 +71,7 @@ var drawapp = (function () {
                 data: "userA=" + userR.telefono + "&userB=" + number,
                 contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                 success: function (data, status, xhr) {
-                    setUser(data, status, xhr);
+                    console.log(xhr.status);
                 },
                 error: function (jqXhr, textStatus, errorMessage) {
                     console.log('Error' + errorMessage);
