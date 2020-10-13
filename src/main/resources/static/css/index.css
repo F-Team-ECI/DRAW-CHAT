@@ -31,8 +31,12 @@ body {
 }
 
 .column.right {
-  background-color: lightseagreen;
+    background-color: lightseagreen;
 	width: 70%;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 }
 
 .phoneContact {
@@ -102,4 +106,21 @@ body {
         border:1px solid transparent;
         border-radius:.25rem;
         text-align: center;
+}
+
+
+.headerButton {
+        cursor: pointer;
+        font-size: 16px;  
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+}
+      
+.headerButton:focus,  .headerButton:hover{
+        background-color: red;
 }

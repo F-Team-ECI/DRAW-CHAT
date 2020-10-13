@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Draw Chat Canvas</title>
+    <link rel="stylesheet" href="../static/css/draw.css" th:href="@{/css/draw.css}" />
+    <script src="../static/js/canvas.js"></script>
+
+    <script src="/js/canvas.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body onload="canvas.init()">
+
+
+
+    <div class="navbar">
+        <a>DRAW CHAT - CANVAS</a>
+        <button style="background-color: rgb(251, 9, 9);"></button>
+        <button style="background-color: rgb(3, 226, 41);"></button>
+        <button style="background-color: rgb(245, 8, 213);"></button>
+        <button style="background-color: rgb(7, 228, 217);"></button>
+        <button style="background-color: rgb(26, 61, 236);"></button>
+        <button style="background-color: rgb(255, 255, 255);"></button>
+        <button style="background-color: rgb(238, 223, 22);"></button>
+        <button style="background-color: rgb(0, 0, 0);"></button>
+        
+        <input name="Color Picker" type="color"></input>
+    </div>
+
+    <div class="grid=item">
+        <canvas id="myCanvas" class="myCanvas"></canvas>
+    </div>
+</body>
+
+</html>
