@@ -9,24 +9,26 @@
 
     <script src="/js/canvas.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 </head>
 
 <body onload="canvas.init()">
 
 
 
-    <div class="navbar">
+    <div id="upperDiv" class="navbar">
         <a>DRAW CHAT - CANVAS</a>
-        <button style="background-color: rgb(251, 9, 9);"></button>
-        <button style="background-color: rgb(3, 226, 41);"></button>
-        <button style="background-color: rgb(245, 8, 213);"></button>
-        <button style="background-color: rgb(7, 228, 217);"></button>
-        <button style="background-color: rgb(26, 61, 236);"></button>
-        <button style="background-color: rgb(255, 255, 255);"></button>
-        <button style="background-color: rgb(238, 223, 22);"></button>
-        <button style="background-color: rgb(0, 0, 0);"></button>
+        <button id="red" style="background-color: #d41919;" onclick="canvas.setColor(this)"></button>
+        <button id="green" style="background-color: #19d429;" onclick="canvas.setColor(this)"></button>
+        <button id="pink" style="background-color: #f010b8;" onclick="canvas.setColor(this)"></button>
+        <button id="aqua" style="background-color: #0beeee;"onclick="canvas.setColor(this)"></button>
+        <button id="blue" style="background-color: #1c19d4;" onclick="canvas.setColor(this)"></button>
+        <button id="white" style="background-color: #ffffff" onclick="canvas.setColor(this)"></button>
+        <button id="yellow" style="background-color: #eeea08" onclick="canvas.setColor(this)"></button>
+        <button id="black" style="background-color: #000000;" onclick="canvas.setColor(this)"></button>
         
-        <input name="Color Picker" type="color"></input>
+        <input id="custom" name="Color Picker" type="color" onchange="canvas.setCustomColor()"></input>
     </div>
 
     <div class="grid=item">
