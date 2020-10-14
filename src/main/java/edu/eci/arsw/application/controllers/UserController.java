@@ -25,91 +25,90 @@ import java.util.logging.Logger;
 @Service
 public class UserController {
 
-    @Autowired
-    private DrawChatService drawChatService;
+	@Autowired
+	private DrawChatService drawChatService;
 
-    private ObjectMapper mapper = new ObjectMapper();
+	private ObjectMapper mapper = new ObjectMapper();
 
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<?> addUser(@RequestBody String user) {
+		System.out.println(user);
+		try { 
+			User nuevo = mapper.readValue(user, User.class);
+			nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
+			nuevo.setEstado(StateEnum.DISCONNECTED.toString());
+			drawChatService.addUser(nuevo);
+		} catch (JsonProcessingException | AppException e) {
+			Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
+			return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> addUser(@RequestBody String user){
-        System.out.println(user);
-        try {
-            User nuevo = mapper.readValue(user, User.class);
-            nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
-            nuevo.setEstado(StateEnum.DISCONNECTED.toString());
-            drawChatService.addUser(nuevo);
-        } catch (JsonProcessingException | AppException e){
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
-            return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
-    }
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> getUsers() {
+		try {
+			drawChatService.getUsers();
+			return new ResponseEntity<>(drawChatService.getUsers(), HttpStatus.ACCEPTED);
+		} catch (Exception ex) {
+			Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("HTTP 404 Not Found", HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getUsers(){
-        try {
-            drawChatService.getUsers();
-            return new ResponseEntity<>(drawChatService.getUsers(), HttpStatus.ACCEPTED);
-        } catch (Exception ex) {
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
-        }
-    }
+	@RequestMapping(value = "/{telefono}", method = RequestMethod.GET)
+	public ResponseEntity<?> getUser(@PathVariable long telefono) {
+		try {
+			drawChatService.getUser(telefono);
+			return new ResponseEntity<>(drawChatService.getUser(telefono), HttpStatus.OK);
+		} catch (Exception ex) {
+			Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("HTTP 404 Not Found", HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @RequestMapping(value="/{telefono}", method = RequestMethod.GET)
-    public ResponseEntity<?> getUser(@PathVariable long telefono){
-        try {
-            drawChatService.getUser(telefono);
-            return new ResponseEntity<>(drawChatService.getUser(telefono), HttpStatus.OK);
-        } catch (Exception ex) {
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
-        }
-    }
+	@RequestMapping(value = "/{telefono}/contacts", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getContactsByUser(@PathVariable String telefono) {
+		long number = Long.parseLong(telefono);
+		try {
+			System.out.println(drawChatService.getContacts(number));
+			return new ResponseEntity<>(drawChatService.getContacts(number), HttpStatus.OK);
+		} catch (Exception ex) {
+			Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("HTTP 404 Not Found", HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @RequestMapping(value="/{telefono}/contacts", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<?> getContactsByUser(@PathVariable String telefono){
-        long number = Long.parseLong(telefono);
-        try {
-            System.out.println(drawChatService.getContacts(number));
-            return new ResponseEntity<>(drawChatService.getContacts(number), HttpStatus.OK);
-        } catch (Exception ex) {
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("HTTP 404 Not Found",HttpStatus.NOT_FOUND);
-        }
-    }
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<?> updateUser(@RequestBody String user) {
+		//System.out.println(user);
+		try {
+			User nuevo = mapper.readValue(user, User.class);
+			//System.out.println(nuevo);
+			if (drawChatService.getCurrentUserSession().getTelefono() != nuevo.getTelefono()) {
+				return new ResponseEntity<>("401 Unauthorized", HttpStatus.UNAUTHORIZED);
+			}
+			//System.out.println("AUTH");
+			if (nuevo.getContraseña() != null) {
+				nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
+			}
+			drawChatService.updateUser(nuevo);
+		} catch (JsonProcessingException | AppException e) {
+			Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
+			return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>("200 OK", HttpStatus.OK);
+	}
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> updateUser(@RequestBody String user){
-        System.out.println(user);
-        try {
-            User nuevo = mapper.readValue(user, User.class);
-            System.out.println(nuevo);
-            if(drawChatService.getCurrentUserSession().getTelefono() != nuevo.getTelefono()){
-                return new ResponseEntity<>("401 Unauthorized", HttpStatus.UNAUTHORIZED);
-            }
-            System.out.println("AUTH");
-            if(nuevo.getContraseña()!=null){
-                nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
-            }
-            drawChatService.updateUser(nuevo);
-        } catch (JsonProcessingException | AppException e){
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
-            return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("200 OK", HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getCurrentUser() {
-        try {
-            return new ResponseEntity<>(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(
-                    drawChatService.getCurrentUserSession()
-            ), HttpStatus.OK);
-        } catch (JsonProcessingException | AppException e) {
-            Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
-            return new ResponseEntity<>("500 Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+	@GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getCurrentUser() {
+		try {
+			return new ResponseEntity<>(
+					mapper.writerWithDefaultPrettyPrinter().writeValueAsString(drawChatService.getCurrentUserSession()),
+					HttpStatus.OK);
+		} catch (JsonProcessingException | AppException e) {
+			Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
+			return new ResponseEntity<>("500 Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
