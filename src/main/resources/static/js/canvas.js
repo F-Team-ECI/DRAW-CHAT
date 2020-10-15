@@ -2,14 +2,17 @@ var canvas = (function () {
     var canvas = null;
     var color = null;
     var currentGroup = null;
+    var startPoint = null;
+    var finishPoint = null;
 
     var hexDigits = new Array
         ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
 
     var connected = false;
     var stompClient = null;
+
     var getMousePosition = function (evt) {
-        $('#myCanvas').click(function (e) {
+        $('#myCanvas').on("mousedown",function (e) {
             var rect = canvas.getBoundingClientRect();
             var x = e.clientX - rect.left;
             var y = e.clientY - rect.top;
@@ -17,17 +20,52 @@ var canvas = (function () {
             point = {
                 "x": x,
                 "y": y,
-                "color": color
             }
-            console.log(point);
-            sendPoint(point);
+            startPoint = point;
+            
+        });
+        $('#myCanvas').on("mouseup",function (e) {
+            var rect = canvas.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            console.info(x + " - " + y);
+            point = {
+                "x": x,
+                "y": y,
+            }
+            finishPoint = point;
+            buildLine();
+            
         });
     }
 
-    var drawPoint = function(point){
+    var setStartPoint = function () {
+        startPoint = getMousePosition();
+    }
+
+
+    var buildLine = function () {
+        var line = {
+            "start": startPoint,
+            "end": finishPoint,
+            "color": color
+        }
+        sendPoint(line);
+        if (startPoint != null && finishPoint != null) {
+            //
+        }
+    }
+
+    var drawPoint = function (line) {
         var ctx = canvas.getContext("2d");
-        ctx.fillStyle = point.color;
-        ctx.fillRect(point.x, point.y , 5 , 5);
+        ctx.beginPath();
+        ctx.moveTo(line.start.x, line.start.y);
+        ctx.lineTo(line.end.x, line.end.y);
+        ctx.lineWidth = 5;
+
+        // set line color
+        ctx.strokeStyle = line.color;;
+        ctx.stroke();
     }
 
     var suscribe = function (group) {
@@ -39,15 +77,15 @@ var canvas = (function () {
 
         //subscribe to /topic/TOPICXX when connections succeed
         stompClient.connect({}, function (frame) {
-            stompClient.subscribe('/topic/paint.'+ group, function (eventbody) {
+            stompClient.subscribe('/topic/paint.' + group, function (eventbody) {
                 console.log(JSON.parse(eventbody.body));
                 drawPoint(JSON.parse(eventbody.body));
             });
         });
     }
 
-    var sendPoint = function(point){
-        stompClient.send('/app/paint.'+currentGroup, {}, JSON.stringify(point));
+    var sendPoint = function (point) {
+        stompClient.send('/app/paint.' + currentGroup, {}, JSON.stringify(point));
     }
 
     //Function to convert rgb color to hex format
@@ -66,20 +104,19 @@ var canvas = (function () {
             canvas = document.getElementById("myCanvas");
             canvas.width = window.innerWidth * 0.998;
             canvas.height = window.innerHeight * 0.993 - $("#upperDiv").height();
-            console.log($("#upperDiv").height());
-            canvas.addEventListener('Mousedown', getMousePosition(), false);
+            canvas.addEventListener('click', getMousePosition(), false);
             suscribe("test");
-            color=rgb2hex($("#red").css("background-color"));
+            color = rgb2hex($("#red").css("background-color"));
         },
         setColor: function (butt) {
             var el = "#" + butt.id;
             color = rgb2hex($(el).css("background-color"));
-            console.log(color);
+
+            
         },
 
         setCustomColor: function () {
             color = $("#custom").val();
-            console.log(color);
         },
         disconnect: function () {
             if (stompClient !== null && connected === true) {

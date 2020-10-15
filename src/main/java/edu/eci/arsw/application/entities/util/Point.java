@@ -5,8 +5,6 @@ public class Point {
 
     private int x;
     private int y;
-    private String color;
-
 
     public int getX() {
         return x;
@@ -24,16 +22,9 @@ public class Point {
         this.y = y;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     @Override
     public String toString() {
-        return String.format("x: %d - y: %d - color: %s", x,y,color);
+        return String.format("x: %d - y: %d", x,y);
     }
 }

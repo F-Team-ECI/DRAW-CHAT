@@ -1,6 +1,6 @@
 package edu.eci.arsw.application.controllers.impl;
 
-import edu.eci.arsw.application.entities.util.Point;
+import edu.eci.arsw.application.entities.util.Line;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -19,7 +19,7 @@ public class DrawController implements BaseController {
     private DrawChatService drawChatService;
 
     @MessageMapping("/paint.{group}")
-    public void handleBuyEvent(Point st, @DestinationVariable String group) throws Exception {
+    public void handleBuyEvent(Line st, @DestinationVariable String group) throws Exception {
         System.out.println("Nuevo punto recibido en el servidor!:"+st);
         System.out.println("Session!:"+group);
         msgt.convertAndSend("/topic/paint."+group, st);
