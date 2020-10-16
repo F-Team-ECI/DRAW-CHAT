@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Draw Chat Canvas</title>
+    <link rel="stylesheet" href="../static/css/draw.css" th:href="@{/css/draw.css}" />
+    <script src="../static/js/canvas.js"></script>
+
+    <script src="/js/canvas.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</head>
+
+<body onload="canvas.init()">
+
+
+
+    <div id="upperDiv" class="navbar">
+        <a>DRAW CHAT - CANVAS</a>
+        <button id="red" style="background-color: #d41919;" onclick="canvas.setColor(this)"></button>
+        <button id="green" style="background-color: #19d429;" onclick="canvas.setColor(this)"></button>
+        <button id="pink" style="background-color: #f010b8;" onclick="canvas.setColor(this)"></button>
+        <button id="aqua" style="background-color: #0beeee;"onclick="canvas.setColor(this)"></button>
+        <button id="blue" style="background-color: #1c19d4;" onclick="canvas.setColor(this)"></button>
+        <button id="white" style="background-color: #ffffff" onclick="canvas.setColor(this)"></button>
+        <button id="yellow" style="background-color: #eeea08" onclick="canvas.setColor(this)"></button>
+        <button id="black" style="background-color: #000000;" onclick="canvas.setColor(this)"></button>
+        
+        <input id="custom" name="Color Picker" type="color" onchange="canvas.setCustomColor()"></input>
+    </div>
+
+    <div class="grid=item">
+        <canvas id="myCanvas" class="myCanvas"></canvas>
+    </div>
+</body>
+
+</html>
