@@ -113,6 +113,7 @@ body {
 .left-button {
         width: 100%;
         height: 40px;
+        cursor: pointer;
 }
 
 .chat_icon {
@@ -133,4 +134,13 @@ body {
       
 .headerButton:focus,  .headerButton:hover{
         background-color: red;
+}
+
+.clickable-row:hover {
+        background-color: #fc000065;
+        cursor: pointer;
+}
+
+#chatTableMain, table {
+        width: 100%;;
 }

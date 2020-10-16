@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="/webjars/jquery/jquery.min.js"></script>
 <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="static/css/index.css" th:href="@{/css/index.css}" />
@@ -22,12 +24,16 @@
 <script src="../static/js/components/contactsModal.js"></script>
 <script src="../static/js/drawapp.js"></script>
 <script src="../static/js/contacts.js"></script>
+<script src="../static/js/chatCreator.js"></script>
+<script src="../static/js/subscriptions/chats.js"></script>
 
 <script src="/js/register.js"></script>
 <script src="/js/components/modal.js"></script>
 <script src="/js/components/contactsModal.js"></script>
 <script src="/js/drawapp.js"></script>
 <script src="/js/contacts.js"></script>
+<script src="/js/chatCreator.js"></script>
+<script src="/js/subscriptions/chats.js"></script>
 
 
 <body>
@@ -54,253 +60,14 @@
 
     <div class="row">
         <div class="column left">
-            <button class="left-button">
+            <button onclick="chatCreator.openModal()" class="left-button">
                 <span class="chat_icon"></span>
                 INICIAR UN CHAT
             </button>
         </div>
 
         <div class="column right">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar
-            felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+            CHAT
         </div>
 
     </div>
@@ -353,6 +120,20 @@
             <h1 class="contactsTitle">Mis Contactos</h1>
             <h5 id="contactsLoad" style="text-align: center;">Conectando...</h5>
             <div id="contactList">
+            </div>
+
+        </div>
+    </div>
+
+    <div id="addChat" class="modal">
+        <div class="modal-content">
+            <span id="closeAddChat" class="close">&times;</span>
+            <h1 class="addChatTitle">Crear un Chat - Escoge tu contacto</h1>
+            <h5 id="addChatLoad" style="text-align: center;">Conectando...</h5>
+
+            <div id="addChatTable">
+                <table id="chatTableMain">
+                </table>
             </div>
 
         </div>

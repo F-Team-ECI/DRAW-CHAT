@@ -5,6 +5,7 @@ var drawapp = (function () {
         userR = user;
         console.log("SETTING USER");
         $("#user").text(user.nombre + " " + user.apellido);
+        chatSub.init();
     }
 
     var addContactSuccess = function (data, status, xhr) {
@@ -17,30 +18,6 @@ var drawapp = (function () {
     }
 
     updateUser();
-
-    var setContacts = function (data, status, xhr) {
-        console.log(data);
-        $("#contactsLoad").css({ display: "none" })
-        $("#contactList").append("<table id='contactTable'>"
-            + "<tr>"
-            + "<th>TELÉFONO</th>"
-            + "<th>NOMBRE</th>"
-            + "<th>APELLIDO</th>"
-            + "<th>ESTADO</th>"
-            + "</tr>"
-            + "<table>")
-        data.map(function (con) {
-            $("#contactTable").append("<tr>"
-                + "<td>" + con.telefono + "</th>"
-                + "<td>" + con.nombre + "</th>"
-                + "<td>" + con.apellido + "</th>"
-                + "<td>" + con.estado + "</th>"
-                + "</tr>")
-        })
-        var cont = $("#contactList:hidden");
-        cont.css({ display: "block" });
-    }
-
 
     var sendUpdateSettings = function (data) {
         console.log(data);
@@ -86,13 +63,13 @@ var drawapp = (function () {
                 }
             });
         },
-        setContacts: function () {
+        setContacts: function (callback) {
             console.log(userR)
             $.ajax({
                 url: '/users/' + userR.telefono + '/contacts',
                 type: "GET",
                 success: function (data, status, xhr) {
-                    setContacts(data, status, xhr);
+                    callback(data, status, xhr);
                 },
                 error: function (jqXhr, textStatus, errorMessage) {
                     console.log('Error' + errorMessage);
@@ -116,6 +93,10 @@ var drawapp = (function () {
             }
             sendUpdateSettings(data).then(updateUser);
 
+        },
+
+        getPhone: function(){
+            return userR.telefono;
         }
     }
 

@@ -46,6 +46,10 @@ $(document).ready(function () {
         if (event.target.id === "allContacts") {
             contacts.closeSeeContacts();
         }
+
+        if (event.target.id === "addChat") {
+            chatCreator.closeModal();
+        }
     }
     //  DROPDOWN
     dropdown =  function() {
