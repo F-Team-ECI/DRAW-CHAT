@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.eci.arsw.application.controllers.BaseController;
 import edu.eci.arsw.application.services.DrawChatService;
 
-import javax.xml.ws.Response;
+//import javax.xml.ws.Response;
 
 @RestController
 @RequestMapping(path = "/chats")

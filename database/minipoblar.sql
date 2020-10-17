@@ -9,3 +9,9 @@ insert into Contacto (propietario, dirigido) values (5555555555, 4444444444);
 insert into Contacto (propietario, dirigido) values (3333333333, 2222222222);
 insert into Contacto (propietario, dirigido) values (3333333333, 1111111111);
 insert into Contacto (propietario, dirigido) values (4444444444, 5555555555);
+
+insert into Chat (id, usuario1, usuario2, tipo) values (1, 5555555555, 3333333333, 'false');
+insert into Chat (id, usuario1, usuario2, tipo) values (2, 5555555555, 4444444444, 'false');
+insert into Chat (id, usuario1, usuario2, tipo) values (3, 3333333333, 2222222222, 'false');
+insert into Chat (id, usuario1, usuario2, tipo) values (4, 3333333333, 1111111111, 'false');
+insert into Chat (id, usuario1, usuario2, tipo) values (5, 4444444444, 5555555555, 'false');

@@ -69,7 +69,11 @@ public class DrawChatServiceImpl implements DrawChatService {
     
     @Override
     public Chat getChat(long tUsuario1, long tUsuario2) throws AppException {
-        // TODO Auto-generated method stub
-        return null;
+        return drawPersistenceService.getChat(tUsuario1, tUsuario2);
+    }
+
+    @Override
+    public void addChat(long tUsuario1, long tUsuario2) throws AppException {
+        drawPersistenceService.addChat(tUsuario1, tUsuario2);
     }
 }

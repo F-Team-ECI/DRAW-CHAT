@@ -30,6 +30,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.ActiveProfiles;
 
 import edu.eci.arsw.application.DrawChatApp;
+import edu.eci.arsw.application.entities.Chat;
 import edu.eci.arsw.application.entities.StateEnum;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
@@ -835,6 +836,36 @@ public class DrawChatServiceTest {
 		}
 	}
 	
-	
+	@Test
+	public void producttest() {
+		User user = new User(1661111111, // telefono,
+				"Julian", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User userContact = new User(1631111111, // telefono,
+				"Federico", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		try {
+			service.addUser(user);
+			service.addUser(userContact);
+			service.addContact(user.getTelefono(), userContact.getTelefono());
+			List<User> usuariosTemp = service.getContacts(user.getTelefono());
+			System.out.println(usuariosTemp);
+			service.addChat(user.getTelefono(), userContact.getTelefono());
+			System.out.println("ok");
+			Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
+			System.out.println(chat);
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -6,9 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.eci.arsw.application.entities.Chat;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DrawPersistenceService;
+import edu.eci.arsw.application.persistence.DAO.ChatDAO;
 import edu.eci.arsw.application.persistence.DAO.UserDAO;
 
 @Service
@@ -16,6 +18,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private ChatDAO chatDAO;
     
 
     @Override
@@ -111,5 +116,27 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         if(user.getContraseña() != null && user.validPass()){loaded.setContraseña(user.getContraseña());}
         if(user.getEstado() != null){loaded.setEstado(user.getEstado());}
         userDAO.save(loaded);
+    }
+
+    @Override
+    public void addChat(long tUsuario1, long tUsuario2) {
+        User user1 = getUser(tUsuario1);
+        User user2 = getUser(tUsuario2);
+        String tipo = "normal";
+        Chat nChat = new Chat(0, user1, user2, tipo);
+        chatDAO.save(nChat);
+    }
+
+    @Override
+    public Chat getChat(long tUsuario1, long tUsuario2) {
+
+        List<Chat> chats = chatDAO.findAll();
+        Chat cht = null;
+
+        System.out.println(chats);
+        for (Chat ch : chats) {
+            
+        }
+        return cht;
     }
 }

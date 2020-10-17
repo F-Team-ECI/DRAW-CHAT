@@ -79,4 +79,6 @@ public interface DrawChatService {
      * @throws AppException error en la busqueda del chat
      */
     public Chat getChat(long tUsuario1,long tUsuario2) throws AppException;
+
+    public void addChat(long tUsuario1,long tUsuario2) throws AppException;
 }
