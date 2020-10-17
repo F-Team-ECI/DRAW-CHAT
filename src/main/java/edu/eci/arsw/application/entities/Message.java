@@ -1,6 +1,6 @@
 package edu.eci.arsw.application.entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +24,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    /**
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "chat", nullable = false)
     private Chat chat;
@@ -49,7 +49,7 @@ public class Message {
         this.fecha = fecha;
     }
 
-    public int getId() {
+	public int getId() {
         return id;
     }
 
@@ -91,9 +91,12 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message [chat=" + chat + ", contenido=" + contenido + ", emisor=" + emisor + ", fecha=" + fecha
-                + ", id=" + id + "]";
-    }*/
+        return "Message [id=" + id
+                    + ", emisor=" + emisor 
+                    + ", contenido=" + contenido 
+                    + ", fecha=" + fecha
+                    + ", chat=" + chat.getId() + "]";
+    }
 
     
 

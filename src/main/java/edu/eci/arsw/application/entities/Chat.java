@@ -67,7 +67,11 @@ public class Chat extends MessageCenter{
 
     @Override
     public String toString() {
-        return "Chat [id=" + id + ", tipo=" + tipo + ", user1=" + user1 + ", user2=" + user2 + "]";
+        return "Chat [id=" + id 
+                + ", tipo=" + tipo 
+                + ", user1=" + user1 
+                + ", user2=" + user2 
+                + ", mensajes=" + messages + "]";
     }
 
     /*

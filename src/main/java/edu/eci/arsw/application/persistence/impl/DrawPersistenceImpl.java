@@ -12,6 +12,7 @@ import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DrawPersistenceService;
 import edu.eci.arsw.application.persistence.DAO.ChatDAO;
+import edu.eci.arsw.application.persistence.DAO.MessageDAO;
 import edu.eci.arsw.application.persistence.DAO.UserDAO;
 
 @Service
@@ -22,6 +23,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Autowired
     private ChatDAO chatDAO;
+
+    @Autowired
+    private MessageDAO msgDAO;
 
     @Override
     public void addUser(User user) throws AppException {
@@ -146,6 +150,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
             if(ch.getUser1().getTelefono() == tUsuario1 
                 && ch.getUser2().getTelefono() == tUsuario2){
                 cht=ch;
+                List<Message> msgs = msgDAO.getMessagesByChat(cht.getId());
+                cht.setChat(cht.getId());
+                cht.setMessages(msgs);
                 break;
             }
         }
@@ -154,6 +161,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public void addMessage(Message msg) {
-        System.out.println("msg on");
+        System.out.println("Dice "+ msg.getEmisor().getNombre() + " que " + msg.getContenido());
+        msgDAO.save(msg);
     }
 }
