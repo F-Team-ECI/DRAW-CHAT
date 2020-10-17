@@ -6,6 +6,7 @@ import edu.eci.arsw.application.exceptions.AppException;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.Chat;
+import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.entities.User;
 
 /**
@@ -65,5 +66,7 @@ public interface DrawPersistenceService {
 	public void addChat(long tUsuario1, long tUsuario2);
 
 	public Chat getChat(long tUsuario1, long tUsuario2);
+
+	public void addMessage(Message msg);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.Chat;
+import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DrawPersistenceService;
@@ -45,7 +46,7 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
-    public User getCurrentUserSession() throws AppException{
+    public User getCurrentUserSession() throws AppException {
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -63,10 +64,10 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
-	public void deleteUser(long telefono) {
-		drawPersistenceService.deleteUser(telefono);
+    public void deleteUser(long telefono) {
+        drawPersistenceService.deleteUser(telefono);
     }
-    
+
     @Override
     public Chat getChat(long tUsuario1, long tUsuario2) throws AppException {
         return drawPersistenceService.getChat(tUsuario1, tUsuario2);
@@ -75,5 +76,10 @@ public class DrawChatServiceImpl implements DrawChatService {
     @Override
     public void addChat(long tUsuario1, long tUsuario2) throws AppException {
         drawPersistenceService.addChat(tUsuario1, tUsuario2);
+    }
+
+    @Override
+    public void addMessage(Message msg) throws AppException {
+        drawPersistenceService.addMessage(msg);
     }
 }

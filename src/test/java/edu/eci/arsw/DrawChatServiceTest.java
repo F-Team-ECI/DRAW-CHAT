@@ -148,7 +148,6 @@ public class DrawChatServiceTest {
 		try {
 			service.addUser(user);
 			for (User u : service.getUsers()) {
-				System.out.println(u.getTelefono());
 				if (u.getTelefono() == user.getTelefono())
 					temp = true;
 			}
@@ -226,7 +225,6 @@ public class DrawChatServiceTest {
 	@WithMockUser(username = "1291111111", password = "pwd", roles = "USER")
 	public void getCurrentSessionWoldBeRun() throws AppException {
 		long currentUserTelephone = service.getCurrentUserSession().getTelefono();
-		//System.out.println(currentUserTelephone);
 			assertTrue(
 					Long
 					.toString(currentUserTelephone)
@@ -436,8 +434,6 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
-		System.out.println("Nuevo Usuario");
-		System.out.println(user);
 		User upUser = new User(1111111111, // telefono,
 				"An", // nombre,
 				"Orj", // apellido,
@@ -445,17 +441,10 @@ public class DrawChatServiceTest {
 				null, // fecharegistro,
 				null, // fechaconexion,
 				StateEnum.ONLINE.toString()/* estado */);
-		System.out.println("Update Usuario");
-		System.out.println(upUser);
 		try {
 			service.addUser(user);
-			System.out.println("Antes");
-			System.out.println(service.getUser(user.getTelefono()));
 			service.updateUser(upUser);
-			System.out.println("Despues");
-			System.out.println(service.getUser(upUser.getTelefono()));
 		} catch (Exception e) {
-			System.out.println("Hubo un problema");
 			e.printStackTrace();
 		}
 	}
@@ -836,6 +825,7 @@ public class DrawChatServiceTest {
 		}
 	}
 	
+	//BORRAR ESTO
 	@Test
 	public void producttest() {
 		User user = new User(1661111111, // telefono,
