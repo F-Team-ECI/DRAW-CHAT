@@ -5,29 +5,49 @@ chatSub = (function () {
     var addChatToView = function(chat){
         if(!chatVisible(chat)){
             drawchat(chat);
-            console.log(chats);
             chats.push(chat);
-            console.log(chats);
         }
     }
 
+    var chatsRequest = function(){
+        var req = $.ajax({
+            url: '/chats/'+drawapp.getPhone(),
+            type: "GET",
+            success: function (data, status, xhr) {
+                console.log('status: ' + status +"code" + xhr + ', data: ' + data);
+                console.log(xhr.status);
+                console.log(data);
+                data.map(function(obj){
+                    addChatToView(obj);
+                });
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log('Error' + errorMessage);
+            }
+        });
+        return req;
+    }
+
     var drawchat = function(chat){
+        var user  = getUserOfChat(chat);
         var element = "<div class='chatInstance'>"
-        + getUserOfChat(chat)
+        + "<i>" + user.nombre +"</i>"
+        + "<i> </i>"
+        + "<i>" + user.apellido + "</i>"
+        + "<span>" + user.telefono + "</span>"
+        +"<i style='display: none;'>" + chat.id + "</i>"
         + "</div>"
-        $("#chatsContainer").append(element);
+        $("#chatsContainer").append(element).hide().show(200);
     }
 
     var chatVisible = function(chat){
-        var usuarioNuevo = getUserOfChat(chat);
+        var usuarioNuevo = getUserOfChat(chat).telefono;
         console.log(usuarioNuevo);
         var usuario = null;
         var c = null;
         for (i = 0; i < chats.length; i++) {
             c = chats[i];
-            console.log(c);
-            usuario = getUserOfChat(c);
-            console.log(usuario);
+            usuario = getUserOfChat(c).telefono;
             if(usuarioNuevo === usuario){
                 return true;
             }
@@ -38,9 +58,9 @@ chatSub = (function () {
     var getUserOfChat = function(chat){
         console.log(chat)
         if(chat.user1.telefono === drawapp.getPhone()){
-            return chat.user2.telefono;
+            return chat.user2;
         } else {
-            return chat.user1.telefono;
+            return chat.user1;
         }
     }
 
@@ -65,6 +85,7 @@ chatSub = (function () {
 
         init: function () {
             connectAndSubscribe();
+            chatsRequest();
         },
 
         sendChatCreation: function (chat) {
@@ -84,3 +105,13 @@ $(function () {
         }
     });
 })
+
+$(document).ready(function () {
+    $(document).on("click", ".chatInstance", function() {
+        var name = $(this).children().eq(0).text();
+        var apellido = $(this).children().eq(2).text();
+        var telefono = $(this).children().eq(3).text();
+        var id = $(this).children().eq(4).text();
+        console.log(id);
+    });
+});

@@ -202,8 +202,13 @@ body {
         border-style: groove;
         cursor: pointer;
         height: 4vh;
+        font-size: large;
 }
 
 .chatInstance:hover {
         background-color:#c2bbbb;
+}
+
+.chatInstance span {
+        float: right;
 }
