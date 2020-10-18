@@ -21,6 +21,7 @@ create table Chat(
 	usuario1 BIGINT,
 	usuario2 BIGINT,
 	tipo varchar(250),
+	primary key(usuario1, usuario2),
 	foreign key(usuario1) references Usuario (telefono),
 	foreign key(usuario2) references Usuario (telefono)
 );

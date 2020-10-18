@@ -164,4 +164,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         System.out.println("Dice "+ msg.getEmisor().getNombre() + " que " + msg.getContenido());
         msgDAO.save(msg);
     }
+
+    @Override
+    public List<Chat> getChats(long telefono) {
+        return chatDAO.getChatsByUser(telefono);
+    }
 }

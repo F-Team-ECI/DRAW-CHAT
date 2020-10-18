@@ -69,4 +69,6 @@ public interface DrawPersistenceService {
 
 	public void addMessage(Message msg);
 
+	public List<Chat> getChats(long telefono);
+
 }

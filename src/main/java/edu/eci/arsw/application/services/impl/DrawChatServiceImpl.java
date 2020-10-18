@@ -82,4 +82,9 @@ public class DrawChatServiceImpl implements DrawChatService {
     public void addMessage(Message msg) throws AppException {
         drawPersistenceService.addMessage(msg);
     }
+
+    @Override
+    public List<Chat> getChats(long telefono) throws AppException {
+        return drawPersistenceService.getChats(telefono);
+    }
 }

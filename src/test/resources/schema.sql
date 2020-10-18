@@ -11,10 +11,10 @@ CREATE TABLE public.usuario (
 
 CREATE TABLE public.chat (
 	id int4 NOT NULL,
-	usuario1 int8 NULL,
-	usuario2 int8 NULL,
+	usuario1 int8 NOT NULL,
+	usuario2 int8 NOT NULL,
 	tipo varchar(250) NULL,
-	CONSTRAINT chat_pkey PRIMARY KEY (id),
+	CONSTRAINT chat_pkey PRIMARY KEY (id,usuario1,usuario2),
 	CONSTRAINT chat_usuario1_fkey FOREIGN KEY (usuario1) REFERENCES usuario(telefono),
 	CONSTRAINT chat_usuario2_fkey FOREIGN KEY (usuario2) REFERENCES usuario(telefono)
 );
