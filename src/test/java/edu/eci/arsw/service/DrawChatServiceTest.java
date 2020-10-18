@@ -1,4 +1,4 @@
-package edu.eci.arsw;
+package edu.eci.arsw.service;
 
 import static org.junit.Assert.assertArrayEquals;
 import org.junit.runners.MethodSorters;
