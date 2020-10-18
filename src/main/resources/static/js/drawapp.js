@@ -97,6 +97,10 @@ var drawapp = (function () {
 
         getPhone: function(){
             return userR.telefono;
+        }, 
+
+        getUser: function(){
+            return userR;
         }
     }
 

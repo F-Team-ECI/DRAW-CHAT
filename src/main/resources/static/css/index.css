@@ -28,7 +28,8 @@ body {
 .column.left {
 	width: 30%;
         background-color: white;
-        margin: 0;
+        margin: 0; 
+        padding: 0;
 }
 
 .column.right {
@@ -143,7 +144,7 @@ body {
 
 #chatBox {
         height: 90%;
-        overflow-y: scroll;
+        overflow-y: auto;
 	display: flex;
 	flex-direction: column;
         flex: 1;
@@ -186,4 +187,23 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
         background: #554845d2; 
+}
+
+#chatsContainer {
+        overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+        flex: 1;
+        margin: 0;
+        height: 90%;
+}
+
+.chatInstance {
+        border-style: groove;
+        cursor: pointer;
+        height: 4vh;
+}
+
+.chatInstance:hover {
+        background-color:#c2bbbb;
 }

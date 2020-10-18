@@ -11,14 +11,18 @@ $(document).ready(function () {
 
     $(document).on("click", ".clickable-row", function() {
         var telefono = $(this).children().eq(0).text();
-        var nombre = $(this).children().eq(0).text();
-        var apellido = $(this).children().eq(0).text();
+        var nombre = $(this).children().eq(1).text();
+        var apellido = $(this).children().eq(2).text();
         var chat = {
-            "usuario1": {
+            "user1": {
                 "telefono": drawapp.getPhone(),
+                "nombre": drawapp.getUser().nombre,
+                "apellido": drawapp.getUser().apellido
             },
-            "usuario2": {
+            "user2": {
                 "telefono": telefono,
+                "nombre": nombre,
+                "apellido": apellido
             }
             
         }

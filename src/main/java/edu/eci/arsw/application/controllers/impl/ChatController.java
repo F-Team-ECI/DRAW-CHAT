@@ -2,7 +2,9 @@ package edu.eci.arsw.application.controllers.impl;
 
 import edu.eci.arsw.application.entities.Chat;
 import edu.eci.arsw.application.entities.util.Line;
+import edu.eci.arsw.application.exceptions.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -35,6 +37,15 @@ public class ChatController implements BaseController{
     @PostMapping
     public ResponseEntity<?> createChat(@RequestBody Chat chat){
         System.out.println(chat);
-        return null;
+        try {
+            drawChatService.addChat(chat.getUser1().getTelefono(), chat.getUser2().getTelefono());
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+        msgt.convertAndSend("/topic/chats."+chat.getUser1().getTelefono(), chat);
+        msgt.convertAndSend("/topic/chats."+chat.getUser2().getTelefono(), chat);
+
+        return new ResponseEntity<>("200 OK", HttpStatus.CREATED);
+
     }
 }
