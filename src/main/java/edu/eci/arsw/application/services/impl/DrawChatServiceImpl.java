@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.Chat;
+import edu.eci.arsw.application.entities.Group;
 import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
@@ -86,5 +87,20 @@ public class DrawChatServiceImpl implements DrawChatService {
     @Override
     public List<Chat> getChats(long telefono) throws AppException {
         return drawPersistenceService.getChats(telefono);
+    }
+
+    @Override
+    public void addGroup(Group grupo) throws AppException {
+        drawPersistenceService.addGroup(grupo);
+    }
+
+    @Override
+    public Group getGroup(String nombre) throws AppException {
+        return drawPersistenceService.getGroup(nombre);
+    }
+
+    @Override
+    public List<Message> getChatMessages(int chatid) throws AppException {
+        return drawPersistenceService.getChatMessages(chatid);
     }
 }

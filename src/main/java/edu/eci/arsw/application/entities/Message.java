@@ -26,12 +26,16 @@ public class Message {
 
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "chat", nullable = false)
+    @JoinColumn(name = "chat")
     private Chat chat;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "emisor", nullable = false)
     private User emisor;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "grupo")
+    private Group grupo;
     
     private String contenido;
     
@@ -40,11 +44,30 @@ public class Message {
 
     public Message(){
     }
-    
+
+    public Message(int id, Chat chat, Group grupo, User emisor, String contenido, Date fecha) {
+        this.id = id;
+        this.chat = chat;
+        this.emisor = emisor;
+        this.grupo = grupo;
+        this.contenido = contenido;
+        this.fecha = fecha;
+    }
+
+    //Chat
     public Message(int id, Chat chat, User emisor, String contenido, Date fecha) {
         this.id = id;
         this.chat = chat;
         this.emisor = emisor;
+        this.contenido = contenido;
+        this.fecha = fecha;
+    }
+
+    //Grupo
+    public Message(int id, Group grupo, User emisor, String contenido, Date fecha) {
+        this.id = id;
+        this.emisor = emisor;
+        this.grupo = grupo;
         this.contenido = contenido;
         this.fecha = fecha;
     }
@@ -89,17 +112,23 @@ public class Message {
         this.fecha = fecha;
     }
 
+    public Group getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Group grupo) {
+        this.grupo = grupo;
+    }
+
     @Override
     public String toString() {
         return "Message [id=" + id
                     + ", emisor=" + emisor 
                     + ", contenido=" + contenido 
                     + ", fecha=" + fecha
+                    + ", grupo=" + grupo
                     + ", chat=" + chat.getId() + "]";
     }
-
-    
-
     /*
     id int primary key,
 	chat int,

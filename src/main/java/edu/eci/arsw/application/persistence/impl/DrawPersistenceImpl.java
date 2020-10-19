@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.Chat;
+import edu.eci.arsw.application.entities.Group;
 import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DrawPersistenceService;
 import edu.eci.arsw.application.persistence.DAO.ChatDAO;
+import edu.eci.arsw.application.persistence.DAO.GroupDAO;
 import edu.eci.arsw.application.persistence.DAO.MessageDAO;
 import edu.eci.arsw.application.persistence.DAO.UserDAO;
 
@@ -26,6 +28,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Autowired
     private MessageDAO msgDAO;
+
+    @Autowired
+    private GroupDAO groupDAO;
 
     @Override
     public void addUser(User user) throws AppException {
@@ -132,12 +137,19 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-    public void addChat(long tUsuario1, long tUsuario2) {
+    public void addChat(long tUsuario1, long tUsuario2) throws AppException {
         User user1 = getUser(tUsuario1);
         User user2 = getUser(tUsuario2);
+        if (user1==null || user2==null) {
+            throw new AppException(AppException.USER_NOT_REGISTERED);
+        }
+        
         String tipo = "normal";
         Chat nChat = new Chat(0, user1, user2, tipo);
-        chatDAO.save(nChat);
+        if(getChat(tUsuario1, tUsuario2)==null || getChat(tUsuario2, tUsuario1)==null){
+            chatDAO.save(nChat);
+        }
+        
     }
 
     @Override
@@ -147,9 +159,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         Chat cht = null;
 
         for (Chat ch : chats) {
-            if(ch.getUser1().getTelefono() == tUsuario1 
-                && ch.getUser2().getTelefono() == tUsuario2){
-                cht=ch;
+            if ((ch.getUser1().getTelefono() == tUsuario1 && ch.getUser2().getTelefono() == tUsuario2)||
+                (ch.getUser2().getTelefono() == tUsuario1 && ch.getUser1().getTelefono() == tUsuario2)) {
+                cht = ch;
                 List<Message> msgs = msgDAO.getMessagesByChat(cht.getId());
                 cht.setChat(cht.getId());
                 cht.setMessages(msgs);
@@ -161,12 +173,50 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public void addMessage(Message msg) {
-        System.out.println("Dice "+ msg.getEmisor().getNombre() + " que " + msg.getContenido());
+        System.out.println("Dice " + msg.getEmisor().getNombre() + " que " + msg.getContenido());
         msgDAO.save(msg);
     }
 
     @Override
-    public List<Chat> getChats(long telefono) {
-        return chatDAO.getChatsByUser(telefono);
+    public List<Chat> getChats(long telefono) throws AppException {
+        List<Chat> chats = chatDAO.getChatsByUser(telefono);
+        if (chats==null) {
+            throw new AppException(AppException.USER_NOT_REGISTERED);
+        }
+        return chats;
+    }
+
+    @Override
+    public void addGroup(Group grupo) {
+        System.out.println("add grupo");
+        groupDAO.save(grupo);
+    }
+
+    @Override
+    public Group getGroup(String nombre) {
+        
+        List<Group> grupos = groupDAO.findAll();
+        Group grupo = null;
+
+        for (Group grp : grupos) {
+            if (grp.getNombre()==nombre) {
+                grupo=grp;
+                List<Message> msgs = msgDAO.getMessagesByGroup(grupo.getId());
+                grupo.setChat(grupo.getId());
+                grupo.setMessages(msgs);
+            }
+        }
+
+        return grupo;
+    }
+
+    @Override
+    public List<Message> getChatMessages(int chatid) throws AppException {
+        Optional<Chat> chat = chatDAO.findById(chatid);
+        List<Message> msgs = msgDAO.getMessagesByChat(chatid);
+        if (chat==null) {
+            throw new AppException(AppException.CHAT_NOT_EXISTS);
+        }
+        return msgs;
     }
 }
