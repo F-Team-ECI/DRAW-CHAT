@@ -7,6 +7,12 @@ var conversationChat = (function () {
     var loading = false;
     var textContent = null;
 
+    var playSound = function(au) {
+        var url = window.location.href+ au;
+        const audio = new Audio(url);
+        audio.play();
+    }
+
     var connectAndSubscribe = function (chatId) {
         console.info('Connecting to WS...');
         var socket = new SockJS('/stompendpoint');
@@ -23,6 +29,7 @@ var conversationChat = (function () {
                 var objDiv = document.getElementById("chatBox");
                 objDiv.scrollTop = objDiv.scrollHeight;
                 $("#mainTextArea").val("");
+                playSound("tone.mp3");
             });
         });
 
