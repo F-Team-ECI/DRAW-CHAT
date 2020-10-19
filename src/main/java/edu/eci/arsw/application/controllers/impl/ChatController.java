@@ -5,6 +5,7 @@ import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.exceptions.AppException;
 
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,13 @@ public class ChatController implements BaseController{
         Chat product = null;
         try {
             product = drawChatService.addChat(chat.getUser1().getTelefono(), chat.getUser2().getTelefono());
+            System.out.println(product);
+            System.out.println(chat);
             msgt.convertAndSend("/topic/chats/users."+chat.getUser1().getTelefono(), product);
             msgt.convertAndSend("/topic/chats/users."+chat.getUser2().getTelefono(), product);
         } catch (AppException e) {
             e.printStackTrace();
+            return new ResponseEntity<>("403", HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>("200 CREATED", HttpStatus.CREATED);
     }
@@ -52,21 +56,35 @@ public class ChatController implements BaseController{
 		}
 	}
 
-	@GetMapping(value = "/{id}/messages")
-    public ResponseEntity<?> getchatMessages(@PathVariable long id){
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-
     @PostMapping("/{id}/messages")
-    public ResponseEntity<?> handle(@RequestBody Message message, @PathVariable long id) throws AppException {
+    public ResponseEntity<?> handle(@RequestBody Message message, @PathVariable long id)  {
         System.out.println("GOOD");
         System.out.println(drawChatService);
         message.setFecha(new Date());
-        message.setEmisor(drawChatService.getCurrentUserSession());
-        System.out.println(message);
+        try{
+            message.setEmisor(drawChatService.getCurrentUserSession());
+            System.out.println(message);
+        } catch (AppException e){
+            return new ResponseEntity<>("401 Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+        try{
+            drawChatService.addMessage(message);
+        } catch (AppException e){
+            return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
+        }
         msgt.convertAndSend("/topic/chats/messages."+id, message);
         return new ResponseEntity<>("200 OK", HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/messages")
+    public ResponseEntity<?> getChatMessages(@PathVariable int id) {
+        List<Message> ans;
+        System.out.println(id);
+        try {
+            ans = drawChatService.getChatMessages(id);
+        } catch (AppException e) {
+            return new ResponseEntity<>("200 Bad Request", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(ans, HttpStatus.OK);
+    }
 }
