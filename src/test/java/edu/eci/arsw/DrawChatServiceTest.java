@@ -58,16 +58,16 @@ public class DrawChatServiceTest {
 
 	@Autowired
 	DrawPersistenceImpl persistence;
-	
+
 	@Autowired
 	ChatDAO chatDAO;
-	
+
 	@Autowired
 	MessageDAO messageDAO;
-	
+
 	@Autowired
 	UserDAO userDAO;
-	
+
 	@Test
 	public void cargar() throws AppException {
 		User user = new User(1291111111, // telefono,
@@ -240,14 +240,10 @@ public class DrawChatServiceTest {
 	@WithMockUser(username = "1291111111", password = "pwd", roles = "USER")
 	public void getCurrentSessionWoldBeRun() throws AppException {
 		long currentUserTelephone = service.getCurrentUserSession().getTelefono();
-			assertTrue(
-					Long
-					.toString(currentUserTelephone)
-					.equals(
-					"1291111111"));
-		
+		assertTrue(Long.toString(currentUserTelephone).equals("1291111111"));
+
 	}
-	
+
 	@Test
 	public void addUserAddContact() {
 		User user = new User();
@@ -463,7 +459,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldNotUpdateUserNombre() {
 		User user = new User(1811111111, // telefono,
@@ -480,7 +476,7 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
-		
+
 		try {
 			service.addUser(user);
 			service.updateUser(userUpdate);
@@ -489,10 +485,9 @@ public class DrawChatServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
+
 	@Test
 	public void shouldNotUpdateUserApellido() {
 		User user = new User(1911111111, // telefono,
@@ -509,7 +504,7 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
-		
+
 		try {
 			service.addUser(user);
 			service.updateUser(userUpdate);
@@ -519,7 +514,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldNotUpdateUserContraseña() {
 		User user = new User(1311111111, // telefono,
@@ -536,7 +531,7 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
-		
+
 		try {
 			service.addUser(user);
 			service.updateUser(userUpdate);
@@ -546,7 +541,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldNotUpdateUserEstado() {
 		User user = new User(1521111111, // telefono,
@@ -563,7 +558,7 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				null/* estado */);
-		
+
 		try {
 			service.addUser(user);
 			service.updateUser(userUpdate);
@@ -573,7 +568,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldUpdateUserAndDelete() {
 		User user = new User(1531111111, // telefono,
@@ -599,7 +594,7 @@ public class DrawChatServiceTest {
 			assertTrue(true);
 		}
 	}
-	
+
 	@Test
 	public void shouldAddUsersAddContactAndUpdateUser() {
 		User user = new User(1541111111, // telefono,
@@ -639,7 +634,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldAddUsersAddContactAndNotUpdateUserNombre() {
 		User user = new User(1631111111, // telefono,
@@ -679,7 +674,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldAddUsersAddContactAndNotUpdateUserApellido() {
 		User user = new User(1511111111, // telefono,
@@ -719,7 +714,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldAddUsersAddContactAndNotUpdateUserContraseña() {
 		User user = new User(1771111111, // telefono,
@@ -759,7 +754,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldAddUserAddContactAndNotUpdateUserEstado() {
 		User user = new User(1791111111, // telefono,
@@ -799,7 +794,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldAddUserAddContactUpdate() {
 		User user = new User(1661111111, // telefono,
@@ -839,7 +834,7 @@ public class DrawChatServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void shouldAddChat() {
 		boolean check = false;
@@ -864,10 +859,10 @@ public class DrawChatServiceTest {
 			service.addUser(userContact);
 			service.addChat(user.getTelefono(), userContact.getTelefono());
 			List<Chat> chats = chatDAO.findAll();
-			for(Chat c: chats) {
+			for (Chat c : chats) {
 				String tel1 = Long.toString(c.getUser1().getTelefono());
 				String tel2 = Long.toString(c.getUser2().getTelefono());
-				if(telUser.equals(tel1) && telUserContact.equals(tel2)) {
+				if (telUser.equals(tel1) && telUserContact.equals(tel2)) {
 					check = true;
 				}
 			}
@@ -875,14 +870,14 @@ public class DrawChatServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		assertTrue(check);
 
 	}
-	
+
 	@Test
 	public void shouldGetChat() {
-		
+
 		boolean res = true;
 		try {
 			Chat c = service.getChat(1111111211, 1111111311);
@@ -890,29 +885,28 @@ public class DrawChatServiceTest {
 			String s = Long.toString(c.getUser1().getTelefono());
 			String tel1 = "1111111211";
 			String tel2 = "1111111311";
-			if(f.toString().equals(tel1.toString()) && s.toString().equals(tel2.toString())) {
+			if (f.toString().equals(tel1.toString()) && s.toString().equals(tel2.toString())) {
 				res = true;
 			}
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		assertTrue(res);
 	}
-	
+
 	@Test
 	public void shouldNotGetChatInexistentFirstUser() {
-	
-			try {
-				Chat c = service.getChat(1811111211, 1111111311);
-			} catch (AppException e) {
-				assertTrue(true);
-			}
-			
+
+		try {
+			Chat c = service.getChat(1811111211, 1111111311);
+		} catch (AppException e) {
+			assertTrue(true);
+		}
 
 	}
-	
+
 	@Test
 	public void shouldNotGetChatInexistentSecondtUser() {
 		try {
@@ -921,7 +915,7 @@ public class DrawChatServiceTest {
 			assertTrue(true);
 		}
 	}
-	
+
 	@Test
 	public void shouldAddChatAndGetChat() {
 		boolean check = false;
@@ -947,18 +941,18 @@ public class DrawChatServiceTest {
 			service.addChat(user.getTelefono(), userContact.getTelefono());
 			Chat chat = service.getChat(1111111511, 1111111611);
 			String tel1 = Long.toString(chat.getUser1().getTelefono());
-			String tel2 = Long.toString(chat.getUser2().getTelefono());	
-			if(telUser.equals(tel1) && telUserContact.equals(tel2)) {
-					check = true;
+			String tel2 = Long.toString(chat.getUser2().getTelefono());
+			if (telUser.equals(tel1) && telUserContact.equals(tel2)) {
+				check = true;
 			}
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		assertTrue(check);
 	}
-	
+
 	@Test
 	public void shouldNotAddChatInexistentFirstUser() {
 		User userContact = new User(1111111711, // telefono,
@@ -979,10 +973,9 @@ public class DrawChatServiceTest {
 		} catch (DataIntegrityViolationException ei) {
 			assertTrue(true);
 		}
-		
+
 	}
 
-	
 	@Test
 	public void shouldNotAddChatInexistentSecondtUser() {
 		User user = new User(1111111831, // telefono,
@@ -1004,9 +997,7 @@ public class DrawChatServiceTest {
 			assertTrue(true);
 		}
 	}
-	
-	
-	
+
 	@Test
 	public void shouldAddMessage() {
 		boolean check = false;
@@ -1036,13 +1027,13 @@ public class DrawChatServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		Message me = messageDAO.findAll().get(0);
-		
-		assertEquals(1, me.getId()-1);
+
+		assertEquals(1, me.getId() - 1);
 
 	}
-	
+
 	@Test
 	public void messageShouldHaveContent() {
 		boolean check = false;
@@ -1070,19 +1061,19 @@ public class DrawChatServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<Message> me = messageDAO.findAll();
-		
-		for(Message ms: me) {
-			if(ms.getContenido().equals("hola")) {
+
+		for (Message ms : me) {
+			if (ms.getContenido().equals("hola")) {
 				check = true;
 			}
 		}
-		
+
 		assertTrue(check);
 
 	}
-	
+
 	@Test
 	public void messageAddedShouldHaveEmisor() {
 		boolean check = false;
@@ -1110,18 +1101,18 @@ public class DrawChatServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<Message> me = messageDAO.findAll();
-		
-		for(Message ms: me) {
-			if(Long.toString(ms.getEmisor().getTelefono()).equals("1291111511")) {
+
+		for (Message ms : me) {
+			if (Long.toString(ms.getEmisor().getTelefono()).equals("1291111511")) {
 				check = true;
 			}
 		}
-		
+
 		assertTrue(check);
 	}
-	
+
 	@Test
 	public void messageAddedShouldHaveUsersChat() {
 		boolean check = false;
@@ -1149,21 +1140,19 @@ public class DrawChatServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<Message> me = messageDAO.findAll();
-		
-		for(Message ms: me) {
-			if(Long.toString(ms.getChat().getUser1().getTelefono())
-					.equals("1271111511") && 
-			   Long.toString(ms.getChat().getUser2().getTelefono())
-					.equals("1271111611")){
+
+		for (Message ms : me) {
+			if (Long.toString(ms.getChat().getUser1().getTelefono()).equals("1271111511")
+					&& Long.toString(ms.getChat().getUser2().getTelefono()).equals("1271111611")) {
 				check = true;
 			}
 		}
-		
+
 		assertTrue(check);
 	}
-	
+
 	@Test
 	public void messageIdShouldIncrement() {
 		boolean check = false;
@@ -1191,22 +1180,19 @@ public class DrawChatServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<Message> me = messageDAO.findAll();
-		
-		for(Message ms: me) {
-			if(Long.toString(ms.getChat().getUser1().getTelefono())
-					.equals("1273111511") && 
-			   Long.toString(ms.getChat().getUser2().getTelefono())
-					.equals("1273111611") &&
-				ms.getId()>=2){
+
+		for (Message ms : me) {
+			if (Long.toString(ms.getChat().getUser1().getTelefono()).equals("1273111511")
+					&& Long.toString(ms.getChat().getUser2().getTelefono()).equals("1273111611") && ms.getId() >= 2) {
 				check = true;
 			}
 		}
-		
+
 		assertTrue(check);
 	}
-	
+
 	@Test
 	public void shouldGetChatByTelephone() {
 		boolean check = false;
@@ -1231,16 +1217,16 @@ public class DrawChatServiceTest {
 			service.addChat(user.getTelefono(), userContact.getTelefono());
 			List<Chat> chats = service.getChats(1293111511);
 			ct = chats.get(0);
-			
+
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		assertTrue(1293111511 == ct.getUser1().getTelefono());
-		//assertTrue(check);
+		// assertTrue(check);
 	}
-	
+
 	@Test
 	public void shouldNotGetChatByTelephone() {
 		boolean check = false;
@@ -1265,177 +1251,207 @@ public class DrawChatServiceTest {
 			service.addChat(user.getTelefono(), userContact.getTelefono());
 			List<Chat> chats = service.getChats(1893111511);
 			ct = chats.get(0);
-			
+
 		} catch (AppException e) {
 			assertTrue(true);
 		} catch (IndexOutOfBoundsException ei) {
 			assertTrue(true);
 		}
-		
-		//assertTrue(1293111511 == ct.getUser1().getTelefono());
-		//assertTrue(check);
+
+		// assertTrue(1293111511 == ct.getUser1().getTelefono());
+		// assertTrue(check);
 	}
-	
+
 	@Test
 	public void souldIdofChatShouldIncrement() {
 		List<Chat> chats = chatDAO.findAll();
-		boolean increment = chats.size()>=5;
+		boolean increment = chats.size() >= 5;
 		assertTrue(increment);
 	}
-	
-	// @Test
-	// public void shouldPastMessageHaveContent() {
-	// 	messageDAO.deleteAll();
-	// 	boolean check = true;
-	// 	User user = new User(1222222221, // telefono,
-	// 			"Julian", // nombre,
-	// 			"Prueba", // apellido,
-	// 			"abcdefg", // contraseña,
-	// 			new Date(), // fecharegistro,
-	// 			new Date(), // fechaconexion,
-	// 			StateEnum.DISCONNECTED.toString()/* estado */);
-	// 	User userContact = new User(1333333331, // telefono,
-	// 			"Federico", // nombre,
-	// 			"Prueba", // apellido,
-	// 			"abcdefg", // contraseña,
-	// 			new Date(), // fecharegistro,
-	// 			new Date(), // fechaconexion,
-	// 			StateEnum.DISCONNECTED.toString()/* estado */);
-	// 	try {
-	// 		service.addUser(user);
-	// 		service.addUser(userContact);
-	// 		service.addChat(user.getTelefono(), userContact.getTelefono());
-	// 		Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 	} catch (AppException e) {
-	// 		// TODO Auto-generated catch block
-	// 		e.printStackTrace();
-	// 	}
-		
-	// 	List<Message> me = messageDAO.findAll();
-		
-		
-	// 	int cont = 0;
-	// 	for(Message ms: me) {
-	// 		if(!ms.getContenido().equals("mensaje")) {
-	// 			check = false;
-	// 		}
 
-	// 	}
-	// 	assertTrue(check);
+	@Test
+	public void shouldPastMessageHaveContent() {
+		messageDAO.deleteAll();
+		boolean check = true;
+		User user = new User(1222222221, // telefono,
+				"Julian", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User userContact = new User(1333333331, // telefono,
+				"Federico", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		try {
+			service.addUser(user);
+			service.addUser(userContact);
+			service.addChat(user.getTelefono(), userContact.getTelefono());
+			Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	// }
-	
-	
-	// @Test
-	// public void shouldPastMessageHaveContentAfterTenMessages() {
-	// 	boolean check = true;
-	// 	User user = new User(1444444441, // telefono,
-	// 			"Julian", // nombre,
-	// 			"Prueba", // apellido,
-	// 			"abcdefg", // contraseña,
-	// 			new Date(), // fecharegistro,
-	// 			new Date(), // fechaconexion,
-	// 			StateEnum.DISCONNECTED.toString()/* estado */);
-	// 	User userContact = new User(1555555551, // telefono,
-	// 			"Federico", // nombre,
-	// 			"Prueba", // apellido,
-	// 			"abcdefg", // contraseña,
-	// 			new Date(), // fecharegistro,
-	// 			new Date(), // fechaconexion,
-	// 			StateEnum.DISCONNECTED.toString()/* estado */);
-	// 	try {
-	// 		service.addUser(user);
-	// 		service.addUser(userContact);
-	// 		service.addChat(user.getTelefono(), userContact.getTelefono());
-	// 		Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 	} catch (AppException e) {
-	// 		// TODO Auto-generated catch block
-	// 		e.printStackTrace();
-	// 	}
-		
-	// 	List<Message> me = messageDAO.findAll();
-		
-	// 	for(Message ms: me) {
-	// 		if(!ms.getContenido().equals("mensaje")) {
-	// 			check = false;
-	// 		}
+		List<Message> me = messageDAO.findAll();
 
-	// 	}
-	// 	assertTrue(check);
-	// }
-	
-	
-	
-	// @Test
-	// public void shouldPastMessageHaveContentAfterTwentyMessages() {
-	// 	boolean check = true;
-	// 	User user = new User(1666666661, // telefono,
-	// 			"Julian", // nombre,
-	// 			"Prueba", // apellido,
-	// 			"abcdefg", // contraseña,
-	// 			new Date(), // fecharegistro,
-	// 			new Date(), // fechaconexion,
-	// 			StateEnum.DISCONNECTED.toString()/* estado */);
-	// 	User userContact = new User(1777777771, // telefono,
-	// 			"Federico", // nombre,
-	// 			"Prueba", // apellido,
-	// 			"abcdefg", // contraseña,
-	// 			new Date(), // fecharegistro,
-	// 			new Date(), // fechaconexion,
-	// 			StateEnum.DISCONNECTED.toString()/* estado */);
-	// 	try {
-	// 		service.addUser(user);
-	// 		service.addUser(userContact);
-	// 		service.addChat(user.getTelefono(), userContact.getTelefono());
-	// 		Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 		service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
-	// 	} catch (AppException e) {
-	// 		// TODO Auto-generated catch block
-	// 		e.printStackTrace();
-	// 	}
-		
-	// 	List<Message> me = messageDAO.findAll();
-		
-	// 	for(Message ms: me) {
-	// 		if(!ms.getContenido().equals("mensaje")) {
-	// 			check = false;
-	// 		}
+		int cont = 0;
+		for (Message ms : me) {
+			if (!ms.getContenido().equals("mensaje")) {
+				check = false;
+			}
 
-	// 	}
-	// 	assertTrue(check);
-	//  }
-	
+		}
+		assertTrue(check);
+
+	}
+
+	@Test
+	public void shouldPastMessageHaveContentAfterTenMessages() {
+		boolean check = true;
+		User user = new User(1444444441, // telefono,
+				"Julian", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User userContact = new User(1555555551, // telefono,
+				"Federico", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		try {
+			service.addUser(user);
+			service.addUser(userContact);
+			service.addChat(user.getTelefono(), userContact.getTelefono());
+			Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		List<Message> me = messageDAO.findAll();
+
+		for (Message ms : me) {
+			if (!ms.getContenido().equals("mensaje")) {
+				check = false;
+			}
+
+		}
+		assertTrue(check);
+	}
+
+	@Test
+	public void shouldPastMessageHaveContentAfterTwentyMessages() {
+		boolean check = true;
+		User user = new User(1666666661, // telefono,
+				"Julian", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User userContact = new User(1777777771, // telefono,
+				"Federico", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		try {
+			service.addUser(user);
+			service.addUser(userContact);
+			service.addChat(user.getTelefono(), userContact.getTelefono());
+			Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		List<Message> me = messageDAO.findAll();
+
+		for (Message ms : me) {
+			if (!ms.getContenido().equals("mensaje")) {
+				check = false;
+			}
+
+		}
+		assertTrue(check);
+	}
+
+	@Test
+	public void shouldGetChatMessages() {
+		boolean check = true;
+		User user = new User(1663366661, // telefono,
+				"Julian", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User userContact = new User(1772277771, // telefono,
+				"Federico", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		try {
+			service.addUser(user);
+			service.addUser(userContact);
+			service.addChat(user.getTelefono(), userContact.getTelefono());
+			Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			service.addMessage(new Message(0, chat, user, "mensaje", new Date()));
+			List<Message> msgs = service.getChatMessages(chat.getId());
+			
+			for(Message ms: msgs) {
+				if(!ms.getContenido().equals("mensaje")) {
+					check = false;
+				}
+			}
+			
+		}catch (AppException e) {
+			// TODO: handle exception
+		}
+		
+		assertTrue(check);
+	}
+
 	/**
-	@Test
-	public void test19() {
-		
-	}
-	
-	@Test
-	public void test20() {
-		
-	}
-	*/
-	//BORRAR ESTO
+	 * @Test public void test20() {
+	 * 
+	 *       }
+	 */
+	// BORRAR ESTO
 	@Test
 	public void producttest2() {
 		User user = new User(1661111111, // telefono,
@@ -1458,14 +1474,14 @@ public class DrawChatServiceTest {
 			service.addContact(user.getTelefono(), userContact.getTelefono());
 			List<User> usuariosTemp = service.getContacts(user.getTelefono());
 			System.out.println(usuariosTemp);
-			//List<User> usuariosTemp = service.getContacts(user.getTelefono());
-			//System.out.println(usuariosTemp);
+			// List<User> usuariosTemp = service.getContacts(user.getTelefono());
+			// System.out.println(usuariosTemp);
 			service.addChat(user.getTelefono(), userContact.getTelefono());
 			System.out.println("ok");
-			//System.out.println("ok new chat");
+			// System.out.println("ok new chat");
 			Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
 			System.out.println(chat);
-			//System.out.println(chat);
+			// System.out.println(chat);
 			Message msg11 = new Message(0, chat, user, "hola", new Date());
 			service.addMessage(msg11);
 			Message msg21 = new Message(0, chat, userContact, "hey", new Date());
@@ -1485,7 +1501,7 @@ public class DrawChatServiceTest {
 		}
 	}
 
-	//BORRAR ESTO
+	// BORRAR ESTO
 	@Test
 	public void producttest() {
 		User user = new User(1661111111, // telefono,
@@ -1506,8 +1522,8 @@ public class DrawChatServiceTest {
 			service.addUser(user);
 			service.addUser(userContact);
 			service.addContact(user.getTelefono(), userContact.getTelefono());
-			//List<User> usuariosTemp = service.getContacts(user.getTelefono());
-			//System.out.println(usuariosTemp);
+			// List<User> usuariosTemp = service.getContacts(user.getTelefono());
+			// System.out.println(usuariosTemp);
 			String nombre = "grupo de apoyo";
 			Group grupo = new Group(0, "grupo de apoyo", "te ayudamos con apoyo", new Date());
 			service.addGroup(grupo);
@@ -1519,8 +1535,8 @@ public class DrawChatServiceTest {
 			service.addMessage(msg1);
 			System.out.println("ok msg");
 
-			//Group grp2 = service.getGroup(nombre);
-			//System.out.println(grp2);
+			// Group grp2 = service.getGroup(nombre);
+			// System.out.println(grp2);
 
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
