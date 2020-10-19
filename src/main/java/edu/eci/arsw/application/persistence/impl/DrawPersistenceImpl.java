@@ -148,6 +148,8 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         Chat ans = null;
         if(getChat(tUsuario1, tUsuario2)==null || getChat(tUsuario2, tUsuario1)==null){
             ans = chatDAO.save(nChat);
+        } else {
+            throw new AppException(AppException.CHAT_ALREADY_EXISTS);
         }
         return ans;
     }

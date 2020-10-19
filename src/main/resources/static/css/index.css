@@ -222,3 +222,30 @@ body {
         justify-content: center;
         text-align: center;
 }
+
+.rightMessage {
+        float: right;
+        text-align: right;
+        border-radius: 20px;
+        padding: 10px;
+        border: 2px solid #000000;
+        background-color: ivory;
+        max-width: 40%;
+        word-wrap: break-word;
+}
+
+.leftMessage {
+        float: left;
+        text-align: left;
+        border-radius: 20px;
+        padding: 10px;
+        border: 2px solid #686161;
+        background-color: rgb(70, 68, 68);
+        color: white;
+        max-width: 40%;
+        word-wrap: break-word;
+}
+
+.rightContainer {
+        justify-content: flex-end;
+}

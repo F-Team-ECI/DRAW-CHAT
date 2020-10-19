@@ -84,11 +84,6 @@ chatSub = (function () {
         init: function () {
             connectAndSubscribe();
             chatsRequest();
-        },
-
-        sendChatCreation: function (chat) {
-            stompClient.send('/topic/chats/users.' + chat.usuario1.telefono, {}, JSON.stringify(chat));
-            stompClient.send('/topic/chats/users.' + chat.usuario2.telefono, {}, JSON.stringify(chat));
         }
 
     }
