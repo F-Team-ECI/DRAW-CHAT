@@ -1,4 +1,4 @@
-package edu.eci.arsw.socket;
+package edu.eci.arsw;
 
 import org.junit.Test;
 
