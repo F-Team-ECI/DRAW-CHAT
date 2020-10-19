@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +39,8 @@ public class UserController {
 			User nuevo = mapper.readValue(user, User.class);
 			nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
 			nuevo.setEstado(StateEnum.DISCONNECTED.toString());
+			nuevo.setFecharegistro(new Date());
+			nuevo.setFechaconexion(new Date());
 			drawChatService.addUser(nuevo);
 		} catch (JsonProcessingException | AppException e) {
 			Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
@@ -102,6 +106,7 @@ public class UserController {
 
 	@GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getCurrentUser() {
+		System.out.println(drawChatService);
 		try {
 			return new ResponseEntity<>(
 					mapper.writerWithDefaultPrettyPrinter().writeValueAsString(drawChatService.getCurrentUserSession()),

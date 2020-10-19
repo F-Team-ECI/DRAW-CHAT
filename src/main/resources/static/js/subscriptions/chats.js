@@ -11,7 +11,7 @@ chatSub = (function () {
 
     var chatsRequest = function(){
         var req = $.ajax({
-            url: '/chats/'+drawapp.getPhone(),
+            url: '/chats/users/'+drawapp.getPhone(),
             type: "GET",
             success: function (data, status, xhr) {
                 console.log('status: ' + status +"code" + xhr + ', data: ' + data);
@@ -42,7 +42,6 @@ chatSub = (function () {
 
     var chatVisible = function(chat){
         var usuarioNuevo = getUserOfChat(chat).telefono;
-        console.log(usuarioNuevo);
         var usuario = null;
         var c = null;
         for (i = 0; i < chats.length; i++) {
@@ -56,7 +55,6 @@ chatSub = (function () {
     }
 
     var getUserOfChat = function(chat){
-        console.log(chat)
         if(chat.user1.telefono === drawapp.getPhone()){
             return chat.user2;
         } else {
@@ -72,7 +70,7 @@ chatSub = (function () {
         //subscribe to /topic/TOPICXX when connections succeed
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/chats.' + drawapp.getPhone(), function (eventbody) {
+            stompClient.subscribe('/topic/chats/users.' + drawapp.getPhone(), function (eventbody) {
                 var theObject = JSON.parse(eventbody.body);
                 console.log(theObject);
                 addChatToView(theObject);
@@ -89,29 +87,10 @@ chatSub = (function () {
         },
 
         sendChatCreation: function (chat) {
-            stompClient.send('/topic/chats.' + chat.usuario1.telefono, {}, JSON.stringify(chat));
-            stompClient.send('/topic/chats.' + chat.usuario2.telefono, {}, JSON.stringify(chat));
+            stompClient.send('/topic/chats/users.' + chat.usuario1.telefono, {}, JSON.stringify(chat));
+            stompClient.send('/topic/chats/users.' + chat.usuario2.telefono, {}, JSON.stringify(chat));
         }
 
     }
 
 })();
-
-$(function () {
-    $("#mainTextArea").keypress(function (e) {
-        if (e.which == 13 && !e.shiftKey) {
-            console.log($("#mainTextArea").val());
-            e.preventDefault();
-        }
-    });
-})
-
-$(document).ready(function () {
-    $(document).on("click", ".chatInstance", function() {
-        var name = $(this).children().eq(0).text();
-        var apellido = $(this).children().eq(2).text();
-        var telefono = $(this).children().eq(3).text();
-        var id = $(this).children().eq(4).text();
-        console.log(id);
-    });
-});

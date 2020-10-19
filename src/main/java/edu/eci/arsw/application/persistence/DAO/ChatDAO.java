@@ -15,7 +15,7 @@ import edu.eci.arsw.application.entities.Chat;
 @Service
 @Transactional
 public interface ChatDAO extends JpaRepository<Chat, Integer> {
-    @Query(value = "select * from chat c where c.usuario1 = :telefono",nativeQuery = true)
+    @Query(value = "select * from chat c where c.usuario1 = :telefono or c.usuario2 = :telefono",nativeQuery = true)
     public List<Chat> getChatsByUser(long telefono);
 }
 

@@ -26,7 +26,7 @@ $(document).ready(function () {
             }
             
         }
-        sendPostCreation(chat).then(confirmCreation);
+        sendPostCreation(chat);
     });
 
 });

@@ -63,7 +63,7 @@ public interface DrawPersistenceService {
      */
 	public void updateUser(User user) throws AppException;
 
-	public void addChat(long tUsuario1, long tUsuario2);
+	public Chat addChat(long tUsuario1, long tUsuario2);
 
 	public Chat getChat(long tUsuario1, long tUsuario2);
 

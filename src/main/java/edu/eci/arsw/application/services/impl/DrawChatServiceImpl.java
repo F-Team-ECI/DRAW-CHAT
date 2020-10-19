@@ -49,6 +49,7 @@ public class DrawChatServiceImpl implements DrawChatService {
     public User getCurrentUserSession() throws AppException {
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(principal);
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
         } else {
@@ -74,8 +75,8 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
-    public void addChat(long tUsuario1, long tUsuario2) throws AppException {
-        drawPersistenceService.addChat(tUsuario1, tUsuario2);
+    public Chat addChat(long tUsuario1, long tUsuario2) throws AppException {
+        return drawPersistenceService.addChat(tUsuario1, tUsuario2);
     }
 
     @Override

@@ -83,7 +83,7 @@ public interface DrawChatService {
 
     public List<Chat> getChats(long telefono) throws AppException;
 
-    public void addChat(long tUsuario1,long tUsuario2) throws AppException;
+    public Chat addChat(long tUsuario1,long tUsuario2) throws AppException;
 
     public void addMessage(Message msg) throws AppException;
 }

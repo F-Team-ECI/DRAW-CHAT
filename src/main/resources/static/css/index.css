@@ -212,3 +212,13 @@ body {
 .chatInstance span {
         float: right;
 }
+
+.loadingchat {
+        width: inherit;
+        height: inherit;
+        font-size: xx-large;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+}

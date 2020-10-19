@@ -132,12 +132,12 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-    public void addChat(long tUsuario1, long tUsuario2) {
+    public Chat addChat(long tUsuario1, long tUsuario2) {
         User user1 = getUser(tUsuario1);
         User user2 = getUser(tUsuario2);
         String tipo = "normal";
         Chat nChat = new Chat(0, user1, user2, tipo);
-        chatDAO.save(nChat);
+        return chatDAO.save(nChat);
     }
 
     @Override

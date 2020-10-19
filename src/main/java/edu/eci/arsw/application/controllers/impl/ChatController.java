@@ -1,7 +1,10 @@
 package edu.eci.arsw.application.controllers.impl;
 
 import edu.eci.arsw.application.entities.Chat;
+import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.exceptions.AppException;
+
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import edu.eci.arsw.application.controllers.BaseController;
 import edu.eci.arsw.application.services.DrawChatService;
@@ -31,27 +29,20 @@ public class ChatController implements BaseController{
     @Autowired
     SimpMessagingTemplate msgt;
 
-    @MessageMapping("/chats.{phone}")
-    public void handleBuyEvent(Chat chat, @DestinationVariable String phone) throws Exception {
-        msgt.convertAndSend("/topic/chats."+phone, chat);
-    }
-
     @PostMapping
     public ResponseEntity<?> createChat(@RequestBody Chat chat){
-        System.out.println(chat);
+        Chat product = null;
         try {
-            drawChatService.addChat(chat.getUser1().getTelefono(), chat.getUser2().getTelefono());
+            product = drawChatService.addChat(chat.getUser1().getTelefono(), chat.getUser2().getTelefono());
+            msgt.convertAndSend("/topic/chats/users."+chat.getUser1().getTelefono(), product);
+            msgt.convertAndSend("/topic/chats/users."+chat.getUser2().getTelefono(), product);
         } catch (AppException e) {
             e.printStackTrace();
         }
-        msgt.convertAndSend("/topic/chats."+chat.getUser1().getTelefono(), chat);
-        msgt.convertAndSend("/topic/chats."+chat.getUser2().getTelefono(), chat);
-
-        return new ResponseEntity<>("200 OK", HttpStatus.CREATED);
-
+        return new ResponseEntity<>("200 CREATED", HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{telefono}", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{telefono}", method = RequestMethod.GET)
 	public ResponseEntity<?> getChats(@PathVariable long telefono) {
 		try {
 			return new ResponseEntity<>(drawChatService.getChats(telefono), HttpStatus.OK);
@@ -60,4 +51,22 @@ public class ChatController implements BaseController{
 			return new ResponseEntity<>("HTTP 404 Not Found", HttpStatus.NOT_FOUND);
 		}
 	}
+
+	@GetMapping(value = "/{id}/messages")
+    public ResponseEntity<?> getchatMessages(@PathVariable long id){
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/{id}/messages")
+    public ResponseEntity<?> handle(@RequestBody Message message, @PathVariable long id) throws AppException {
+        System.out.println("GOOD");
+        System.out.println(drawChatService);
+        message.setFecha(new Date());
+        message.setEmisor(drawChatService.getCurrentUserSession());
+        System.out.println(message);
+        msgt.convertAndSend("/topic/chats/messages."+id, message);
+        return new ResponseEntity<>("200 OK", HttpStatus.OK);
+    }
+
 }
