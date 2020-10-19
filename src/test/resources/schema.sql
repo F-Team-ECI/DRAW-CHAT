@@ -11,10 +11,10 @@ CREATE TABLE public.usuario (
 
 CREATE TABLE public.chat (
 	id int4 NOT NULL,
-	usuario1 int8 NOT NULL,
-	usuario2 int8 NOT NULL,
+	usuario1 int8 NULL,
+	usuario2 int8 NULL,
 	tipo varchar(250) NULL,
-	CONSTRAINT chat_pkey PRIMARY KEY (id,usuario1,usuario2),
+	CONSTRAINT chat_pkey PRIMARY KEY (id),
 	CONSTRAINT chat_usuario1_fkey FOREIGN KEY (usuario1) REFERENCES usuario(telefono),
 	CONSTRAINT chat_usuario2_fkey FOREIGN KEY (usuario2) REFERENCES usuario(telefono)
 );
@@ -32,9 +32,7 @@ CREATE TABLE public.grupo (
 	nombre varchar(250) NULL,
 	lema varchar(250) NULL,
 	fechacreacion timestamp NULL,
-	chat int4 NULL,
-	CONSTRAINT grupo_pkey PRIMARY KEY (id),
-	CONSTRAINT grupo_chat_fkey FOREIGN KEY (chat) REFERENCES chat(id)
+	CONSTRAINT grupo_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE public.gruposusuario (
@@ -49,11 +47,13 @@ CREATE TABLE public.gruposusuario (
 CREATE TABLE public.mensaje (
 	id int4 NOT NULL,
 	chat int4 NULL,
+	grupo int4 NULL,
 	emisor int8 NULL,
 	contenido varchar(250) NULL,
 	fecha timestamp NULL,
 	CONSTRAINT mensaje_pkey PRIMARY KEY (id),
 	CONSTRAINT mensaje_chat_fkey FOREIGN KEY (chat) REFERENCES chat(id),
+	CONSTRAINT mensaje_grupo_fkey FOREIGN KEY (grupo) REFERENCES grupo(id),
 	CONSTRAINT mensaje_emisor_fkey FOREIGN KEY (emisor) REFERENCES usuario(telefono)
 );
 

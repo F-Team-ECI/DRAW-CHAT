@@ -6,6 +6,7 @@ import edu.eci.arsw.application.exceptions.AppException;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.Chat;
+import edu.eci.arsw.application.entities.Group;
 import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.entities.User;
 
@@ -63,12 +64,17 @@ public interface DrawPersistenceService {
      */
 	public void updateUser(User user) throws AppException;
 
-	public Chat addChat(long tUsuario1, long tUsuario2);
+	public Chat addChat(long tUsuario1, long tUsuario2) throws AppException;
 
-	public Chat getChat(long tUsuario1, long tUsuario2);
+	public Chat getChat(long tUsuario1, long tUsuario2) throws AppException;
 
-	public void addMessage(Message msg);
+    public void addMessage(Message msg)throws AppException;
 
-	public List<Chat> getChats(long telefono);
+	public List<Chat> getChats(long telefono)throws AppException;
+    
+    public void addGroup(Group grupo)throws AppException;
 
+	public Group getGroup(String nombre)throws AppException;
+
+	public List<Message> getChatMessages(int chatid) throws AppException;
 }

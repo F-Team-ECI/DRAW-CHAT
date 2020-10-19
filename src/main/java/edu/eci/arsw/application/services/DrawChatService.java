@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.Chat;
+import edu.eci.arsw.application.entities.Group;
 import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
@@ -81,9 +82,15 @@ public interface DrawChatService {
      */
     public Chat getChat(long tUsuario1,long tUsuario2) throws AppException;
 
+    public List<Message> getChatMessages(int chatid) throws AppException;
+
     public List<Chat> getChats(long telefono) throws AppException;
 
     public Chat addChat(long tUsuario1,long tUsuario2) throws AppException;
 
     public void addMessage(Message msg) throws AppException;
+
+    public void addGroup(Group grupo) throws AppException;
+
+    public Group getGroup(String nombre) throws AppException;
 }

@@ -17,11 +17,11 @@ create table Contacto(
 );
 
 create table Chat(
-	id int primary key,
+	id int,
 	usuario1 BIGINT,
 	usuario2 BIGINT,
 	tipo varchar(250),
-	primary key(usuario1, usuario2),
+	primary key(id),
 	foreign key(usuario1) references Usuario (telefono),
 	foreign key(usuario2) references Usuario (telefono)
 );
@@ -30,9 +30,7 @@ create table Grupo(
 	id int primary key,
 	nombre varchar(250),
 	lema varchar(250),
-	fechaCreacion TIMESTAMP,
-	chat int,
-	foreign key(chat) references chat (id)
+	fechaCreacion TIMESTAMP
 );
 
 create table GruposUsuario(
@@ -59,16 +57,16 @@ create table SesionTablero(
 	grupo int,
 	fecha date,
 	foreign key(grupo) references Grupo (id)
-	
 );
 
 create table mensaje(
 	id int primary key,
 	chat int,
+	grupo int,
 	emisor BIGINT,
 	contenido varchar(250),
 	fecha TIMESTAMP,
 	foreign key(chat) references chat (id),
+	foreign key(grupo) references grupo (id),
 	foreign key(emisor) references usuario (telefono)
 );
-
