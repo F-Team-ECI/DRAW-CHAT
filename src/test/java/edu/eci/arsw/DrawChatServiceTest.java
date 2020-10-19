@@ -1446,11 +1446,16 @@ public class DrawChatServiceTest {
 		assertTrue(check);
 	}
 
-	/**
-	 * @Test public void test20() {
-	 * 
-	 *       }
-	 */
+	
+	@Test 
+	public void shouldNotGetChatMessages() {
+		try {
+			service.getChatMessages(3045);
+		} catch (AppException e) {
+			assertTrue(e.getMessage().equals(AppException.CHAT_NOT_EXISTS));
+		}
+	}
+	 
 	// BORRAR ESTO
 	@Test
 	public void producttest2() {
