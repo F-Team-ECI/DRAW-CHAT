@@ -1,4 +1,4 @@
-package edu.eci.arsw.controller;
+package edu.eci.arsw;
 
 import org.junit.Test;
 
@@ -83,6 +83,39 @@ public class DrawChatControllerTest {
 	//@Autowired
 	//private TestRestTemplate restTemplate;
 	//
+	
+	@Test
+	public void shouldGetCurrentLoad() {
+		User user = new User(
+				1652231111, 
+				"prueba", 
+				"pr", 
+				"pwddd", 
+				new Date(), 
+				new Date(), 
+				StateEnum.DISCONNECTED.toString());
+		try {
+			service.addUser(user);
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username = "1652231111", password = "pwddd", roles = "USER")
+	public void shouldGetCurrentUser() throws Exception {
+		String uri = "/users/me";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+	}
+	
 	@Test
 	public void shouldNotGetUsers() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/users"))
@@ -331,8 +364,47 @@ public class DrawChatControllerTest {
 				.andReturn();
 
 	}
+	
+	@Test
+	public void shouldGetContactsByUser() throws Exception {
+		User user1 = new User(1665566661, // telefono,
+				"Julian", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User user2 = new User(1775577771, // telefono,
+				"Federico", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		try {
+			service.addUser(user1);
+			service.addUser(user2);
+			service.addContact(1665566661, 1775577771);
+		}catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String uri = "/users/1665566661/contacts";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+		String content = mvcResult.getResponse().getContentAsString();
+		User[] chats = mapFromJson(content, User[].class);
+		assertTrue(chats.length==1);
+	}
 
-	/*
+	
 	@Test
 	public void shouldGetChatByPhone() throws Exception {
 		User user1 = new User(1566666661, // telefono,
@@ -357,9 +429,9 @@ public class DrawChatControllerTest {
 			e.printStackTrace();
 		}
 		
-		service.addChat(1566666661, 1677777771);
+		service.addChat(user1.getTelefono(), user2.getTelefono());
 		
-		String uri = "/chats/1566666661";
+		String uri = "/chats/users/1566666661";
 		MvcResult mvcResult = mockMvc
 				.perform(MockMvcRequestBuilders
 				.get(uri)
@@ -377,7 +449,7 @@ public class DrawChatControllerTest {
 
 	@Test
 	public void shouldNotGetChatByPhone() throws Exception {
-		String uri = "/chats/1566666562";
+		String uri = "/chats/users/1566666462";
 		MvcResult mvcResult = mockMvc
 				.perform(MockMvcRequestBuilders
 				.get(uri)
@@ -388,7 +460,7 @@ public class DrawChatControllerTest {
 		String body = mvcResult.getResponse().getContentAsString();
 		assertTrue(body.toString().equals("[]"));
 	}
-	*/
+	
 	public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
