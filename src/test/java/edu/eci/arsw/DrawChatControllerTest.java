@@ -1,5 +1,6 @@
 package edu.eci.arsw;
 
+import org.junit.Before;
 import org.junit.Test;
 
 
@@ -21,6 +22,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -52,6 +55,7 @@ import javax.swing.text.AbstractDocument.Content;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.Module.SetupContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -73,6 +77,14 @@ public class DrawChatControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	
+	@Autowired
+	private WebApplicationContext webApplicationContext;
+	
+	@Before
+	public void setup() {
+		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	}
 	
 	@Autowired
 	ObjectMapper mapper;
@@ -134,7 +146,7 @@ public class DrawChatControllerTest {
 	/*
 	@Test
 	public void shouldAddUser() throws Exception {
-		User actual = new User(1111111112, "prueba1", "prueba2", "abcdefghaijk", null, null, StateEnum.DISCONNECTED.toString());
+		User actual = new User(1111111112, "prueba1", "prueba2", "abcdefghaijk", new Date(), new Date(), StateEnum.DISCONNECTED.toString());
 		String json = mapper.writeValueAsString(actual);
 		mockMvc.perform(MockMvcRequestBuilders.post("/users")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -445,8 +457,6 @@ public class DrawChatControllerTest {
 		assertTrue(chats.length==1);
 	}
 
-	
-
 	@Test
 	public void shouldNotGetChatByPhone() throws Exception {
 		String uri = "/chats/users/1566666462";
@@ -459,6 +469,18 @@ public class DrawChatControllerTest {
 		int status = mvcResult.getResponse().getStatus();
 		String body = mvcResult.getResponse().getContentAsString();
 		assertTrue(body.toString().equals("[]"));
+	}
+	
+	@Test
+	public void shouldNotAddContact() throws Exception {
+		
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/contacts")
+				.param("userA", "1661111112")
+				.param("userB", "1631111112")
+				).andReturn();
+		
+		int status = result.getResponse().getStatus();
+		assertEquals(400, status);
 	}
 	
 	public static String asJsonString(final Object obj) {
