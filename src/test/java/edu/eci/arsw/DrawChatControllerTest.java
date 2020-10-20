@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -143,17 +144,18 @@ public class DrawChatControllerTest {
 				.andReturn()
 				.equals(expected);
 	}
-	/*
+	
 	@Test
 	public void shouldAddUser() throws Exception {
 		User actual = new User(1111111112, "prueba1", "prueba2", "abcdefghaijk", new Date(), new Date(), StateEnum.DISCONNECTED.toString());
 		String json = mapper.writeValueAsString(actual);
-		mockMvc.perform(MockMvcRequestBuilders.post("/users")
+		mockMvc.perform(MockMvcRequestBuilders.post("/registro")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated());
 	}
+	
 	
 	@Test
 	public void shouldNotAddUserNombre() throws Exception {
@@ -166,12 +168,13 @@ public class DrawChatControllerTest {
 				new Date(), 
 				StateEnum.DISCONNECTED.toString());
 		String json = mapper.writeValueAsString(actual);
-		mockMvc.perform(MockMvcRequestBuilders.post("/users")
+		mockMvc.perform(MockMvcRequestBuilders.post("/registro")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest());
 	}
+	
 	
 	@Test
 	public void shouldNotAddUserApellido() throws Exception {
@@ -184,12 +187,13 @@ public class DrawChatControllerTest {
 				new Date(), 
 				StateEnum.DISCONNECTED.toString());
 		String json = mapper.writeValueAsString(actual);
-		mockMvc.perform(MockMvcRequestBuilders.post("/users")
+		mockMvc.perform(MockMvcRequestBuilders.post("/registro")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest());
 	}
+	
 	
 	@Test
 	public void shouldNotAddUserContraseña() throws Exception {
@@ -202,12 +206,13 @@ public class DrawChatControllerTest {
 				new Date(), 
 				StateEnum.DISCONNECTED.toString());
 		String json = mapper.writeValueAsString(actual);
-		mockMvc.perform(MockMvcRequestBuilders.post("/users")
+		mockMvc.perform(MockMvcRequestBuilders.post("/registro")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest());
 	}
+	
 	
 	@Test
 	public void shouldNotAddUserEstado() throws Exception {
@@ -220,13 +225,13 @@ public class DrawChatControllerTest {
 				new Date(), 
 				StateEnum.DISCONNECTED.toString());
 		String json = mapper.writeValueAsString(actual);
-		mockMvc.perform(MockMvcRequestBuilders.post("/users")
+		mockMvc.perform(MockMvcRequestBuilders.post("/registro")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest());
 	}
-	*/
+	
 	@Test
 	public void shouldGetUserByTelefono() throws Exception {
 		User actualT = new User(1111111113, "prueba1", "prueba2", "abcdefghaijk", null, null, StateEnum.DISCONNECTED.toString());
@@ -306,6 +311,7 @@ public class DrawChatControllerTest {
 		
 		assertTrue(service.getUser(1651111111).getNombre().equals("user2"));
 	}
+	
 	/*
 	@Test
 	public void shouldCreateChat() throws Exception {
