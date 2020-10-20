@@ -3,6 +3,7 @@ package edu.eci.arsw.application.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -27,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers( "/favicon.png",  "/users", "/register", "/users/**", "/contacts", "/chats", "/chats/**").permitAll()
+                .antMatchers(  "/favicon.png",  "/users", "/register", "/users/**", "/contacts", "/chats", "/chats/**").permitAll()
+                .antMatchers(HttpMethod.POST, "registro/**", "registro/", "/registro/**", "/registro").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -43,14 +45,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .logoutSuccessUrl("/login?logout")
                 .and()
-                .cors().and();
+                .cors()
+                .and().csrf().disable();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/webjars/**");
     }
 
     @Bean

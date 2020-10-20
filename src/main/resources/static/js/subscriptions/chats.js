@@ -62,28 +62,17 @@ chatSub = (function () {
         }
     }
 
-    var connectAndSubscribe = function (cinema, date, movie) {
-        console.info('Connecting to WS...');
-        var socket = new SockJS('/stompendpoint');
-        stompClient = Stomp.over(socket);
-        connected = true;
-        //subscribe to /topic/TOPICXX when connections succeed
-        stompClient.connect(config.getToken(), function (frame) {
-            console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/chats/users.' + drawapp.getPhone(), function (eventbody) {
-                var theObject = JSON.parse(eventbody.body);
-                console.log(theObject);
-                addChatToView(theObject);
-            });
-        });
-    };
+    
 
 
     return {
 
         init: function () {
-            connectAndSubscribe();
-            chatsRequest();
+            chatsRequest().then(
+            chatCreator.init);
+        },
+        addChat : function(chat){
+            addChatToView(chat);
         }
 
     }

@@ -13,39 +13,36 @@
     <form>
         <div class="container">
             <div class="titulo">
-                <h1>Registro</h1>
-                <p>Por favor llene todos los campos para crear una cuenta.</p>
+                <H1>Registro</H1>
+                <h2>Por favor llene todos los campos para crear una cuenta.</h2>
             </div>
             <hr>
 
-            <label for="name"><b>Nombre</b></label>
             <input type="text" placeholder="Escriba su nombre" name="name" id="name" required>
 
-            <label for="lastName"><b>Apellido</b></label>
             <input type="text" placeholder="Escriba su apellido" name="lastName" id="lastName" required>
 
-            <label for="phone"><b>Número telefónico</b></label>
             <input type="text" placeholder="Escriba su teléfono" name="phone" id="phone" required>
 
-            <label for="password"><b>Contraseña</b></label>
             <input type="password" placeholder="Escriba su contraseña (mínimo 8 carácteres con mayúscula y números)" name="password" id="password" required>
 
             <hr>
 
             <button type="button" class="registerbtn" onclick="register.push()">Register</button>
         </div>
-
-        <div id="incorrect" class="alert error" role="alert" style="display: none">
-            Datos incorrectos.
-        </div>
-
-        <div id="rsuccess" class="alert success" role="alert" style="display: none">
-            Cuenta creada con éxito.
-        </div>
-
-        <div class="container signin">
-            <p>¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a>.</p>
-        </div>
     </form>
+
+    <div id="incorrect" class="alert error" role="alert" style="display: none">
+        DATOS INCORRECTOS.
+    </div>
+
+    <div id="rsuccess" class="alert success" role="alert" style="display: none">
+        CUENTA CREADA CON ÉXITO.
+    </div>
+
+    <div class="container signin">
+        <p>¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a>.</p>
+    </div>
+
 </body>
 </html>

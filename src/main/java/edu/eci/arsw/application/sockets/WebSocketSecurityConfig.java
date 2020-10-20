@@ -12,4 +12,9 @@ public class WebSocketSecurityConfig extends AbstractSecurityWebSocketMessageBro
                 .simpDestMatchers("/topic/**", "/app/**").authenticated();
     }
 
+    @Override
+    protected boolean sameOriginDisabled() {
+        return true;
+    }
+
 }

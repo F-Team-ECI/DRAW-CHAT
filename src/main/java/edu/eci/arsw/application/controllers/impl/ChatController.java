@@ -30,22 +30,6 @@ public class ChatController implements BaseController{
     @Autowired
     SimpMessagingTemplate msgt;
 
-    @PostMapping
-    public ResponseEntity<?> createChat(@RequestBody Chat chat){
-        Chat product = null;
-        try {
-            product = drawChatService.addChat(chat.getUser1().getTelefono(), chat.getUser2().getTelefono());
-            System.out.println(product);
-            System.out.println(chat);
-            msgt.convertAndSend("/topic/chats/users."+chat.getUser1().getTelefono(), product);
-            msgt.convertAndSend("/topic/chats/users."+chat.getUser2().getTelefono(), product);
-        } catch (AppException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("403", HttpStatus.FORBIDDEN);
-        }
-        return new ResponseEntity<>("200 CREATED", HttpStatus.CREATED);
-    }
-
     @RequestMapping(value = "/users/{telefono}", method = RequestMethod.GET)
 	public ResponseEntity<?> getChats(@PathVariable long telefono) {
 		try {

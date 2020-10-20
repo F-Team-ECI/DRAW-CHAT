@@ -4,16 +4,16 @@ var config = (function () {
 
     var setConfig = function () {
 
-        var token = sesssiontoken.token;
-        var header = sesssiontoken.headerName;
-
-        $(document).ajaxSend(function (e, xhr, options) {
-            console.log(header);
-            console.log(token);
-            xhr.setRequestHeader(header, token);
-        });
-
-
+        if(sesssiontoken!=null && sesssiontoken.headerName != undefined){
+            var token = sesssiontoken.token;
+            var header = sesssiontoken.headerName;
+    
+            $(document).ajaxSend(function (e, xhr, options) {
+                console.log(header);
+                console.log(token);
+                xhr.setRequestHeader(header, token);
+            });
+        }
     }
 
 
@@ -41,9 +41,14 @@ var config = (function () {
         },
 
         getToken: function () {
-            var headers = {};
-            headers['X-CSRF-TOKEN'] = sesssiontoken.token;
-            return headers;
+            if(sesssiontoken!=null && sesssiontoken.headerName != undefined){
+                var headers = {};
+                headers['X-CSRF-TOKEN'] = sesssiontoken.token;
+                return headers;
+            } else {
+                return {};
+            }
+            
         }
     }
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -31,23 +32,6 @@ public class UserController {
 	private DrawChatService drawChatService;
 
 	private ObjectMapper mapper = new ObjectMapper();
-
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addUser(@RequestBody String user) {
-		System.out.println(user);
-		try { 
-			User nuevo = mapper.readValue(user, User.class);
-			nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
-			nuevo.setEstado(StateEnum.DISCONNECTED.toString());
-			nuevo.setFecharegistro(new Date());
-			nuevo.setFechaconexion(new Date());
-			drawChatService.addUser(nuevo);
-		} catch (JsonProcessingException | AppException e) {
-			Logger.getLogger(DrawController.class.getName()).log(Level.SEVERE, null, e);
-			return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
-	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getUsers() {
@@ -107,6 +91,7 @@ public class UserController {
 	@GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getCurrentUser() {
 		try {
+			System.out.println(drawChatService.getCurrentUserSession());
 			return new ResponseEntity<>(
 					mapper.writerWithDefaultPrettyPrinter().writeValueAsString(drawChatService.getCurrentUserSession()),
 					HttpStatus.OK);

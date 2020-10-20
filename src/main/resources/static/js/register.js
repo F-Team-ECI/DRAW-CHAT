@@ -21,7 +21,7 @@ register = (function () {
             }
             console.log(user);
             $.ajax({
-                url: '/users',
+                url: '/registro',
                 type: "POST",
                 data: JSON.stringify(user),
                 contentType: 'application/json;charset=UTF-8',
