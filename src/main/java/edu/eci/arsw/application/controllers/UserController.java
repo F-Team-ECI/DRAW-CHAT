@@ -106,7 +106,6 @@ public class UserController {
 
 	@GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getCurrentUser() {
-		System.out.println(drawChatService);
 		try {
 			return new ResponseEntity<>(
 					mapper.writerWithDefaultPrettyPrinter().writeValueAsString(drawChatService.getCurrentUserSession()),

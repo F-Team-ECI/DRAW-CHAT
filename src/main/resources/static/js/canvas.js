@@ -76,7 +76,7 @@ var canvas = (function () {
         currentGroup = group;
 
         //subscribe to /topic/TOPICXX when connections succeed
-        stompClient.connect({}, function (frame) {
+        stompClient.connect(config.getToken(), function (frame) {
             stompClient.subscribe('/topic/paint.' + group, function (eventbody) {
                 console.log(JSON.parse(eventbody.body));
                 drawPoint(JSON.parse(eventbody.body));

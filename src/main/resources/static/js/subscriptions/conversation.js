@@ -13,16 +13,17 @@ var conversationChat = (function () {
         audio.play();
     }
 
+
+
     var connectAndSubscribe = function (chatId) {
         console.info('Connecting to WS...');
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
         connected = true;
-
         //subscribe to /topic/TOPICXX when connections succeed
-        stompClient.connect({}, function (frame) {
+        stompClient.connect(config.getToken(), function (frame) {
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/chats/messages.' + chatId, function (eventbody) {
+            stompClient.subscribe('/topic/chatsMessages.' + chatId, function (eventbody) {
                 var theObject = JSON.parse(eventbody.body);
                 console.log(theObject);
                 $("#chatBox").append(drawMessage(theObject));
@@ -141,21 +142,7 @@ var conversationChat = (function () {
                 },
                 "contenido": content
             }
-            var req = $.ajax({
-                url: '/chats/' + currentId + '/messages',
-                type: "POST",
-                data: JSON.stringify(mess),
-                contentType: 'application/json;charset=UTF-8',
-                success: function (data, status, xhr) {
-                    console.log('status: ' + status + "code" + xhr + ', data: ' + data);
-                    console.log(xhr.status);
-                    console.log(data);
-                },
-                error: function (jqXhr, textStatus, errorMessage) {
-                    console.log('Error' + errorMessage);
-                }
-            });
-            return req;
+            stompClient.send('/app/chatsMessages.'+currentId, {}, JSON.stringify(mess));
         }
 
     }

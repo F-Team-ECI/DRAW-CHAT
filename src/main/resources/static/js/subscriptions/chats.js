@@ -68,7 +68,7 @@ chatSub = (function () {
         stompClient = Stomp.over(socket);
         connected = true;
         //subscribe to /topic/TOPICXX when connections succeed
-        stompClient.connect({}, function (frame) {
+        stompClient.connect(config.getToken(), function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/chats/users.' + drawapp.getPhone(), function (eventbody) {
                 var theObject = JSON.parse(eventbody.body);

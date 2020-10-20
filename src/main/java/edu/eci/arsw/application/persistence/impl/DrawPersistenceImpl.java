@@ -77,7 +77,6 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         for (User us : user) {
             if (us.getTelefono() == telefono) {
                 usuario = us;
-                System.out.println(usuario.toString());
                 break;
             }
         }

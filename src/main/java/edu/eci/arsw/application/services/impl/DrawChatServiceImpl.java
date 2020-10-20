@@ -50,13 +50,11 @@ public class DrawChatServiceImpl implements DrawChatService {
     public User getCurrentUserSession() throws AppException {
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal);
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
         } else {
             username = principal.toString();
         }
-        System.out.println(username);
         return getUser(Long.parseLong(username));
     }
 

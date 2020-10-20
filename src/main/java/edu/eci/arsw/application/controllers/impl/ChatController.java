@@ -56,26 +56,6 @@ public class ChatController implements BaseController{
 		}
 	}
 
-    @PostMapping("/{id}/messages")
-    public ResponseEntity<?> handle(@RequestBody Message message, @PathVariable long id)  {
-        System.out.println("GOOD");
-        System.out.println(drawChatService);
-        message.setFecha(new Date());
-        try{
-            message.setEmisor(drawChatService.getCurrentUserSession());
-            System.out.println(message);
-        } catch (AppException e){
-            return new ResponseEntity<>("401 Unauthorized", HttpStatus.UNAUTHORIZED);
-        }
-        try{
-            drawChatService.addMessage(message);
-        } catch (AppException e){
-            return new ResponseEntity<>("400 Bad Request", HttpStatus.BAD_REQUEST);
-        }
-        msgt.convertAndSend("/topic/chats/messages."+id, message);
-        return new ResponseEntity<>("200 OK", HttpStatus.OK);
-    }
-
     @GetMapping("/{id}/messages")
     public ResponseEntity<?> getChatMessages(@PathVariable int id) {
         List<Message> ans;

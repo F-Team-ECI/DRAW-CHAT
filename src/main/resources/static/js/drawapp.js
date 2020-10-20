@@ -1,11 +1,15 @@
 var drawapp = (function () {
     var userR;
+    var sesssiontoken = null;
+
+
+
     var setUser = function (user) {
         console.log(user);
         userR = user;
         console.log("SETTING USER");
         $("#user").text(user.nombre + " " + user.apellido);
-        chatSub.init();
+        chatSub.init()
     }
 
     var addContactSuccess = function (data, status, xhr) {
@@ -16,6 +20,8 @@ var drawapp = (function () {
     var updateUser = function () {
         register.me(setUser);
     }
+
+    
 
     updateUser();
 
