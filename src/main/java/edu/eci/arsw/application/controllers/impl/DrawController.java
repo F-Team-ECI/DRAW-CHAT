@@ -22,6 +22,7 @@ public class DrawController implements BaseController {
     public void handleBuyEvent(Line st, @DestinationVariable String group) throws Exception {
         System.out.println("Nuevo punto recibido en el servidor!:"+st);
         System.out.println("Session!:"+group);
+        System.out.println("HERE " + drawChatService.getCurrentUserSession());
         msgt.convertAndSend("/topic/paint."+group, st);
     }
 
