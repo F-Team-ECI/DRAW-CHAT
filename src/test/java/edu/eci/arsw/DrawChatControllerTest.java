@@ -445,7 +445,18 @@ public class DrawChatControllerTest {
 		assertTrue(chats.length==1);
 	}
 
-	
+	@Test
+	public void shouldNotGetChatsByPhone() throws Exception {
+		String uri = "/chats/users/1566666665";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(404, status);
+	}
 
 	@Test
 	public void shouldNotGetChatByPhone() throws Exception {
@@ -459,6 +470,18 @@ public class DrawChatControllerTest {
 		int status = mvcResult.getResponse().getStatus();
 		String body = mvcResult.getResponse().getContentAsString();
 		assertTrue(body.toString().equals("[]"));
+	}
+	
+	@Test
+	public void shouldNotAddContact() throws Exception {
+		
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/contacts")
+				.param("userA", "1661111112")
+				.param("userB", "1631111112")
+				).andReturn();
+		
+		int status = result.getResponse().getStatus();
+		assertEquals(400, status);
 	}
 	
 	public static String asJsonString(final Object obj) {

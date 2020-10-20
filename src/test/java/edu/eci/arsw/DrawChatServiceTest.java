@@ -69,6 +69,11 @@ public class DrawChatServiceTest {
 	UserDAO userDAO;
 
 	@Test
+	public void main() {
+		DrawChatApp.main(new String[] {});
+	}
+	
+	@Test
 	public void cargar() throws AppException {
 		User user = new User(1291111111, // telefono,
 				"Julian", // nombre,
