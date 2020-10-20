@@ -181,7 +181,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     @Override
     public List<Chat> getChats(long telefono) throws AppException {
         List<Chat> chats = chatDAO.getChatsByUser(telefono);
-        if (chats.toString().equals("[]")) {
+        if (chats==null) {
             throw new AppException(AppException.USER_NOT_REGISTERED);
         }
         return chats;
