@@ -72,7 +72,7 @@ public interface DrawPersistenceService {
 
 	public List<Chat> getChats(long telefono)throws AppException;
     
-    public void addGroup(Group grupo)throws AppException;
+    public void addGroup(long tUsuario, Group grupo)throws AppException;
 
 	public Group getGroup(String nombre)throws AppException;
 

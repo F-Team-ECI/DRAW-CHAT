@@ -1,6 +1,7 @@
 package edu.eci.arsw.application.entities;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,6 +32,13 @@ public class Group extends MessageCenter{
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "gruposusuario", 
+            joinColumns = @JoinColumn(name = "usuario"), 
+            inverseJoinColumns = @JoinColumn(name = "grupo"))
+    private Set<User> members;
+
     public Group() {
     }
 
@@ -37,6 +47,14 @@ public class Group extends MessageCenter{
         this.nombre = nombre;
         this.lema = lema;
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public Group(int id, String nombre, String lema, Date fechaCreacion, Set<User> members) {
+        this.id = id;
+        this.nombre = nombre;
+        this.lema = lema;
+        this.fechaCreacion = fechaCreacion;
+        this.members = members;
     }
 
     public int getId() {
@@ -71,12 +89,21 @@ public class Group extends MessageCenter{
         this.fechaCreacion = fechaCreacion;
     }
 
+    public Set<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<User> members) {
+        this.members = members;
+    }
+
     @Override
     public String toString() {
         return "Group [id=" + id
                 + ", nombre=" + nombre 
                 + ", lema=" + lema 
                 + ", messages=" + messages 
+                + ", members=" + members 
                 + ", fechaCreacion=" + fechaCreacion + "]";
     }
 

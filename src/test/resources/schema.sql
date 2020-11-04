@@ -35,14 +35,6 @@ CREATE TABLE public.grupo (
 	CONSTRAINT grupo_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE public.gruposusuario (
-	usuario int8 NOT NULL,
-	grupo int4 NOT NULL,
-	rol varchar(250) NULL,
-	CONSTRAINT gruposusuario_pkey PRIMARY KEY (usuario, grupo),
-	CONSTRAINT gruposusuario_grupo_fkey FOREIGN KEY (grupo) REFERENCES grupo(id),
-	CONSTRAINT gruposusuario_usuario_fkey FOREIGN KEY (usuario) REFERENCES usuario(telefono)
-);
 
 CREATE TABLE public.mensaje (
 	id int4 NOT NULL,
@@ -57,20 +49,19 @@ CREATE TABLE public.mensaje (
 	CONSTRAINT mensaje_emisor_fkey FOREIGN KEY (emisor) REFERENCES usuario(telefono)
 );
 
-CREATE TABLE public.permiso (
-	nombre varchar(250) NOT NULL,
-	usuario int8 NOT NULL,
-	grupo int4 NOT NULL,
-	estado bool NULL,
-	descripcion varchar(250) NULL,
-	CONSTRAINT permiso_pkey PRIMARY KEY (nombre, usuario, grupo),
-	CONSTRAINT permiso_usuario_grupo_fkey FOREIGN KEY (usuario, grupo) REFERENCES gruposusuario(usuario, grupo)
-);
-
 CREATE TABLE public.sesiontablero (
 	id int4 NOT NULL,
 	grupo int4 NULL,
 	fecha date NULL,
 	CONSTRAINT sesiontablero_pkey PRIMARY KEY (id),
 	CONSTRAINT sesiontablero_grupo_fkey FOREIGN KEY (grupo) REFERENCES grupo(id)
+);
+
+CREATE TABLE public.gruposusuario (
+	usuario int8 NOT NULL,
+	grupo int4 NOT NULL,
+	rol varchar(250) NULL,
+	CONSTRAINT gruposusuario_pkey PRIMARY KEY (usuario, grupo),
+	CONSTRAINT gruposusuario_grupo_fkey FOREIGN KEY (grupo) REFERENCES grupo(id),
+	CONSTRAINT gruposusuario_usuario_fkey FOREIGN KEY (usuario) REFERENCES usuario(telefono)
 );

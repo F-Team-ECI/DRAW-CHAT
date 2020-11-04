@@ -42,16 +42,6 @@ create table GruposUsuario(
 	foreign key(grupo) references Grupo (id)
 );
 
-create table Permiso(
-	nombre varchar(250),
-	usuario BIGINT,
-	grupo int,
-	estado boolean,
-	descripcion varchar(250),
-	primary key(nombre, usuario, grupo),
-	foreign key(usuario, grupo) references gruposusuario (usuario, grupo)
-);
-
 create table SesionTablero(
 	id int primary key,
 	grupo int,

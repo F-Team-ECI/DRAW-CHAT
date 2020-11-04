@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import edu.eci.arsw.application.entities.Chat;
 import edu.eci.arsw.application.entities.Group;
 import edu.eci.arsw.application.entities.Message;
+import edu.eci.arsw.application.entities.RolEnum;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.persistence.DrawPersistenceService;
@@ -188,9 +189,27 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-    public void addGroup(Group grupo) {
+    public List<Message> getChatMessages(int chatid) throws AppException {
+        Optional<Chat> chat = chatDAO.findById(chatid);
+        List<Message> msgs = msgDAO.getMessagesByChat(chatid);
+        if (chat==null) {
+            throw new AppException(AppException.CHAT_NOT_EXISTS);
+        }
+        return msgs;
+    }
+
+    @Override
+    public void addGroup(long tUsuario1, Group grupo) throws AppException {
+        User user = getUser(tUsuario1);
+        if (user==null) {
+            throw new AppException(AppException.USER_NOT_REGISTERED);
+        }
+        if (getGroup(grupo.getNombre())!=null){
+            throw new AppException(AppException.GROUP_ALREADY_EXISTS);
+        }
         System.out.println("add grupo");
         groupDAO.save(grupo);
+        groupDAO.addUserToGroup(user.getTelefono(), getGroup(grupo.getNombre()).getId(), RolEnum.OWNER.toString());
     }
 
     @Override
@@ -209,15 +228,5 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         }
 
         return grupo;
-    }
-
-    @Override
-    public List<Message> getChatMessages(int chatid) throws AppException {
-        Optional<Chat> chat = chatDAO.findById(chatid);
-        List<Message> msgs = msgDAO.getMessagesByChat(chatid);
-        if (chat==null) {
-            throw new AppException(AppException.CHAT_NOT_EXISTS);
-        }
-        return msgs;
     }
 }

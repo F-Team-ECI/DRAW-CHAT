@@ -3,7 +3,6 @@ truncate table contacto cascade;
 truncate table chat cascade;
 truncate table grupo cascade;
 truncate table gruposusuario cascade;
-truncate table permiso cascade;
 truncate table sesiontablero cascade;
 truncate table mensaje cascade;
 
@@ -12,7 +11,6 @@ drop table contacto cascade;
 drop table chat cascade;
 drop table grupo cascade;
 drop table gruposusuario cascade;
-drop table permiso cascade;
 drop table sesiontablero cascade;
 drop table mensaje cascade;
 

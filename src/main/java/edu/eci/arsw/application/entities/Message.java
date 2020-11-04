@@ -127,7 +127,7 @@ public class Message {
                     + ", contenido=" + contenido 
                     + ", fecha=" + fecha
                     + ", grupo=" + grupo
-                    + ", chat=" + chat.getId() + "]";
+                    + ", chat=" + chat + "]";
     }
     /*
     id int primary key,

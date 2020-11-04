@@ -1,10 +1,13 @@
 package edu.eci.arsw.application.entities;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -29,6 +32,9 @@ public class User {
 
     private String estado;
 
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "members")
+    private Set<Group> groups;
+
     public User() {
     }
 
@@ -40,6 +46,18 @@ public class User {
         this.fecharegistro = fecharegistro;
         this.fechaconexion = fechaconexion;
         this.estado = estado;
+    }
+
+    public User(long telefono, String nombre, String apellido, String contraseña, Date fecharegistro,
+            Date fechaconexion, String estado, Set<Group> groups) {
+        this.telefono = telefono;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.contraseña = contraseña;
+        this.fecharegistro = fecharegistro;
+        this.fechaconexion = fechaconexion;
+        this.estado = estado;
+        this.groups = groups;
     }
     
     public long getTelefono() {
@@ -130,6 +148,14 @@ public class User {
         return contraseña.length() > 3;
     }
 
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
     @Override
     public String toString() {
         return "User [telefono=" + telefono +
@@ -138,6 +164,8 @@ public class User {
                      ", contraseña=" + contraseña + 
                      ", fecharegistro=" + fecharegistro + 
                      ", fechaconexion=" + fechaconexion + 
+                     ", grupos=" + groups + 
                      ", estado=" + estado + "]";
     }
+
 }
