@@ -1539,14 +1539,14 @@ public class DrawChatServiceTest {
 			service.addGroup(user.getTelefono(),grupo);
 			System.out.println("ok");
 			Group grp = service.getGroup(nombre);
-			System.out.println(grp);
+			//System.out.println(grp);
 
 			Message msg1 = new Message(0, grp, user, "hola a todos", new Date());
 			service.addMessage(msg1);
 			System.out.println("ok msg");
 
 			Group grp2 = service.getGroup(nombre);
-			System.out.println(grp2);
+			//System.out.println(grp2);
 
 		} catch (AppException e) {
 			// TODO Auto-generated catch block

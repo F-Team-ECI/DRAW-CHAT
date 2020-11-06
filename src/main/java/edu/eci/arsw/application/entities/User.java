@@ -1,6 +1,7 @@
 package edu.eci.arsw.application.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class User {
     private String estado;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "members")
-    private Set<Group> groups;
+    private List<Group> groups;
 
     public User() {
     }
@@ -49,7 +50,7 @@ public class User {
     }
 
     public User(long telefono, String nombre, String apellido, String contraseña, Date fecharegistro,
-            Date fechaconexion, String estado, Set<Group> groups) {
+            Date fechaconexion, String estado, List<Group> groups) {
         this.telefono = telefono;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -148,11 +149,11 @@ public class User {
         return contraseña.length() > 3;
     }
 
-    public Set<Group> getGroups() {
+    public List<Group> getGroups() {
         return groups;
     }
 
-    public void setGroups(Set<Group> groups) {
+    public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
 

@@ -1,6 +1,7 @@
 package edu.eci.arsw.application.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -35,9 +36,9 @@ public class Group extends MessageCenter{
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "gruposusuario", 
-            joinColumns = @JoinColumn(name = "usuario"), 
-            inverseJoinColumns = @JoinColumn(name = "grupo"))
-    private Set<User> members;
+            joinColumns = @JoinColumn(name = "grupo"), 
+            inverseJoinColumns = @JoinColumn(name = "usuario"))
+    private List<User> members;
 
     public Group() {
     }
@@ -49,7 +50,7 @@ public class Group extends MessageCenter{
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Group(int id, String nombre, String lema, Date fechaCreacion, Set<User> members) {
+    public Group(int id, String nombre, String lema, Date fechaCreacion, List<User> members) {
         this.id = id;
         this.nombre = nombre;
         this.lema = lema;
@@ -89,11 +90,11 @@ public class Group extends MessageCenter{
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Set<User> getMembers() {
+    public List<User> getMembers() {
         return members;
     }
 
-    public void setMembers(Set<User> members) {
+    public void setMembers(List<User> members) {
         this.members = members;
     }
 

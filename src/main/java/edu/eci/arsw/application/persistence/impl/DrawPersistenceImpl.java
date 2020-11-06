@@ -213,7 +213,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         //System.out.println("search tele long: "+user.getTelefono());
         //System.out.println(groupDAO.findAll());
         //System.out.println(userDAO.findAll());
-        //groupDAO.addUserToGroup(user.getTelefono(), getGroup(grupo.getNombre()).getId(), RolEnum.OWNER.toString());
+        groupDAO.addUserToGroup(user.getTelefono(), getGroup(grupo.getNombre()).getId(), RolEnum.OWNER.toString());
     }
 
     @Override
