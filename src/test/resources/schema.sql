@@ -62,6 +62,6 @@ CREATE TABLE public.gruposusuario (
 	grupo int4 NOT NULL,
 	rol varchar(250) NULL,
 	CONSTRAINT gruposusuario_pkey PRIMARY KEY (usuario, grupo),
-	CONSTRAINT gruposusuario_grupo_fkey FOREIGN KEY (grupo) REFERENCES grupo(id),
-	CONSTRAINT gruposusuario_usuario_fkey FOREIGN KEY (usuario) REFERENCES usuario(telefono)
+	CONSTRAINT gruposusuario_usuario_fkey FOREIGN KEY (usuario) REFERENCES usuario(telefono),
+	CONSTRAINT gruposusuario_grupo_fkey FOREIGN KEY (grupo) REFERENCES grupo(id)
 );
