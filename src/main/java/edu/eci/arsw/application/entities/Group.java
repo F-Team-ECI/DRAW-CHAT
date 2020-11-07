@@ -48,13 +48,6 @@ public class Group extends MessageCenter{
     public Group() {
     }
 
-    public Group(int id, String nombre, String lema, Date fechaCreacion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.lema = lema;
-        this.fechaCreacion = fechaCreacion;
-    }
-
     public Group(int id, String nombre, String lema, Date fechaCreacion, Set<User> members) {
         this.id = id;
         this.nombre = nombre;

@@ -95,6 +95,8 @@ public interface DrawChatService {
 
     public void addGroup(long tUsuario, Group grupo) throws AppException;
 
+    public List<Message> getGroupChatMessages(int groupid) throws AppException;
+
     public Group getGroup(String nombre) throws AppException;
     
     public void addUserToGroup(long tUsuario1,long tUsAdd,Group grupo) throws AppException;

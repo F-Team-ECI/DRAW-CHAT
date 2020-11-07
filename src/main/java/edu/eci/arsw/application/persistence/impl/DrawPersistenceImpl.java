@@ -212,25 +212,15 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         System.out.println("add grupo");
         groupDAO.save(grupo);
         groupDAO.addUserToGroup(user.getTelefono(), getGroup(grupo.getNombre()).getId(), RolEnum.OWNER.toString());
-    }
-
-    @Override
-    public Group getGroup(String nombre) {
-        
-        List<Group> grupos = groupDAO.findAll();
-        Group grupo = null;
-
-        for (Group grp : grupos) {
-            if (grp.getNombre()==nombre) {
-                grupo=grp;
-                List<Message> msgs = msgDAO.getMessagesByGroup(grupo.getId());
-                grupo.setChat(grupo.getId());
-                grupo.setMessages(msgs);
-            }
+        Group groupP = getGroup(grupo.getNombre());
+        Set<User> members= grupo.getMembers();
+        for (User usr : members) {
+            addUserToGroup(user.getTelefono(),usr.getTelefono(),groupP);
         }
-
-        return grupo;
+        
     }
+
+
 
     @Override
     public void addUserToGroup(long tUsuario1, long tUsAdd, Group grupo) throws AppException {
@@ -243,27 +233,32 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         if (grupo1==null){
             throw new AppException(AppException.GROUP_NOT_EXISTS);
         }
-        Set<User> groupMembers = grupo1.getMembers();
-
-        if (!groupMembers.contains(user1)){
-            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
-        }
-        if (groupMembers.contains(user2)){
-            throw new AppException(AppException.USER_ALREADY_EXISTS_ON_GROUP);
-        }
-        if (groupMembers.size()==100){
+        if (grupo1.getMembers().size()==100){
             throw new AppException(AppException.GROUP_FULL);
         }
 
-        String rol = groupDAO.getRole(tUsuario1, grupo1.getId());
+        String rol1 = groupDAO.getRole(tUsuario1, grupo1.getId());
+        String rol2 = groupDAO.getRole(tUsAdd, grupo1.getId());
 
-        if (rol==null || rol!="ADMIN" || rol != "OWNER"){
+        if (rol1==null){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
+        }
+        if (rol2!=null){
+            throw new AppException(AppException.USER_ALREADY_EXISTS_ON_GROUP);
+        }
+        if (rol1==null || rol1=="MEMBER"){
             throw new AppException(AppException.NOT_PERMISSION_ON_GROUP);
         }
         
+        boolean isContact=false;
         List<User> adminContacts = getContacts(tUsuario1);
+        for (User us : adminContacts) {
+            if (us.getTelefono()==user2.getTelefono()) {
+                isContact=true;
+            }
+        }
 
-        if (!adminContacts.contains(user2)){
+        if (!isContact){
             throw new AppException(AppException.USER_NOT_EXISTS_ON_CONTACTS);
         }
         groupDAO.addUserToGroup(user2.getTelefono(), grupo1.getId(), RolEnum.MEMBER.toString());
@@ -299,6 +294,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
             || (rol1=="ADMIN" && rol2 == "OWNER")){
             throw new AppException(AppException.FULL_PERMISSION_ON_GROUP);
         }
+        //implementar
 
     }
 
@@ -328,5 +324,26 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
             throw new AppException(AppException.NOT_PERMISSION_ON_GROUP);
         }
         //implementar
+    }
+
+    @Override
+    public Group getGroup(String nombre) {
+        List<Group> grupos = groupDAO.findAll();
+        Group grupo = null;
+        for (Group grp : grupos) {
+            if (grp.getNombre()==nombre) {
+                grupo=grp;
+                List<Message> msgs = msgDAO.getMessagesByGroup(grupo.getId());
+                grupo.setChat(grupo.getId());
+                grupo.setMessages(msgs);
+            }
+        }
+        return grupo;
+    }
+
+    @Override
+    public List<Message> getGroupChatMessages(int groupid) throws AppException {
+        List<Message> msgs = msgDAO.getMessagesByGroup(groupid);
+        return msgs;
     }
 }

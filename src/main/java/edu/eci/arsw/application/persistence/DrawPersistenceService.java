@@ -83,4 +83,6 @@ public interface DrawPersistenceService {
     public void upgradeUserOnGroup(long tUsuario1, long tUsUp, Group grupo)throws AppException;
 
 	public void deleteUserFromGroup(long tUsuario1, long tUsDel, Group grupo)throws AppException;
+
+    public List<Message> getGroupChatMessages(int groupid) throws AppException;
 }

@@ -131,5 +131,10 @@ public class DrawChatServiceImpl implements DrawChatService {
 
     }
 
+    @Override
+    public List<Message> getGroupChatMessages(int groupid) throws AppException {
+        return drawPersistenceService.getGroupChatMessages(groupid);
+    }
+
     
 }

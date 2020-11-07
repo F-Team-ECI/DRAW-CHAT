@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -1511,6 +1513,7 @@ public class DrawChatServiceTest {
 		}
 	}
 
+	
 	// BORRAR ESTO
 	@Test
 	public void producttest() {
@@ -1521,8 +1524,23 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
-		User userContact = new User(1631111111, // telefono,
+		User userContact1 = new User(1631111111, // telefono,
 				"Federico", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User userContact2 = new User(1561111111, // telefono,
+				"Ximena", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		
+		User newUser = new User(1331111111, // telefono,
+				"Argemiro", // nombre,
 				"Prueba", // apellido,
 				"abcdefg", // contraseña,
 				new Date(), // fecharegistro,
@@ -1530,24 +1548,44 @@ public class DrawChatServiceTest {
 				StateEnum.DISCONNECTED.toString()/* estado */);
 		try {
 			service.addUser(user);
-			service.addUser(userContact);
-			service.addContact(user.getTelefono(), userContact.getTelefono());
+			//service.addUser(userContact1);
+			//service.addUser(userContact2);
+			//service.addUser(userContact3);
+			//service.addContact(user.getTelefono(), userContact1.getTelefono());
+			//service.addContact(user.getTelefono(), userContact2.getTelefono());
+			//service.addContact(user.getTelefono(), userContact3.getTelefono());
 			// List<User> usuariosTemp = service.getContacts(user.getTelefono());
 			// System.out.println(usuariosTemp);
 			String nombre = "grupo de apoyo";
-			Group grupo = new Group(0, "grupo de apoyo", "te ayudamos con apoyo", new Date());
+			Set<User> members = new HashSet<>();
+			//members.add(userContact1);
+			//members.add(userContact2);
+			//members.add(userContact3);
+			Group grupo = new Group(0, "grupo de apoyo", "te ayudamos con apoyo", new Date(),members);
 			service.addGroup(user.getTelefono(),grupo);
 			System.out.println("ok");
 			Group grp = service.getGroup(nombre);
 			System.out.println(grp);
+			
 
+			
 			Message msg1 = new Message(0, grp, user, "hola a todos", new Date());
 			service.addMessage(msg1);
-			System.out.println("ok msg");
+			System.out.println("ok msg1");
+
+			service.addUser(newUser);
+			service.addContact(user.getTelefono(), newUser.getTelefono());
+			service.addUserToGroup(user.getTelefono(), newUser.getTelefono(), grp);
+
+			Message msg2 = new Message(0, grp, newUser, "soy el nuevo", new Date());
+			service.addMessage(msg2);
+			System.out.println("ok msg2");
 
 			Group grp2 = service.getGroup(nombre);
 			System.out.println(grp2.getMembers());
+			System.out.println(service.getGroupChatMessages(grp2.getId()));
 
+			
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
