@@ -26,7 +26,9 @@
 <script src="../static/js/drawapp.js"></script>
 <script src="../static/js/contacts.js"></script>
 <script src="../static/js/chatCreator.js"></script>
+<script src="../static/js/groupCreator.js"></script>
 <script src="../static/js/subscriptions/chats.js"></script>
+<script src="../static/js/subscriptions/groups.js"></script>
 <script src="../static/js/subscriptions/conversation.js"></script>
 
 <script src="/js/subscriptions/ajaxConfig.js"></script>
@@ -36,7 +38,9 @@
 <script src="/js/drawapp.js"></script>
 <script src="/js/contacts.js"></script>
 <script src="/js/chatCreator.js"></script>
+<script src="/js/groupCreator.js"></script>
 <script src="/js/subscriptions/chats.js"></script>
+<script src="/js/subscriptions/groups.js"></script>
 <script src="/js/subscriptions/conversation.js"></script>
 
 
@@ -71,6 +75,15 @@
             </button>
             <div id="chatsContainer">
             </div>
+
+            <button onclick="groupCreator.openModal()" class="left-button">
+                <span class="chat_icon"></span>
+                CREA UN GRUPO
+            </button>
+            <div id="groupsContainer">
+            </div>
+
+
         </div>
 
         <div class="column right">
@@ -145,6 +158,36 @@
             <div id="addChatTable">
                 <table id="chatTableMain">
                 </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="addGroup" class="modal">
+        <div class="modal-content">
+            <span id="closeAddGroup" class="close">&times;</span>
+            <h1 class="addChatTitle">Crear un Grupo - Escoge tus contactos</h1>
+            <h5 id="addGroupLoad" style="text-align: center;">Conectando...</h5>
+
+            <div id="addGroupTable">
+                <table id="groupTableMain">
+                </table>
+            </div>
+
+            <input id="groupName" class="phoneContact" type="text" style="float:left"
+                placeholder="Nombre del Grupo"></input>
+
+            <input id="lema" class="phoneContact" type="text" style="float:left"
+                placeholder="Lema del Gropo"></input>
+
+            <button class="button-contact" onclick="groupCreator.create()">Añadir Grupo</button>
+
+            <div id="groupIncorrect" class="alert error" role="alert" style="display: none">
+                Creación fallida.
+            </div>
+
+            <div id="groupCorrect" class="alert success" role="alert" style="display: none">
+                Creación exitosa.
             </div>
 
         </div>

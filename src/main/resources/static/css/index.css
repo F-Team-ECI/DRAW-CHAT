@@ -189,16 +189,15 @@ body {
         background: #554845d2; 
 }
 
-#chatsContainer {
+#chatsContainer, #groupsContainer {
         overflow-y: auto;
 	display: flex;
 	flex-direction: column;
         flex: 1;
         margin: 0;
-        height: 90%;
 }
 
-.chatInstance {
+.chatInstance, .groupInstance {
         border-style: groove;
         cursor: pointer;
         height: 4vh;

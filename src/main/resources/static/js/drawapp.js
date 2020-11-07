@@ -9,7 +9,8 @@ var drawapp = (function () {
         userR = user;
         console.log("SETTING USER");
         $("#user").text(user.nombre + " " + user.apellido);
-        chatSub.init()
+        chatSub.init();
+        groupSub.init();
     }
 
     var addContactSuccess = function (data, status, xhr) {
