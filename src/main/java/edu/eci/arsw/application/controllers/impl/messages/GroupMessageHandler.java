@@ -10,6 +10,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.util.Date;
+
 
 @Controller
 public class GroupMessageHandler {
@@ -22,8 +24,10 @@ public class GroupMessageHandler {
 
     @MessageMapping("/groupsMessages.{id}")
     public void handleGroupMessage(Message message, @DestinationVariable long id) throws AppException {
-        System.out.println(message);
         message.setEmisor(drawChatService.getCurrentUserSession());
+        message.setFecha(new Date());
+        System.out.println(message);
+        drawChatService.addMessage(message);
         msgt.convertAndSend("/topic/groupsMessages."+id, message);
     }
 }

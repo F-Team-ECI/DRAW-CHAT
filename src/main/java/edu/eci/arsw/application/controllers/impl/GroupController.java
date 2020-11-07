@@ -36,12 +36,16 @@ public class GroupController implements BaseController {
 
     @PostMapping(value = "/{phone}")
     public ResponseEntity<?> createGroup(@PathVariable long phone, @RequestBody Group grupo) throws AppException {
+        System.out.println("1");
+        System.out.println(grupo.getMembers());
         if(phone != drawChatService.getCurrentUserSession().getTelefono()){
             return new ResponseEntity<>("401 Unauthorized", HttpStatus.UNAUTHORIZED);
         }
+        System.out.println("2");
         try {
             grupo.setFechaCreacion(new Date());
             drawChatService.addGroup(phone, grupo);
+            System.out.println("3");
             msgt.convertAndSend("/topic/chatsCreator."+phone, grupo);
             for(User u: grupo.getMembers()){
                 msgt.convertAndSend("/topic/chatsCreator."+u.getTelefono(), grupo);
@@ -57,9 +61,9 @@ public class GroupController implements BaseController {
 
 
     @GetMapping("/{id}/messages")
-    public ResponseEntity<?> getGroupMessages(@PathVariable int id) {
+    public ResponseEntity<?> getGroupMessages(@PathVariable int id) throws AppException {
         List<Message> ans = new ArrayList<>();
-        return new ResponseEntity<>(ans, HttpStatus.OK);
+        return new ResponseEntity<>(drawChatService.getGroupChatMessages(id), HttpStatus.OK);
     }
 
 }

@@ -1,8 +1,6 @@
 package edu.eci.arsw.application.persistence.impl;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -210,10 +208,12 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
             throw new AppException(AppException.GROUP_ALREADY_EXISTS);
         }
         System.out.println("add grupo");
+        Set<User> members= grupo.getMembers();
+        grupo.setMembers(new TreeSet<>());
         groupDAO.save(grupo);
         groupDAO.addUserToGroup(user.getTelefono(), getGroup(grupo.getNombre()).getId(), RolEnum.OWNER.toString());
         Group groupP = getGroup(grupo.getNombre());
-        Set<User> members= grupo.getMembers();
+
         for (User usr : members) {
             addUserToGroup(user.getTelefono(),usr.getTelefono(),groupP);
         }
