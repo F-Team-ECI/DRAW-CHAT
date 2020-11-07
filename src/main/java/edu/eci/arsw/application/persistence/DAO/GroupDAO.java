@@ -18,4 +18,8 @@ public interface GroupDAO extends JpaRepository<Group, Integer> {
     @Modifying
     @Query(value = "insert into gruposusuario (usuario, grupo, rol) values (:tUsuario,:groupId, :role);", nativeQuery = true)
     public void addUserToGroup(long tUsuario, int groupId, String role);
+
+    @Query(value = "select rol from gruposusuario g where g.grupo =:groupId and g.usuario =:tUsuario ", nativeQuery = true)
+    public String getRole(long tUsuario, int groupId);
+
 }

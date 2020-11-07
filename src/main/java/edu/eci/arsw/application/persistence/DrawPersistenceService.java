@@ -71,10 +71,16 @@ public interface DrawPersistenceService {
     public void addMessage(Message msg)throws AppException;
 
 	public List<Chat> getChats(long telefono)throws AppException;
+
+    public List<Message> getChatMessages(int chatid) throws AppException;
     
     public void addGroup(long tUsuario, Group grupo)throws AppException;
 
 	public Group getGroup(String nombre)throws AppException;
 
-	public List<Message> getChatMessages(int chatid) throws AppException;
+    public void addUserToGroup(long tUsuario1,long tUsAdd, Group grupo)throws AppException;
+
+    public void upgradeUserOnGroup(long tUsuario1, long tUsUp, Group grupo)throws AppException;
+
+	public void deleteUserFromGroup(long tUsuario1, long tUsDel, Group grupo)throws AppException;
 }

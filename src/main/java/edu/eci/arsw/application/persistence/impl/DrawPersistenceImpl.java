@@ -2,6 +2,7 @@ package edu.eci.arsw.application.persistence.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -176,6 +177,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     @Override
     public void addMessage(Message msg) {
         System.out.println("Dice " + msg.getEmisor().getNombre() + " que " + msg.getContenido());
+        System.out.println(msg);
         msgDAO.save(msg);
     }
 
@@ -209,10 +211,6 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         }
         System.out.println("add grupo");
         groupDAO.save(grupo);
-        //System.out.println("tele long: "+tUsuario1);
-        //System.out.println("search tele long: "+user.getTelefono());
-        //System.out.println(groupDAO.findAll());
-        //System.out.println(userDAO.findAll());
         groupDAO.addUserToGroup(user.getTelefono(), getGroup(grupo.getNombre()).getId(), RolEnum.OWNER.toString());
     }
 
@@ -232,5 +230,103 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         }
 
         return grupo;
+    }
+
+    @Override
+    public void addUserToGroup(long tUsuario1, long tUsAdd, Group grupo) throws AppException {
+        User user1 = getUser(tUsuario1);
+        User user2 = getUser(tUsAdd);
+        if (user1==null || user2==null) {
+            throw new AppException(AppException.USER_NOT_REGISTERED);
+        }
+        Group grupo1 = getGroup(grupo.getNombre());
+        if (grupo1==null){
+            throw new AppException(AppException.GROUP_NOT_EXISTS);
+        }
+        Set<User> groupMembers = grupo1.getMembers();
+
+        if (!groupMembers.contains(user1)){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
+        }
+        if (groupMembers.contains(user2)){
+            throw new AppException(AppException.USER_ALREADY_EXISTS_ON_GROUP);
+        }
+        if (groupMembers.size()==100){
+            throw new AppException(AppException.GROUP_FULL);
+        }
+
+        String rol = groupDAO.getRole(tUsuario1, grupo1.getId());
+
+        if (rol==null || rol!="ADMIN" || rol != "OWNER"){
+            throw new AppException(AppException.NOT_PERMISSION_ON_GROUP);
+        }
+        
+        List<User> adminContacts = getContacts(tUsuario1);
+
+        if (!adminContacts.contains(user2)){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_CONTACTS);
+        }
+        groupDAO.addUserToGroup(user2.getTelefono(), grupo1.getId(), RolEnum.MEMBER.toString());
+    }
+
+    @Override
+    public void upgradeUserOnGroup(long tUsuario1, long tUsUp, Group grupo) throws AppException {
+        User user1 = getUser(tUsuario1);
+        User user2 = getUser(tUsUp);
+        if (user1==null || user2==null) {
+            throw new AppException(AppException.USER_NOT_REGISTERED);
+        }
+        Group grupo1 = getGroup(grupo.getNombre());
+        if (grupo1==null){
+            throw new AppException(AppException.GROUP_NOT_EXISTS);
+        }
+        Set<User> groupMembers = grupo1.getMembers();
+
+        if (!groupMembers.contains(user1)||!groupMembers.contains(user2)){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
+        }
+
+        String rol1 = groupDAO.getRole(tUsuario1, grupo1.getId());
+        String rol2 = groupDAO.getRole(tUsUp, grupo1.getId());
+
+        if (rol1==null || rol2==null 
+            || (rol1=="MEMBER" && rol2 == "ADMIN")
+            || (rol1=="MEMBER" && rol2 == "OWNER")){
+            throw new AppException(AppException.NOT_PERMISSION_ON_GROUP);
+        }
+
+        if ((rol1=="ADMIN" && rol2 == "ADMIN")
+            || (rol1=="ADMIN" && rol2 == "OWNER")){
+            throw new AppException(AppException.FULL_PERMISSION_ON_GROUP);
+        }
+
+    }
+
+    @Override
+    public void deleteUserFromGroup(long tUsuario1, long tUsDel, Group grupo) throws AppException {
+        User user1 = getUser(tUsuario1);
+        User user2 = getUser(tUsDel);
+        if (user1==null || user2==null) {
+            throw new AppException(AppException.USER_NOT_REGISTERED);
+        }
+        Group grupo1 = getGroup(grupo.getNombre());
+        if (grupo1==null){
+            throw new AppException(AppException.GROUP_NOT_EXISTS);
+        }
+        Set<User> groupMembers = grupo1.getMembers();
+
+        if (!groupMembers.contains(user1)||!groupMembers.contains(user2)){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
+        }
+        
+        String rol1 = groupDAO.getRole(tUsuario1, grupo1.getId());
+        String rol2 = groupDAO.getRole(tUsDel, grupo1.getId());
+
+        if (rol1==null || rol2==null 
+            || (rol1=="MEMBER" && rol2 == "ADMIN")
+            || (rol1=="MEMBER" && rol2 == "OWNER")){
+            throw new AppException(AppException.NOT_PERMISSION_ON_GROUP);
+        }
+        //implementar
     }
 }
