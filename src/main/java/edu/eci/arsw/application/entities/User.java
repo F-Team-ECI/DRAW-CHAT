@@ -1,5 +1,7 @@
 package edu.eci.arsw.application.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +36,7 @@ public class User {
 
     private String estado;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "members")
     private Set<Group> groups;
 
@@ -164,8 +167,9 @@ public class User {
                      ", nombre=" + nombre + 
                      ", apellido=" + apellido + 
                      ", contraseña=" + contraseña + 
-                     ", fecharegistro=" + fecharegistro + 
-                     ", fechaconexion=" + fechaconexion + 
+                     ", fecharegistro=" + fecharegistro +
+                     ", fechaconexion=" + fechaconexion +
+                     ", fechaconexion=" + fechaconexion +
                      ", estado=" + estado + "]";
     }
 

@@ -50,6 +50,10 @@ $(document).ready(function () {
         if (event.target.id === "addChat") {
             chatCreator.closeModal();
         }
+
+        if (event.target.id === "addGroup") {
+            groupCreator.closeModal();
+        }
     }
     //  DROPDOWN
     dropdown =  function() {

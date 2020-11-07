@@ -1,0 +1,29 @@
+package edu.eci.arsw.application.controllers.impl.messages;
+
+import edu.eci.arsw.application.entities.Group;
+import edu.eci.arsw.application.entities.Message;
+import edu.eci.arsw.application.exceptions.AppException;
+import edu.eci.arsw.application.services.DrawChatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
+
+
+@Controller
+public class GroupMessageHandler {
+
+    @Autowired
+    private DrawChatService drawChatService;
+
+    @Autowired
+    SimpMessagingTemplate msgt;
+
+    @MessageMapping("/groupsMessages.{id}")
+    public void handleGroupMessage(Message message, @DestinationVariable long id) throws AppException {
+        System.out.println(message);
+        message.setEmisor(drawChatService.getCurrentUserSession());
+        msgt.convertAndSend("/topic/groupsMessages."+id, message);
+    }
+}

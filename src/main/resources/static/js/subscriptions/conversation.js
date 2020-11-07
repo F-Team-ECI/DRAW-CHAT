@@ -7,13 +7,18 @@ var conversationChat = (function () {
     var loading = false;
     var textContent = null;
 
-    var playSound = function(au) {
-        var url = window.location.href+ au;
+    var playSound = function (au) {
+        var url = window.location.href + au;
         const audio = new Audio(url);
         audio.play();
     }
 
+    var MODES = {
+        "CHAT": "CHAT",
+        "GROUP": "GROUP"
+    }
 
+    var CURRENT_MODE;
 
     var connectAndSubscribe = function (chatId) {
         console.info('Connecting to WS...');
@@ -36,6 +41,26 @@ var conversationChat = (function () {
 
     };
 
+    var connectAndSubscribeGroup = function (chatId) {
+        console.info('Connecting to WS...');
+        var socket = new SockJS('/stompendpoint');
+        stompClient = Stomp.over(socket);
+        connected = true;
+        //subscribe to /topic/TOPICXX when connections succeed
+        stompClient.connect(config.getToken(), function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/groupsMessages.' + chatId, function (eventbody) {
+                var theObject = JSON.parse(eventbody.body);
+                console.log(theObject);
+                $("#chatBox").append(drawMessage(theObject));
+                var objDiv = document.getElementById("chatBox");
+                objDiv.scrollTop = objDiv.scrollHeight;
+                $("#mainTextArea").val("");
+                playSound("tone.mp3");
+            });
+        });
+    }
+
     var sortMessages = function (messages) {
         function compare(a, b) {
             // Use toUpperCase() to ignore character casing
@@ -53,18 +78,18 @@ var conversationChat = (function () {
 
     }
 
-    var drawMessage = function(m){
+    var drawMessage = function (m) {
         var ans = "";
-        if(m.emisor.telefono === drawapp.getPhone()){
+        if (m.emisor.telefono === drawapp.getPhone()) {
             ans += "<div class='rightContainer'><div class='rightMessage'>"
-                + m.contenido+"<i style='display:none'>" + m.id +"</i>"
+                + m.contenido + "<i style='display:none'>" + m.id + "</i>"
                 + "</div></div>";
         } else {
             ans += "<div class='leftContainer'><div class='leftMessage'>"
-                + m.contenido+"<i style='display:none'>" + m.id +"</i>"
+                + m.contenido + "<i style='display:none'>" + m.id + "</i>"
                 + "</div></div>";
         }
-        ans+="<hr></hr>";
+        ans += "<hr></hr>";
         return ans;
     }
 
@@ -73,7 +98,7 @@ var conversationChat = (function () {
         console.log(sorted);
         $("#chatBox").empty();
         textContent = "";
-        sorted.map(function(data){
+        sorted.map(function (data) {
             textContent += drawMessage(data);
         });
         $("#chatBox").append(textContent).hide().show(200);
@@ -82,8 +107,9 @@ var conversationChat = (function () {
     }
 
     var conversationRequest = function (id) {
+        var url1 = CURRENT_MODE === MODES.CHAT ? '/chats/' + id + '/messages' : '/groups/' + id + '/messages'
         var req = $.ajax({
-            url: '/chats/' + id + '/messages',
+            url: url1,
             type: "GET",
             success: function (data, status, xhr) {
                 console.log('status: ' + status + "code" + xhr + ', data: ' + data);
@@ -124,7 +150,12 @@ var conversationChat = (function () {
         },
 
         subscribe: function () {
-            connectAndSubscribe(currentId);
+            if (CURRENT_MODE === MODES.GROUP) {
+                connectAndSubscribeGroup(currentId);
+            } else {
+                connectAndSubscribe(currentId);
+            }
+
         },
 
         disconnect: function () {
@@ -135,14 +166,32 @@ var conversationChat = (function () {
             console.log("Disconnected");
         },
 
+        changeToChat: function () {
+            CURRENT_MODE = MODES.CHAT;
+        },
+
+        changeToGroup: function () {
+            CURRENT_MODE = MODES.GROUP;
+        },
+
         sendMessage: function (content) {
-            mess = {
-                "chat": {
-                    "id": currentId
-                },
-                "contenido": content
+            if (CURRENT_MODE === MODES.GROUP) {
+                mess = {
+                    "grupo": {
+                        "id": currentId
+                    },
+                    "contenido": content
+                }
+                stompClient.send('/app/groupsMessages.' + currentId, {}, JSON.stringify(mess));
+            } else {
+                mess = {
+                    "chat": {
+                        "id": currentId
+                    },
+                    "contenido": content
+                }
+                stompClient.send('/app/chatsMessages.' + currentId, {}, JSON.stringify(mess));
             }
-            stompClient.send('/app/chatsMessages.'+currentId, {}, JSON.stringify(mess));
         }
 
     }
@@ -151,6 +200,16 @@ var conversationChat = (function () {
 $(document).ready(function () {
     $(document).on("click", ".chatInstance", function () {
         conversationChat.setSelectedchat(this);
+        conversationChat.changeToChat();
+        conversationChat.disconnect();
+        conversationChat.subscribe();
+    });
+});
+
+$(document).ready(function () {
+    $(document).on("click", ".groupInstance", function () {
+        conversationChat.setSelectedchat(this);
+        conversationChat.changeToGroup();
         conversationChat.disconnect();
         conversationChat.subscribe();
     });
