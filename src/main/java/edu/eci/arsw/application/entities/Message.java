@@ -123,7 +123,7 @@ public class Message {
     @Override
     public String toString() {
         return "Message [id=" + id
-                    + ", emisor=" + emisor 
+                    + ", emisor=" + emisor.getTelefono()
                     + ", contenido=" + contenido 
                     + ", fecha=" + fecha
                     + ", grupo=" + grupo

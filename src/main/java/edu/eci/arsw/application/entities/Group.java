@@ -1,9 +1,11 @@
 package edu.eci.arsw.application.entities;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,12 +35,15 @@ public class Group extends MessageCenter{
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+            }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "gruposusuario", 
             joinColumns = @JoinColumn(name = "grupo"), 
             inverseJoinColumns = @JoinColumn(name = "usuario"))
-    private List<User> members;
+    private Set<User> members;
 
     public Group() {
     }
@@ -50,7 +55,7 @@ public class Group extends MessageCenter{
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Group(int id, String nombre, String lema, Date fechaCreacion, List<User> members) {
+    public Group(int id, String nombre, String lema, Date fechaCreacion, Set<User> members) {
         this.id = id;
         this.nombre = nombre;
         this.lema = lema;
@@ -90,11 +95,11 @@ public class Group extends MessageCenter{
         this.fechaCreacion = fechaCreacion;
     }
 
-    public List<User> getMembers() {
+    public Set<User> getMembers() {
         return members;
     }
 
-    public void setMembers(List<User> members) {
+    public void setMembers(Set<User> members) {
         this.members = members;
     }
 
@@ -104,7 +109,6 @@ public class Group extends MessageCenter{
                 + ", nombre=" + nombre 
                 + ", lema=" + lema 
                 + ", messages=" + messages 
-                + ", members=" + members 
                 + ", fechaCreacion=" + fechaCreacion + "]";
     }
 
