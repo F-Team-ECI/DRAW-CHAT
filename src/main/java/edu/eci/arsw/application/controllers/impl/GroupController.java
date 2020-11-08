@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/groups")
@@ -42,9 +43,11 @@ public class GroupController implements BaseController {
         }
         try {
             grupo.setFechaCreacion(new Date());
+            Set<User> users= grupo.getMembers();
             drawChatService.addGroup(phone, grupo);
             msgt.convertAndSend("/topic/groupsCreator."+phone, grupo);
-            for(User u: grupo.getMembers()){
+            for(User u: users){
+                System.out.println(u.getTelefono());
                 msgt.convertAndSend("/topic/groupsCreator."+u.getTelefono(), grupo);
             }
             return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
