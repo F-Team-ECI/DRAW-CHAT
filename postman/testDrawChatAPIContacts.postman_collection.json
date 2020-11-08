@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "e0eb1471-74c2-497d-b009-eb51ce9332f1",
+		"name": "testDrawChatAPIContacts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Add contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "420e33c5-62f2-434b-94dc-f1aeb370f8e5",
+						"exec": [
+							"pm.test(\"Usuario encontrado\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"}); "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://draw-chatdb.herokuapp.com/contacts?userA=1111111111&userB=2222222222",
+					"protocol": "https",
+					"host": [
+						"draw-chatdb",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts"
+					],
+					"query": [
+						{
+							"key": "userA",
+							"value": "1111111111"
+						},
+						{
+							"key": "userB",
+							"value": "2222222222"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

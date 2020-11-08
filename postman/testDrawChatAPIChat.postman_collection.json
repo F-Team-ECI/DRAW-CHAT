@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "04ca7530-218f-4e8e-bede-ff08aecdf582",
+		"name": "testDrawChatAPIChat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET chats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c160322b-e3c3-4754-b883-f3c9418dfed9",
+						"exec": [
+							"pm.test(\"Usuario encontrado\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var user1 = pm.response.json()[0].user1;\r",
+							"var user2 = pm.response.json()[0].user2;\r",
+							"\r",
+							"pm.test(\"Check first telefono \", function(){\r",
+							"    pm.expect(user1.telefono).to.eql(3333333333);\r",
+							"});\r",
+							"pm.test(\"Check first nombre\", function(){\r",
+							"    pm.expect(user1.nombre).to.eql(\"alejandro\");\r",
+							"});\r",
+							"pm.test(\"Check first apellido\", function(){\r",
+							"    pm.expect(user1.apellido).to.eql(\"vasquez\");\r",
+							"});\r",
+							"pm.test(\"Check first contraseña\", function(){\r",
+							"    pm.expect(user1.contraseña).to.eql(\"egQTq9\");\r",
+							"});\r",
+							"pm.test(\"Check first fecharegistro\", function(){\r",
+							"    pm.expect(user1.fecharegistro).to.eql(\"2020-02-24T05:27:50.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check first fechaconexion\", function(){\r",
+							"    pm.expect(user1.fechaconexion).to.eql(\"2020-03-20T17:48:18.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check first estado\", function(){\r",
+							"    pm.expect(user1.estado).to.eql(\"Disconnected\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check second telefono \", function(){\r",
+							"    pm.expect(user2.telefono).to.eql(1111111111);\r",
+							"});\r",
+							"pm.test(\"Check second nombre\", function(){\r",
+							"    pm.expect(user2.nombre).to.eql(\"andres\");\r",
+							"});\r",
+							"pm.test(\"Check second apellido\", function(){\r",
+							"    pm.expect(user2.apellido).to.eql(\"parra\");\r",
+							"});\r",
+							"pm.test(\"Check second contraseña\", function(){\r",
+							"    pm.expect(user2.contraseña).to.eql(\"7aVQXGVEDC\");\r",
+							"});\r",
+							"pm.test(\"Check second fecharegistro\", function(){\r",
+							"    pm.expect(user2.fecharegistro).to.eql(\"2020-05-24T21:04:03.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check second fechaconexion\", function(){\r",
+							"    pm.expect(user2.fechaconexion).to.eql(\"2020-08-28T04:59:09.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check second estado\", function(){\r",
+							"    pm.expect(user2.estado).to.eql(\"Disconnected\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://draw-chatdb.herokuapp.com/chats/users/1111111111",
+					"protocol": "https",
+					"host": [
+						"draw-chatdb",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"chats",
+						"users",
+						"1111111111"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET chats messages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0688d4f-b00b-4063-b6b0-9db24f225b55",
+						"exec": [
+							"pm.test(\"Usuario encontrado\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var user1 = pm.response.json()[0].chat.user1;\r",
+							"var user2 = pm.response.json()[0].chat.user2;\r",
+							"var emisor = pm.response.json()[0].emisor;\r",
+							"\r",
+							"pm.test(\"Check first telefono \", function(){\r",
+							"    pm.expect(user1.telefono).to.eql(5555555555);\r",
+							"});\r",
+							"pm.test(\"Check first nombre\", function(){\r",
+							"    pm.expect(user1.nombre).to.eql(\"michael\");\r",
+							"});\r",
+							"pm.test(\"Check first apellido\", function(){\r",
+							"    pm.expect(user1.apellido).to.eql(\"ballesteros\");\r",
+							"});\r",
+							"pm.test(\"Check first contraseña\", function(){\r",
+							"    pm.expect(user1.contraseña).to.eql(\"aca123\");\r",
+							"});\r",
+							"pm.test(\"Check first fecharegistro\", function(){\r",
+							"    pm.expect(user1.fecharegistro).to.eql(\"2020-03-22T02:39:54.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check first fechaconexion\", function(){\r",
+							"    pm.expect(user1.fechaconexion).to.eql(\"2020-01-11T16:41:19.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check first estado\", function(){\r",
+							"    pm.expect(user1.estado).to.eql(\"Online\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check second telefono \", function(){\r",
+							"    pm.expect(user2.telefono).to.eql(3333333333);\r",
+							"});\r",
+							"pm.test(\"Check second nombre\", function(){\r",
+							"    pm.expect(user2.nombre).to.eql(\"alejandro\");\r",
+							"});\r",
+							"pm.test(\"Check second apellido\", function(){\r",
+							"    pm.expect(user2.apellido).to.eql(\"vasquez\");\r",
+							"});\r",
+							"pm.test(\"Check second contraseña\", function(){\r",
+							"    pm.expect(user2.contraseña).to.eql(\"egQTq9\");\r",
+							"});\r",
+							"pm.test(\"Check second fecharegistro\", function(){\r",
+							"    pm.expect(user2.fecharegistro).to.eql(\"2020-02-24T05:27:50.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check second fechaconexion\", function(){\r",
+							"    pm.expect(user2.fechaconexion).to.eql(\"2020-03-20T17:48:18.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check second estado\", function(){\r",
+							"    pm.expect(user2.estado).to.eql(\"Disconnected\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check emisor telefono \", function(){\r",
+							"    pm.expect(emisor.telefono).to.eql(5555555555);\r",
+							"});\r",
+							"pm.test(\"Check emisor nombre\", function(){\r",
+							"    pm.expect(emisor.nombre).to.eql(\"michael\");\r",
+							"});\r",
+							"pm.test(\"Check emisor apellido\", function(){\r",
+							"    pm.expect(emisor.apellido).to.eql(\"ballesteros\");\r",
+							"});\r",
+							"pm.test(\"Check emisor contraseña\", function(){\r",
+							"    pm.expect(emisor.contraseña).to.eql(\"aca123\");\r",
+							"});\r",
+							"pm.test(\"Check emisor fecharegistro\", function(){\r",
+							"    pm.expect(emisor.fecharegistro).to.eql(\"2020-03-22T02:39:54.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check emisor fechaconexion\", function(){\r",
+							"    pm.expect(emisor.fechaconexion).to.eql(\"2020-01-11T16:41:19.000+0000\");\r",
+							"});\r",
+							"pm.test(\"Check emisor estado\", function(){\r",
+							"    pm.expect(emisor.estado).to.eql(\"Online\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://draw-chatdb.herokuapp.com/chats/1/messages",
+					"protocol": "https",
+					"host": [
+						"draw-chatdb",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"chats",
+						"1",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

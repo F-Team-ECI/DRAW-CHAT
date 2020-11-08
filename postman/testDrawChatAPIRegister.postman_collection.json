@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "11f01ba7-0dd8-4f5d-8bb6-8bdc5d748b2c",
+		"name": "testDrawChatAPIRegister",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Add user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "87e9e108-8a96-4319-b78e-8d99769ebd6e",
+						"exec": [
+							"pm.test(\"Usuario encontrado\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"telefono\": 1542710510,\r\n    \"nombre\": \"prueba\",\r\n    \"apellido\": \"prueba\",\r\n    \"contraseña\": \"1542710510\",\r\n    \"fecharegistro\": \"2020-11-08T17:05:19.179+0000\",\r\n    \"fechaconexion\": \"2020-11-08T17:05:19.179+0000\",\r\n    \"estado\": \"DISCONNECTED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://draw-chatdb.herokuapp.com/registro",
+					"protocol": "https",
+					"host": [
+						"draw-chatdb",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"registro"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

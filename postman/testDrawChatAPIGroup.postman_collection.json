@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "b3f5bc98-2131-45d3-90b6-681b670d5426",
+		"name": "testDrawChatAPIGroup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Group Messages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "557664c4-68ec-4465-bbe3-a8dbe7e3e577",
+						"exec": [
+							"pm.test(\"Usuario encontrado\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var lista = new Array(pm.response.json());\r",
+							"\r",
+							"pm.test(\"No messages\", function () {\r",
+							"    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://draw-chatdb.herokuapp.com/groups/1111111111/messages",
+					"protocol": "https",
+					"host": [
+						"draw-chatdb",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"groups",
+						"1111111111",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
