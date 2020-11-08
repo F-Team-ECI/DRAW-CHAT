@@ -36,22 +36,17 @@ public class GroupController implements BaseController {
 
     @PostMapping(value = "/{phone}")
     public ResponseEntity<?> createGroup(@PathVariable long phone, @RequestBody Group grupo) throws AppException {
-        System.out.println("1");
         System.out.println(grupo.getMembers());
-        if(phone != drawChatService.getCurrentUserSession().getTelefono()){
+        if(phone != drawChatService.getCurrentUserSession().getTelefono()) {
             return new ResponseEntity<>("401 Unauthorized", HttpStatus.UNAUTHORIZED);
         }
-        System.out.println("2");
         try {
             grupo.setFechaCreacion(new Date());
             drawChatService.addGroup(phone, grupo);
-            System.out.println("3");
-            msgt.convertAndSend("/topic/chatsCreator."+phone, grupo);
+            msgt.convertAndSend("/topic/groupsCreator."+phone, grupo);
             for(User u: grupo.getMembers()){
-                msgt.convertAndSend("/topic/chatsCreator."+u.getTelefono(), grupo);
+                msgt.convertAndSend("/topic/groupsCreator."+u.getTelefono(), grupo);
             }
-
-
             return new ResponseEntity<>("201 CREATED", HttpStatus.CREATED);
         } catch (AppException e) {
             e.printStackTrace();

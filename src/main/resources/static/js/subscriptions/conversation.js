@@ -13,6 +13,9 @@ var conversationChat = (function () {
         audio.play();
     }
 
+    var COLOR = ["#32CD32", "#48D1CC", "#F4A460", "#778899", "#808000"];
+    var index = 0;
+
     var MODES = {
         "CHAT": "CHAT",
         "GROUP": "GROUP"
@@ -80,13 +83,17 @@ var conversationChat = (function () {
 
     var drawMessage = function (m) {
         var ans = "";
+        var added = CURRENT_MODE === MODES.GROUP ? "<span style='color:" + COLOR[index] + "'>" + m.emisor.nombre + " " + m.emisor.apellido + "</span>" : "";
+        index = (index+1)%COLOR.length
         if (m.emisor.telefono === drawapp.getPhone()) {
             ans += "<div class='rightContainer'><div class='rightMessage'>"
                 + m.contenido + "<i style='display:none'>" + m.id + "</i>"
                 + "</div></div>";
         } else {
-            ans += "<div class='leftContainer'><div class='leftMessage'>"
-                + m.contenido + "<i style='display:none'>" + m.id + "</i>"
+            ans += "<div class='leftContainer'>"
+                + "<div class='leftMessage'>"
+                + added
+                + "<div>"+ m.contenido + "</div>" + "<i style='display:none'>" + m.id + "</i>"
                 + "</div></div>";
         }
         ans += "<hr></hr>";
