@@ -19,7 +19,7 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 
 [Jira](https://f-team-eci.atlassian.net/jira/software/projects/DCARSW/boards/1)
 
-
+[GitBook](https://alejo-704.gitbook.io/draw-chat/)
 
 ## Diseño
 
