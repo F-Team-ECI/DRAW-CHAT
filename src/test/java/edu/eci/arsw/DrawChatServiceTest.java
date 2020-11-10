@@ -69,11 +69,6 @@ public class DrawChatServiceTest {
 
 	@Autowired
 	UserDAO userDAO;
-
-	@Test
-	public void main() {
-		DrawChatApp.main(new String[] {});
-	}
 	
 	@Test
 	public void cargar() throws AppException {
