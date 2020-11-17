@@ -346,4 +346,10 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         List<Message> msgs = msgDAO.getMessagesByGroup(groupid);
         return msgs;
     }
+
+    @Override
+    public List<User> getContactsExGroup(long telefono, int idgrupo) throws AppException {
+        List<User> contacts = userDAO.getContactsExGroup(telefono, idgrupo);
+        return contacts;
+    }
 }
