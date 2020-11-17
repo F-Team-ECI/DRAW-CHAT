@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -1579,10 +1580,11 @@ public class DrawChatServiceTest {
 			Group grp2 = service.getGroup(nombre);
 			System.out.println(grp2.getMembers());
 			System.out.println(service.getGroupChatMessages(grp2.getId()));
-			List<User> newUsers = new ArrayList<User>();
+			Set<User> newUsers = new HashSet<>();
 			newUsers.add(userContact1); 
 			newUsers.add(userContact2); 
-			service.addUsersToGroup(user.getTelefono(), newUsers, grupo);
+			grupo.setMembers(newUsers);
+			service.addUsersToGroup(user.getTelefono(),grupo);
 			//System.out.println(service.getContactsExGroup(user.getTelefono(), grp2.getId()));
 			//service.deleteUserFromGroup(tUsuario1, tUsDel, grupo);
 			Group grp3 = service.getGroup(nombre);

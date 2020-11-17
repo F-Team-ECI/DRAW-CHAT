@@ -103,7 +103,7 @@ public interface DrawChatService {
     
     public void addUserToGroup(long tUsuario1,long tUsAdd,Group grupo) throws AppException;
 
-    public void addUsersToGroup(long tUsuario1,List<User> tUsersAdd,Group grupo) throws AppException;
+    public void addUsersToGroup(long tUsuario1,Group grupo) throws AppException;
 
     public void upgradeUserOnGroup(long tUsuario1,long tUsUp,Group grupo) throws AppException;
 
