@@ -1,6 +1,7 @@
 package edu.eci.arsw.application.services.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -141,5 +142,11 @@ public class DrawChatServiceImpl implements DrawChatService {
         return drawPersistenceService.getContactsExGroup(telefono, idgrupo);
     }
 
-    
+    @Override
+    public void addUsersToGroup(long tUsuario1, Group grupo) throws AppException {
+        Set<User> tUsersAdd = grupo.getMembers();
+        for (User userAdd : tUsersAdd) {
+            addUserToGroup(tUsuario1, userAdd.getTelefono(), grupo);
+        }
+    }
 }

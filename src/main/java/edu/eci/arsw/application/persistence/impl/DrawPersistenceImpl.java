@@ -275,17 +275,14 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         if (grupo1==null){
             throw new AppException(AppException.GROUP_NOT_EXISTS);
         }
-        Set<User> groupMembers = grupo1.getMembers();
-
-        if (!groupMembers.contains(user1)||!groupMembers.contains(user2)){
-            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
-        }
-
         String rol1 = groupDAO.getRole(tUsuario1, grupo1.getId());
         String rol2 = groupDAO.getRole(tUsUp, grupo1.getId());
 
-        if (rol1==null || rol2==null 
-            || (rol1=="MEMBER" && rol2 == "ADMIN")
+        if (rol1==null || rol2==null){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
+        }
+
+        if ((rol1=="MEMBER" && rol2 == "ADMIN")
             || (rol1=="MEMBER" && rol2 == "OWNER")){
             throw new AppException(AppException.NOT_PERMISSION_ON_GROUP);
         }
@@ -309,21 +306,19 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         if (grupo1==null){
             throw new AppException(AppException.GROUP_NOT_EXISTS);
         }
-        Set<User> groupMembers = grupo1.getMembers();
-
-        if (!groupMembers.contains(user1)||!groupMembers.contains(user2)){
-            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
-        }
-        
         String rol1 = groupDAO.getRole(tUsuario1, grupo1.getId());
         String rol2 = groupDAO.getRole(tUsDel, grupo1.getId());
 
-        if (rol1==null || rol2==null 
-            || (rol1=="MEMBER" && rol2 == "ADMIN")
-            || (rol1=="MEMBER" && rol2 == "OWNER")){
+        if (rol1==null || rol2==null){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
+        }
+
+        if ((rol1=="MEMBER" && rol2 == "ADMIN")
+            || (rol1=="MEMBER" && rol2 == "OWNER")
+            || (rol1=="ADMIN" && rol2 == "OWNER")){
             throw new AppException(AppException.NOT_PERMISSION_ON_GROUP);
         }
-        //implementar
+        groupDAO.deleteUserFromGroup(user2.getTelefono(), grupo1.getId());
     }
 
     @Override
