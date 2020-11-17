@@ -141,5 +141,10 @@ public class DrawChatServiceImpl implements DrawChatService {
         return drawPersistenceService.getContactsExGroup(telefono, idgrupo);
     }
 
-    
+    @Override
+    public void addUsersToGroup(long tUsuario1, List<User> tUsersAdd, Group grupo) throws AppException {
+        for (User userAdd : tUsersAdd) {
+            addUserToGroup(tUsuario1, userAdd.getTelefono(), grupo);
+        }
+    }
 }
