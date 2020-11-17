@@ -76,7 +76,9 @@ public interface DrawPersistenceService {
     
     public void addGroup(long tUsuario, Group grupo)throws AppException;
 
-	public Group getGroup(String nombre)throws AppException;
+    public Group getGroup(String nombre)throws AppException;
+    
+    public Group getGroupById(int idgroup)throws AppException;
 
     public void addUserToGroup(long tUsuario1,long tUsAdd, Group grupo)throws AppException;
 

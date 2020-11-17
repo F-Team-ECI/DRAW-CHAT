@@ -229,7 +229,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         if (user1==null || user2==null) {
             throw new AppException(AppException.USER_NOT_REGISTERED);
         }
-        Group grupo1 = getGroup(grupo.getNombre());
+        Group grupo1 = getGroupById(grupo.getId());
         if (grupo1==null){
             throw new AppException(AppException.GROUP_NOT_EXISTS);
         }
@@ -327,6 +327,21 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         Group grupo = null;
         for (Group grp : grupos) {
             if (grp.getNombre()==nombre) {
+                grupo=grp;
+                List<Message> msgs = msgDAO.getMessagesByGroup(grupo.getId());
+                grupo.setChat(grupo.getId());
+                grupo.setMessages(msgs);
+            }
+        }
+        return grupo;
+    }
+
+    @Override
+    public Group getGroupById(int groupid) {
+        List<Group> grupos = groupDAO.findAll();
+        Group grupo = null;
+        for (Group grp : grupos) {
+            if (grp.getId()==groupid) {
                 grupo=grp;
                 List<Message> msgs = msgDAO.getMessagesByGroup(grupo.getId());
                 grupo.setChat(grupo.getId());
