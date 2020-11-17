@@ -27,6 +27,7 @@
 <script src="../static/js/contacts.js"></script>
 <script src="../static/js/chatCreator.js"></script>
 <script src="../static/js/groupCreator.js"></script>
+<script src="../static/js/groupHandler.js"></script>
 <script src="../static/js/subscriptions/chats.js"></script>
 <script src="../static/js/subscriptions/groups.js"></script>
 <script src="../static/js/subscriptions/conversation.js"></script>
@@ -39,6 +40,7 @@
 <script src="/js/contacts.js"></script>
 <script src="/js/chatCreator.js"></script>
 <script src="/js/groupCreator.js"></script>
+<script src="/js/groupHandler.js"></script>
 <script src="/js/subscriptions/chats.js"></script>
 <script src="/js/subscriptions/groups.js"></script>
 <script src="/js/subscriptions/conversation.js"></script>
@@ -88,8 +90,8 @@
 
         <div class="column right">
 
-            <div class="groupDivButtons">
-                <button class="groupButton add" title="Añadir miembro"><i class="fa fa-plus-circle"></i></button>
+            <div id="groupButtonsDiv" class="groupDivButtons">
+                <button class="groupButton add" title="Añadir miembro" onclick="groupHanlder.openAddModal()"><i class="fa fa-plus-circle"></i></button>
                 <button class="groupButton erase" title="Borrar miembro"><i class="fa fa-eject"></i></button>
             </div>
 
@@ -205,7 +207,7 @@
     <div id="addMemberModal" class="modal">
         <div class="modal-content">
             <span id="closeAddMember" class="close">&times;</span>
-            <h1 class="addChatTitle">Borra un usuario del grupo</h1>
+            <h1 class="addChatTitle">Añade un usuario al grupo</h1>
             <h5 id="addMemberLoad" style="text-align: center;">Conectando...</h5>
 
             <div id="adddMemberTable">
@@ -213,14 +215,14 @@
                 </table>
             </div>
 
-            <button class="button-contact" onclick="groupCreator.create()">Borrar miembros</button>
+            <button class="button-contact" onclick="groupHanlder.addMembers()">Añadir nuevos miembros</button>
 
             <div id="addMemberIncorrect" class="alert error" role="alert" style="display: none">
-                Borrado fallido.
+                Adición fallida.
             </div>
 
             <div id="addMemberCorrect" class="alert success" role="alert" style="display: none">
-                Borrado exitoso.
+                Adición exitosa.
             </div>
 
         </div>

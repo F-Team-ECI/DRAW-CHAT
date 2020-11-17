@@ -175,10 +175,14 @@ var conversationChat = (function () {
 
         changeToChat: function () {
             CURRENT_MODE = MODES.CHAT;
+            $("#groupButtonsDiv").css("display", "none")
+            $("#chatBox").css("height", "90%")
         },
 
         changeToGroup: function () {
             CURRENT_MODE = MODES.GROUP;
+            $("#groupButtonsDiv").css("display", "flex")
+            $("#chatBox").css("height", "85%")
         },
 
         sendMessage: function (content) {
@@ -199,6 +203,10 @@ var conversationChat = (function () {
                 }
                 stompClient.send('/app/chatsMessages.' + currentId, {}, JSON.stringify(mess));
             }
+        },
+
+        getCurrentID: function(){
+            return currentId;
         }
 
     }
