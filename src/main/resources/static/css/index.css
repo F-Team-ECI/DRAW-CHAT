@@ -254,3 +254,25 @@ body {
 .rightContainer {
         justify-content: flex-end;
 }
+
+.groupButton {
+        float: right;
+        background-color: DodgerBlue;
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        font-size: 16px;
+        cursor: pointer;
+}
+
+.groupButton.add {
+        background-color: rgba(78, 212, 16, 0.795);
+}
+
+.groupButton.erase {
+        background-color: rgba(223, 86, 86, 0.795);
+}
+
+.groupDivButtons {
+        display: none;
+}

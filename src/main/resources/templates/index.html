@@ -87,6 +87,14 @@
         </div>
 
         <div class="column right">
+
+            <div class="groupDivButtons">
+                <button class="groupButton add" title="Añadir miembro"><i class="fa fa-plus-circle"></i></button>
+                <button class="groupButton erase" title="Borrar miembro"><i class="fa fa-eject"></i></button>
+            </div>
+
+        
+            
             <div id="chatBox">
             </div>
             <div id="textBox">
@@ -188,6 +196,31 @@
 
             <div id="groupCorrect" class="alert success" role="alert" style="display: none">
                 Creación exitosa.
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="addMemberModal" class="modal">
+        <div class="modal-content">
+            <span id="closeAddMember" class="close">&times;</span>
+            <h1 class="addChatTitle">Borra un usuario del grupo</h1>
+            <h5 id="addMemberLoad" style="text-align: center;">Conectando...</h5>
+
+            <div id="adddMemberTable">
+                <table id="addMemberMain">
+                </table>
+            </div>
+
+            <button class="button-contact" onclick="groupCreator.create()">Borrar miembros</button>
+
+            <div id="addMemberIncorrect" class="alert error" role="alert" style="display: none">
+                Borrado fallido.
+            </div>
+
+            <div id="addMemberCorrect" class="alert success" role="alert" style="display: none">
+                Borrado exitoso.
             </div>
 
         </div>
