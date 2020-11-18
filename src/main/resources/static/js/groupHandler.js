@@ -1,4 +1,5 @@
 var addMemberModal;
+var deleteMemberModal;
 var groupHanlder = (function(){
 
 
@@ -11,6 +12,13 @@ var groupHanlder = (function(){
 
         span.onclick = function () {
             groupHanlder.closeAddModal();
+        }
+
+        deleteMemberModal = $("#deleteMemberModal:hidden");
+        var spanDelete = document.getElementById("closeDeleteMember");
+
+        spanDelete.onclick = function () {
+            groupHanlder.closeDeleteModal();
         }
     });
 
@@ -114,7 +122,27 @@ var groupHanlder = (function(){
                 elemen += 1;
             });
             sendPutAddMembers(members)
+        },
+
+        closeDeleteModal: function(){
+            deleteMemberModal.css({ display: "none" });
+            $("#deleteMemberIncorrect").css({ display: "none" })
+            $("#deleteMemberCorrect").css({ display: "none" })
+            $("#deleteMemberMain").empty();
+        },
+
+        openDeleteModal: function(){
+            deleteMemberModal.css({ display: "flex" });  
+            $("#deleteMemberLoad").css({ display: "block" })
+            currentId = conversationChat.getCurrentID() 
+
+        },
+
+        deleteMembers: function(){
+            
         }
+
+
 
     }
 
