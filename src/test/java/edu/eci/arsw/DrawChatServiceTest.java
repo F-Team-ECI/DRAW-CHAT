@@ -45,6 +45,7 @@ import edu.eci.arsw.application.persistence.DAO.MessageDAO;
 import edu.eci.arsw.application.persistence.DAO.UserDAO;
 import edu.eci.arsw.application.persistence.impl.DrawPersistenceImpl;
 import edu.eci.arsw.application.services.DrawChatService;
+import edu.eci.arsw.application.services.impl.DrawChatServiceImpl;
 
 /**
  * Principal unit test App services
@@ -57,7 +58,7 @@ import edu.eci.arsw.application.services.DrawChatService;
 public class DrawChatServiceTest {
 
 	@Autowired
-	DrawChatService service;
+	DrawChatServiceImpl service;
 
 	@Autowired
 	DrawPersistenceImpl persistence;
@@ -1484,31 +1485,37 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
+		boolean res = false;
 		try {
 			service.addUser(user1);
 			service.addUser(user2);
-			service.addUser(user3);
 			service.addContact(user1.getTelefono(), user2.getTelefono());
-			service.addContact(user1.getTelefono(), user3.getTelefono());
 			Set<User> members = new HashSet<User>();
-			Group grupo = new Group(123, "Prueba", "Prueba", new Date(), members);
+			Group grupo = new Group(123, "Prueba1", "Prueba1", new Date(), members);
 			service.addGroup(user1.getTelefono(), grupo);
-			
-			service.addUserToGroup(user1.getTelefono(), user2.getTelefono(), grupo);
-			service.addUserToGroup(user1.getTelefono(), user3.getTelefono(), grupo);
-			
+			Group group = service.getGroup("Prueba1");
+			service.addUserToGroup(user1.getTelefono(), user2.getTelefono(), group);			
 			Group temp = service.getGroup(grupo.getNombre());
+			List<User> listTemp = new ArrayList<User>();
+			listTemp.addAll(temp.getMembers());
+			List<Long> numeros = new ArrayList<Long>();
+			for(User u: listTemp) {
+				numeros.add(u.getTelefono());
+			}
 			Set<User> membersTemp = new HashSet<User>();
-			members.add(user1);
-			members.add(user2);
-			members.add(user3);
-			System.out.println(service.getGroup("Prueba").getMembers().toString());
-			assertTrue(membersTemp.toString().equals(temp.getMembers().toString()));
+			membersTemp.add(user1);
+			membersTemp.add(user2);
+			System.out.println(listTemp);
+			System.out.println(membersTemp);
+			res = numeros.contains(user1.getTelefono()) && numeros.contains(user2.getTelefono()); 
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		assertTrue(res);
 	}
+	
 	
 	@Test
 	public void shouldAddUsersToGroup() {
@@ -1533,6 +1540,7 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
+		boolean res = false;
 		try {
 			service.addUser(user1);
 			service.addUser(user2);
@@ -1540,26 +1548,37 @@ public class DrawChatServiceTest {
 			service.addContact(user1.getTelefono(), user2.getTelefono());
 			service.addContact(user1.getTelefono(), user3.getTelefono());
 			Set<User> members = new HashSet<User>();
-			members.add(user1);
-			members.add(user2);
-			members.add(user3);
-			Group grupo = new Group(125, "Prueba", "Prueba", new Date(), members);
-			
+			Group grupo = new Group(125, "Prueba2", "Prueba2", new Date(), members);
 			service.addGroup(user1.getTelefono(), grupo);
 			
-			service.addUsersToGroup(user1.getTelefono(), grupo);
+			Group grupoLlenado = service.getGroup("Prueba2"); 
+			//service.addGroup(user1.getTelefono(), grupoLlenado);
+			Set<User> usuarios = new HashSet<User>();
+			usuarios.add(user2);
+			usuarios.add(user3);
+			grupoLlenado.setMembers(usuarios);
 			
+			service.addUsersToGroup(user1.getTelefono(), grupoLlenado);			
 			Group temp = service.getGroup(grupo.getNombre());
+			List<User> listTemp = new ArrayList<User>();
+			listTemp.addAll(temp.getMembers());
+			List<Long> numeros = new ArrayList<Long>();
+			for(User u: listTemp) {
+				numeros.add(u.getTelefono());
+			}
 			Set<User> membersTemp = new HashSet<User>();
-			members.add(user1);
-			members.add(user2);
-			members.add(user3);
-			System.out.println(service.getGroup("Prueba").getMembers().toString());
-			assertTrue(membersTemp.toString().equals(temp.getMembers().toString()));
+			membersTemp.add(user1);
+			membersTemp.add(user2);
+			System.out.println(listTemp);
+			System.out.println(membersTemp);
+			System.out.println(grupoLlenado.getMembers());
+			res = numeros.contains(user1.getTelefono()) && numeros.contains(user2.getTelefono()) && numeros.contains(user3.getTelefono()); 
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		assertTrue(res);
 	}
 	
 	@Test
@@ -1585,6 +1604,7 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
+		boolean res = false;
 		try {
 			service.addUser(user1);
 			service.addUser(user2);
@@ -1592,29 +1612,28 @@ public class DrawChatServiceTest {
 			service.addContact(user1.getTelefono(), user2.getTelefono());
 			service.addContact(user1.getTelefono(), user3.getTelefono());
 			Set<User> members = new HashSet<User>();
-			members.add(user1);
-			members.add(user2);
-			members.add(user3);
-			Group grupo = new Group(130, "Prueba", "Prueba", new Date(), members);
-			
+			//members.add(user2);
+			//members.add(user3);
+			Group grupo = new Group(130, "Prueba3", "Prueba3", new Date(), members);
 			service.addGroup(user1.getTelefono(), grupo);
+			service.addUsersToGroup(user2.getTelefono(), grupo);
+			service.addUsersToGroup(user3.getTelefono(), grupo);
 			
-			service.addUsersToGroup(user1.getTelefono(), grupo);
-			
-			List<User> contactos = service.getContactsExGroup(user1.getTelefono(), grupo.getId());
-			
-			ArrayList<User> usersTemp = new ArrayList<User>();
-			usersTemp.add(user1);
-			usersTemp.add(user2);
-			usersTemp.add(user3);
-			
-			for(int i=0; i<3; i++) {
-				assertTrue(usersTemp.get(i).getNombre().equals(contactos.get(i).getNombre()));
+			Group temp = service.getGroup(grupo.getNombre());
+			List<User> listTemp = service.getContactsExGroup(user1.getTelefono(), 130);
+			List<Long> numeros = new ArrayList<Long>();
+			for(User u: listTemp) {
+				numeros.add(u.getTelefono());
 			}
 			
+			res = numeros.contains(user2.getTelefono()) && numeros.contains(user3.getTelefono());
+			
+			System.out.println(service.getContactsExGroup(user1.getTelefono(), 130));
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
+		
+		assertTrue(res);
 	}
 	
 	@Test
@@ -1640,6 +1659,8 @@ public class DrawChatServiceTest {
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
+		boolean res = true;
+		boolean resEliminado = false;
 		try {
 			service.addUser(user1);
 			service.addUser(user2);
@@ -1647,44 +1668,45 @@ public class DrawChatServiceTest {
 			service.addContact(user1.getTelefono(), user2.getTelefono());
 			service.addContact(user1.getTelefono(), user3.getTelefono());
 			Set<User> members = new HashSet<User>();
-			members.add(user1);
-			members.add(user2);
-			members.add(user3);
-			Group grupo = new Group(135, "Prueba", "Prueba", new Date(), members);
+			Group grupo = new Group(135, "Prueba4", "Prueba4", new Date(), members);
 			
 			service.addGroup(user1.getTelefono(), grupo);
+			Group temp = service.getGroup("Prueba4");
+			service.addUserToGroup(user1.getTelefono(), user2.getTelefono(), temp);
+			service.addUserToGroup(user1.getTelefono(), user3.getTelefono(), temp);
 			
-			service.addUsersToGroup(user1.getTelefono(), grupo);
 			
-			List<User> contactos = service.getContactsExGroup(user1.getTelefono(), grupo.getId());
-			
-			ArrayList<User> usersTemp = new ArrayList<User>();
-			usersTemp.add(user1);
-			usersTemp.add(user2);
-			usersTemp.add(user3);
-			
-			for(int i=0; i<3; i++) {
-				assertTrue(usersTemp.get(i).getNombre().equals(contactos.get(i).getNombre()));
-			}
 			
 			service.deleteUserFromGroup(user1.getTelefono(), user3.getTelefono(), grupo);
-			
-			List<User> contactosDelete = service.getContactsExGroup(user1.getTelefono(), grupo.getId());
-			
-			ArrayList<User> usersTempDelete = new ArrayList<User>();
-			usersTemp.add(user1);
-			usersTemp.add(user2);
-			
-			for(int i=0; i<2; i++) {
-				assertTrue(usersTempDelete.get(i).getNombre().equals(contactosDelete.get(i).getNombre()));
+			Set<User> listTemp = service.getGroup("Prueba4").getMembers();
+			List<Long> numeros = new ArrayList<Long>();
+			for(User u: listTemp) {
+				numeros.add(u.getTelefono());
 			}
 			
 			
+			res = numeros.contains(user2.getTelefono()) && numeros.contains(user3.getTelefono());
+			
+			/**
+			Set<User> setTemp = persistence.getGroupById(135).getMembers();
+			System.out.println(setTemp);
+			List<User> listTempElminado = new ArrayList<User>();
+			listTempElminado.addAll(setTemp);
+			List<Long> numerosEliminado = new ArrayList<Long>();
+			for(User u: listTempElminado) {
+				numerosEliminado.add(u.getTelefono());
+			}
+			
+			resEliminado = numerosEliminado.contains(user2.getTelefono());
+			*/
+			
 		}catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.getStackTrace());
 		}
+		assertTrue(!res);
 	}
 	
+
 	@Test
 	public void shouldUpgradeUserFromGroup() {
 		
@@ -1694,5 +1716,5 @@ public class DrawChatServiceTest {
 	public void shouldNotAddUserToGroup() {
 		
 	}
-		
+			
 }
