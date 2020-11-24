@@ -1458,6 +1458,8 @@ public class DrawChatServiceTest {
 			assertTrue(e.getMessage().equals(AppException.CHAT_NOT_EXISTS));
 		}
 	}
+	 
+	
 	
 	@Test
 	public void shouldAddUserToGroup() {
@@ -1512,7 +1514,6 @@ public class DrawChatServiceTest {
 		
 		assertTrue(res);
 	}
-	
 	@Test
 	public void shouldAddUsersToGroup() {
 		User user1 = new User(1661711122, // telefono,
