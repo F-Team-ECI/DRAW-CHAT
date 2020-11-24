@@ -326,7 +326,7 @@
 							"var responseFirst = pm.response.json();\r",
 							"\r",
 							"pm.test(\"Check first telefono \", function(){\r",
-							"    pm.expect(responseFirst.telefono).to.eql(1542710549);\r",
+							"    pm.expect(responseFirst.telefono).to.eql(3204320555);\r",
 							"});\r",
 							"pm.test(\"Check first nombre\", function(){\r",
 							"    pm.expect(responseFirst.nombre).to.eql(\"postman\");\r",
@@ -335,14 +335,9 @@
 							"    pm.expect(responseFirst.apellido).to.eql(\"postman\");\r",
 							"});\r",
 							"pm.test(\"Check first contraseña\", function(){\r",
-							"    pm.expect(responseFirst.contraseña).to.eql(\"$2a$10$wYGSDn/yX6SgkVTrHXjhEOUwFK6qYCsUXvNsYbdLQhCQXmLRf7Hhe\");\r",
+							"    pm.expect(responseFirst.contraseña).to.eql(\"$2a$10$5gIk8AJv/YWZwr.T2I7Re.nxIwKTvW8gPk0o7Xmr/uRGNekXvjuS.\");\r",
 							"});\r",
-							"pm.test(\"Check first fecharegistro\", function(){\r",
-							"    pm.expect(responseFirst.fecharegistro).to.eql(1604841605461);\r",
-							"});\r",
-							"pm.test(\"Check first fechaconexion\", function(){\r",
-							"    pm.expect(responseFirst.fechaconexion).to.eql(1604841605461);\r",
-							"});\r",
+							"\r",
 							"pm.test(\"Check first estado\", function(){\r",
 							"    pm.expect(responseFirst.estado).to.eql(\"DISCONNECTED\");\r",
 							"});\r",
@@ -359,13 +354,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://draw-chatdb.herokuapp.com/users/me",
-					"protocol": "https",
+					"raw": "127.0.0.1:8080/users/me",
 					"host": [
-						"draw-chatdb",
-						"herokuapp",
-						"com"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
+					"port": "8080",
 					"path": [
 						"users",
 						"me"

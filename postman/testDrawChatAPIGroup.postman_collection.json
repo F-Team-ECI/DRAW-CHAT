@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "557664c4-68ec-4465-bbe3-a8dbe7e3e577",
+						"id": "df1d4f78-e68a-45c4-a8bc-86932703a8f2",
 						"exec": [
 							"pm.test(\"Usuario encontrado\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -20,7 +20,7 @@
 							"var lista = new Array(pm.response.json());\r",
 							"\r",
 							"pm.test(\"No messages\", function () {\r",
-							"    \r",
+							"    pm.expect(lista.length).to.eql(1);\r",
 							"});\r",
 							"\r",
 							""
@@ -33,17 +33,108 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://draw-chatdb.herokuapp.com/groups/1111111111/messages",
-					"protocol": "https",
+					"raw": "127.0.0.1:8080/groups/1111111111/messages",
 					"host": [
-						"draw-chatdb",
-						"herokuapp",
-						"com"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
+					"port": "8080",
 					"path": [
 						"groups",
 						"1111111111",
 						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6dba64c-0927-40ed-bc59-cfb2565f4afc",
+						"exec": [
+							"pm.test(\"Grupo añadido\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 55,\r\n    \"nombre\": \"prueba\",\r\n    \"lema\": \"prueba\",\r\n    \"fechacreacion\": \"2020-11-08T17:05:19.179+0000\",\r\n    \"fecha_creacion\": \"2020-11-08T17:05:19.179+0000\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/groups/3204320555",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"groups",
+						"3204320555"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add Members",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25be12b0-b24e-41d2-98fe-f76efcdb251f",
+						"exec": [
+							"pm.test(\"Grupo añadido\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 235,\r\n    \"nombre\": \"prueba\",\r\n    \"lema\": \"prueba\",\r\n    \"fechacreacion\": \"2020-11-08T17:05:19.179+0000\",\r\n    \"fecha_creacion\": \"2020-11-08T17:05:19.179+0000\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/groups/addmembers",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"groups",
+						"addmembers"
 					]
 				}
 			},

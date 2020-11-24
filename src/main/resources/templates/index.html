@@ -27,6 +27,7 @@
 <script src="../static/js/contacts.js"></script>
 <script src="../static/js/chatCreator.js"></script>
 <script src="../static/js/groupCreator.js"></script>
+<script src="../static/js/groupHandler.js"></script>
 <script src="../static/js/subscriptions/chats.js"></script>
 <script src="../static/js/subscriptions/groups.js"></script>
 <script src="../static/js/subscriptions/conversation.js"></script>
@@ -39,6 +40,7 @@
 <script src="/js/contacts.js"></script>
 <script src="/js/chatCreator.js"></script>
 <script src="/js/groupCreator.js"></script>
+<script src="/js/groupHandler.js"></script>
 <script src="/js/subscriptions/chats.js"></script>
 <script src="/js/subscriptions/groups.js"></script>
 <script src="/js/subscriptions/conversation.js"></script>
@@ -87,6 +89,14 @@
         </div>
 
         <div class="column right">
+
+            <div id="groupButtonsDiv" class="groupDivButtons">
+                <button class="groupButton add" title="Añadir miembro" onclick="groupHanlder.openAddModal()"><i class="fa fa-plus-circle"></i></button>
+                <button class="groupButton erase" title="Borrar miembro" onclick="groupHanlder.openDeleteModal()"><i class="fa fa-eject"></i></button>
+            </div>
+
+        
+            
             <div id="chatBox">
             </div>
             <div id="textBox">
@@ -188,6 +198,55 @@
 
             <div id="groupCorrect" class="alert success" role="alert" style="display: none">
                 Creación exitosa.
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="addMemberModal" class="modal">
+        <div class="modal-content">
+            <span id="closeAddMember" class="close">&times;</span>
+            <h1 class="addChatTitle">Añade un usuario al grupo</h1>
+            <h5 id="addMemberLoad" style="text-align: center;">Conectando...</h5>
+
+            <div id="adddMemberTable">
+                <table id="addMemberMain">
+                </table>
+            </div>
+
+            <button class="button-contact" onclick="groupHanlder.addMembers()">Añadir nuevos miembros</button>
+
+            <div id="addMemberIncorrect" class="alert error" role="alert" style="display: none">
+                Adición fallida.
+            </div>
+
+            <div id="addMemberCorrect" class="alert success" role="alert" style="display: none">
+                Adición exitosa.
+            </div>
+
+        </div>
+    </div>
+
+    <div id="deleteMemberModal" class="modal">
+        <div class="modal-content">
+            <span id="closeDeleteMember" class="close">&times;</span>
+            <h1 class="addChatTitle">Borra un miembro del grupo</h1>
+            <h5 id="deleteMemberLoad" style="text-align: center;">Conectando...</h5>
+
+            <div id="deleteMemberTable">
+                <table id="deleteMemberMain">
+                </table>
+            </div>
+
+            <button class="button-contact" onclick="groupHanlder.deleteMembers()">Borrar miembros</button>
+
+            <div id="deleteMemberIncorrect" class="alert error" role="alert" style="display: none">
+                Adición fallida.
+            </div>
+
+            <div id="deleteMemberCorrect" class="alert success" role="alert" style="display: none">
+                Adición exitosa.
             </div>
 
         </div>

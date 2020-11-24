@@ -19,7 +19,9 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 
 [Jira](https://f-team-eci.atlassian.net/jira/software/projects/DCARSW/boards/1)
 
-[GitBook](https://alejo-704.gitbook.io/draw-chat/)
+[Azure App Service](http://draw-chat.azurewebsites.net)
+
+[GitBook](https://alejo-704.gitbook.io/draw-chat/)  
 
 ## Diseño
 
@@ -288,6 +290,25 @@ Al promover a un miembro como administrador, este miembro debería ser capaz de 
 - El administrador debe poder elegir de la lista de miembros del grupo
 
 ![](design/use-cases/ADMIN.png)
+
+## Atributos de calidad
+
+### Escalabilidad
+
+#### Escenario de calidad
+
+- **Source**: Usuarios
+- **Stimulus**: Muchas peticiones al servidor
+- **Environment**: Bajo condiciones de estrés
+- **Artefact**: Sistema (API)
+- **Response**: Solicitudes respondidas satisfactoriamente
+- **Response measure**: Responder al 85% de todas las solicitudes, con 1000 usuarios concurrentes
+
+#### Prueba 1
+Hacer 1000 peticiones, para obtener los chats de un usuario específico, de manera concurrente variando el número de instancias correspondientes al escalado horizontal.
+
+#### Prueba 2
+Añadir usuario - Obtener usuario - Añadir contacto - Obtener contacto - Añadir chat - Obtener chats
 
 ## Construido con
 

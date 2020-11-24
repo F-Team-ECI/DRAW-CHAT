@@ -65,4 +65,20 @@ public class GroupController implements BaseController {
         return new ResponseEntity<>(drawChatService.getGroupChatMessages(id), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/remaining")
+    public ResponseEntity<?> getMemebersNotInGroup(@PathVariable int id) throws AppException {
+        return new ResponseEntity<>(drawChatService.getContactsExGroup(
+                drawChatService.getCurrentUserSession().getTelefono(), id
+        ), HttpStatus.OK);
+    }
+
+    @PutMapping("/addmembers")
+    public ResponseEntity<?> addMembers(@RequestBody Group grupo) throws AppException {
+        System.out.println(grupo.getMembers());
+        System.out.println(grupo.getId());
+        drawChatService.addUsersToGroup(drawChatService.getCurrentUserSession().getTelefono(), grupo);
+        return new ResponseEntity<>("200 ACCEPTED", HttpStatus.ACCEPTED);
+    }
+
+
 }

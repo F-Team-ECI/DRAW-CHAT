@@ -45,6 +45,7 @@ import edu.eci.arsw.application.persistence.DAO.MessageDAO;
 import edu.eci.arsw.application.persistence.DAO.UserDAO;
 import edu.eci.arsw.application.persistence.impl.DrawPersistenceImpl;
 import edu.eci.arsw.application.services.DrawChatService;
+import edu.eci.arsw.application.services.impl.DrawChatServiceImpl;
 
 /**
  * Principal unit test App services
@@ -57,7 +58,7 @@ import edu.eci.arsw.application.services.DrawChatService;
 public class DrawChatServiceTest {
 
 	@Autowired
-	DrawChatService service;
+	DrawChatServiceImpl service;
 
 	@Autowired
 	DrawPersistenceImpl persistence;
@@ -1458,103 +1459,265 @@ public class DrawChatServiceTest {
 			assertTrue(e.getMessage().equals(AppException.CHAT_NOT_EXISTS));
 		}
 	}
+<<<<<<< HEAD
+=======
+	 
 	
-	// BORRAR ESTO
+	
 	@Test
-	public void producttest() {
-		User user = new User(1661111111, // telefono,
-				"Julian", // nombre,
+	public void shouldAddUserToGroup() {
+		User user1 = new User(1661111122, // telefono,
+				"Prueba", // nombre,
 				"Prueba", // apellido,
 				"abcdefg", // contraseña,
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
-		User userContact1 = new User(1631111111, // telefono,
-				"Federico", // nombre,
+		User user2 = new User(1661111133, // telefono,
+				"Prueba", // nombre,
 				"Prueba", // apellido,
 				"abcdefg", // contraseña,
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
-		User userContact2 = new User(1561111111, // telefono,
-				"Ximena", // nombre,
+		User user3 = new User(1661181133, // telefono,
+				"Prueba", // nombre,
 				"Prueba", // apellido,
 				"abcdefg", // contraseña,
 				new Date(), // fecharegistro,
 				new Date(), // fechaconexion,
 				StateEnum.DISCONNECTED.toString()/* estado */);
-		
-		User newUser = new User(1331111111, // telefono,
-				"Argemiro", // nombre,
-				"Prueba", // apellido,
-				"abcdefg", // contraseña,
-				new Date(), // fecharegistro,
-				new Date(), // fechaconexion,
-				StateEnum.DISCONNECTED.toString()/* estado */);
+		boolean res = false;
 		try {
-			service.addUser(user);
-			service.addUser(userContact1);
-			service.addUser(userContact2);
-			//service.addUser(userContact3);
-			service.addContact(user.getTelefono(), userContact1.getTelefono());
-			service.addContact(user.getTelefono(), userContact2.getTelefono());
-			//service.addContact(user.getTelefono(), userContact3.getTelefono());
-			// List<User> usuariosTemp = service.getContacts(user.getTelefono());
-			// System.out.println(usuariosTemp);
-			String nombre = "grupo de apoyo";
-			Set<User> members = new HashSet<>();
-			//members.add(userContact1);
-			//members.add(userContact2);
-			//members.add(userContact3);
-			Group grupo = new Group(0, "grupo de apoyo", "te ayudamos con apoyo", new Date(),members);
-			service.addGroup(user.getTelefono(),grupo);
-			System.out.println("ok");
-			Group grp = service.getGroup(nombre);
-			System.out.println(grp);
-			
-
-			
-			Message msg1 = new Message(0, grp, user, "hola a todos", new Date());
-			service.addMessage(msg1);
-			System.out.println("ok msg1");
-
-			service.addUser(newUser);
-			service.addContact(user.getTelefono(), newUser.getTelefono());
-			service.addUserToGroup(user.getTelefono(), newUser.getTelefono(), grp);
-
-			Message msg2 = new Message(0, grp, newUser, "soy el nuevo", new Date());
-			service.addMessage(msg2);
-			System.out.println("ok msg2");
-
-			Group grp2 = service.getGroup(nombre);
-			System.out.println(grp2.getMembers());
-			System.out.println(service.getGroupChatMessages(grp2.getId()));
-			Set<User> newUsers = new HashSet<>();
-			newUsers.add(userContact1); 
-			newUsers.add(userContact2); 
-			grupo.setMembers(newUsers);
-			service.addUsersToGroup(user.getTelefono(),grupo);
-			//System.out.println(service.getContactsExGroup(user.getTelefono(), grp2.getId()));
-			//service.deleteUserFromGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
-			Group grp3 = service.getGroup(nombre);
-			System.out.println("antes");
-			System.out.println(grp3.getMembers());
-
-			Set<User> delUsers = new HashSet<>();
-			delUsers.add(userContact1); 
-			delUsers.add(userContact2); 
-			grupo.setMembers(delUsers);
-			service.deleteUsersFromGroup(user.getTelefono(), grupo);
-
-			Group grp4 = service.getGroup(nombre);
-			System.out.println("despues");
-			System.out.println(grp4.getMembers());
-			//System.out.println(grp2.getMembers());
-
-			
+			service.addUser(user1);
+			service.addUser(user2);
+			service.addContact(user1.getTelefono(), user2.getTelefono());
+			Set<User> members = new HashSet<User>();
+			Group grupo = new Group(123, "Prueba1", "Prueba1", new Date(), members);
+			service.addGroup(user1.getTelefono(), grupo);
+			Group group = service.getGroup("Prueba1");
+			service.addUserToGroup(user1.getTelefono(), user2.getTelefono(), group);			
+			Group temp = service.getGroup(grupo.getNombre());
+			List<User> listTemp = new ArrayList<User>();
+			listTemp.addAll(temp.getMembers());
+			List<Long> numeros = new ArrayList<Long>();
+			for(User u: listTemp) {
+				numeros.add(u.getTelefono());
+			}
+			Set<User> membersTemp = new HashSet<User>();
+			membersTemp.add(user1);
+			membersTemp.add(user2);
+			System.out.println(listTemp);
+			System.out.println(membersTemp);
+			res = numeros.contains(user1.getTelefono()) && numeros.contains(user2.getTelefono()); 
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		assertTrue(res);
 	}
+>>>>>>> cc672995a61cc0f83b4ace6f49d6da2d45c0d1ad
+	
+	
+	@Test
+	public void shouldAddUsersToGroup() {
+		User user1 = new User(1661711122, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User user2 = new User(1669911133, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User user3 = new User(1662281133, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		boolean res = false;
+		try {
+			service.addUser(user1);
+			service.addUser(user2);
+			service.addUser(user3);
+			service.addContact(user1.getTelefono(), user2.getTelefono());
+			service.addContact(user1.getTelefono(), user3.getTelefono());
+			Set<User> members = new HashSet<User>();
+			Group grupo = new Group(125, "Prueba2", "Prueba2", new Date(), members);
+			service.addGroup(user1.getTelefono(), grupo);
+			
+			Group grupoLlenado = service.getGroup("Prueba2"); 
+			//service.addGroup(user1.getTelefono(), grupoLlenado);
+			Set<User> usuarios = new HashSet<User>();
+			usuarios.add(user2);
+			usuarios.add(user3);
+			grupoLlenado.setMembers(usuarios);
+			
+			service.addUsersToGroup(user1.getTelefono(), grupoLlenado);			
+			Group temp = service.getGroup(grupo.getNombre());
+			List<User> listTemp = new ArrayList<User>();
+			listTemp.addAll(temp.getMembers());
+			List<Long> numeros = new ArrayList<Long>();
+			for(User u: listTemp) {
+				numeros.add(u.getTelefono());
+			}
+			Set<User> membersTemp = new HashSet<User>();
+			membersTemp.add(user1);
+			membersTemp.add(user2);
+			System.out.println(listTemp);
+			System.out.println(membersTemp);
+			System.out.println(grupoLlenado.getMembers());
+			res = numeros.contains(user1.getTelefono()) && numeros.contains(user2.getTelefono()) && numeros.contains(user3.getTelefono()); 
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		assertTrue(res);
+	}
+	
+	@Test
+	public void shouldGetContactsFromGroup() {
+		User user1 = new User(1662211122, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User user2 = new User(1669311133, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User user3 = new User(1662182133, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		boolean res = false;
+		try {
+			service.addUser(user1);
+			service.addUser(user2);
+			service.addUser(user3);
+			service.addContact(user1.getTelefono(), user2.getTelefono());
+			service.addContact(user1.getTelefono(), user3.getTelefono());
+			Set<User> members = new HashSet<User>();
+			//members.add(user2);
+			//members.add(user3);
+			Group grupo = new Group(130, "Prueba3", "Prueba3", new Date(), members);
+			service.addGroup(user1.getTelefono(), grupo);
+			service.addUsersToGroup(user2.getTelefono(), grupo);
+			service.addUsersToGroup(user3.getTelefono(), grupo);
+			
+			Group temp = service.getGroup(grupo.getNombre());
+			List<User> listTemp = service.getContactsExGroup(user1.getTelefono(), 130);
+			List<Long> numeros = new ArrayList<Long>();
+			for(User u: listTemp) {
+				numeros.add(u.getTelefono());
+			}
+			
+			res = numeros.contains(user2.getTelefono()) && numeros.contains(user3.getTelefono());
+			
+			System.out.println(service.getContactsExGroup(user1.getTelefono(), 130));
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		assertTrue(res);
+	}
+	
+	@Test
+	public void shouldDeleteUserFromGroup() {
+		User user1 = new User(1682211122, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User user2 = new User(1679311133, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User user3 = new User(1612182133, // telefono,
+				"Prueba", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		boolean res = true;
+		boolean resEliminado = false;
+		try {
+			service.addUser(user1);
+			service.addUser(user2);
+			service.addUser(user3);
+			service.addContact(user1.getTelefono(), user2.getTelefono());
+			service.addContact(user1.getTelefono(), user3.getTelefono());
+			Set<User> members = new HashSet<User>();
+			Group grupo = new Group(135, "Prueba4", "Prueba4", new Date(), members);
+			
+			service.addGroup(user1.getTelefono(), grupo);
+			Group temp = service.getGroup("Prueba4");
+			service.addUserToGroup(user1.getTelefono(), user2.getTelefono(), temp);
+			service.addUserToGroup(user1.getTelefono(), user3.getTelefono(), temp);
+			
+			
+			
+			service.deleteUserFromGroup(user1.getTelefono(), user3.getTelefono(), grupo);
+			Set<User> listTemp = service.getGroup("Prueba4").getMembers();
+			List<Long> numeros = new ArrayList<Long>();
+			for(User u: listTemp) {
+				numeros.add(u.getTelefono());
+			}
+			
+			
+			res = numeros.contains(user2.getTelefono()) && numeros.contains(user3.getTelefono());
+			
+			/**
+			Set<User> setTemp = persistence.getGroupById(135).getMembers();
+			System.out.println(setTemp);
+			List<User> listTempElminado = new ArrayList<User>();
+			listTempElminado.addAll(setTemp);
+			List<Long> numerosEliminado = new ArrayList<Long>();
+			for(User u: listTempElminado) {
+				numerosEliminado.add(u.getTelefono());
+			}
+			
+			resEliminado = numerosEliminado.contains(user2.getTelefono());
+			*/
+			
+		}catch (Exception e) {
+			System.out.println(e.getStackTrace());
+		}
+		assertTrue(!res);
+	}
+	
+
+	@Test
+	public void shouldUpgradeUserFromGroup() {
+		
+	}
+	
+	@Test
+	public void shouldNotAddUserToGroup() {
+		
+	}
+			
 }
