@@ -190,6 +190,14 @@ public interface DrawChatService {
     public void upgradeUserOnGroup(long tUsuario1,long tUsUp,Group grupo) throws AppException;
 
     /**
+     * Actualizar el rol de usuarios en el grupo
+     * @param tUsuario1 el usuario que va actualizar los miembros
+     * @param grupo el grupo al que pertenecen
+     * @throws AppException error actualizando el rol del miembro
+     */
+    public void upgradeUsersOnGroup(long tUsuario1,Group grupo) throws AppException;
+
+    /**
      * Borrar un usuario de un grupo
      * @param tUsuario1 el usuario que borrara al miembro
      * @param tUsDel el miembro a eliminar
