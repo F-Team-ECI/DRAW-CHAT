@@ -291,6 +291,25 @@ Al promover a un miembro como administrador, este miembro debería ser capaz de 
 
 ![](design/use-cases/ADMIN.png)
 
+## Atributos de calidad
+
+### Escalabilidad
+
+#### Escenario de calidad
+
+- **Source**: Usuarios
+- **Stimulus**: Muchas peticiones al servidor
+- **Environment**: Bajo condiciones de estrés
+- **Artefact**: Sistema (API)
+- **Response**: Solicitudes respondidas satisfactoriamente
+- **Response measure**: Responder al 85% de todas las solicitudes, con 1000 usuarios concurrentes
+
+#### Prueba 1
+Hacer 1000 peticiones, para obtener los chats de un usuario específico, de manera concurrente variando el número de instancias correspondientes al escalado horizontal.
+
+#### Prueba 2
+Añadir usuario - Obtener usuario - Añadir contacto - Obtener contacto - Añadir chat - Obtener chats
+
 ## Construido con
 
 + [Maven](https://maven.apache.org/) - Manejo de dependencias
