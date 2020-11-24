@@ -157,4 +157,9 @@ public class DrawChatServiceImpl implements DrawChatService {
             deleteUserFromGroup(tUsuario1,userDel.getTelefono(), grupo);
         }
     }
+
+    @Override
+    public Group getGroupById(int idgrupo) throws AppException {
+        return drawPersistenceService.getGroupById(idgrupo);
+    }
 }

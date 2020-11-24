@@ -338,17 +338,12 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public Group getGroupById(int groupid) {
-        List<Group> grupos = groupDAO.findAll();
-        Group grupo = null;
-        for (Group grp : grupos) {
-            if (grp.getId()==groupid) {
-                grupo=grp;
-                List<Message> msgs = msgDAO.getMessagesByGroup(grupo.getId());
-                grupo.setChat(grupo.getId());
-                grupo.setMessages(msgs);
-            }
-        }
-        return grupo;
+        Optional<Group> grupo = groupDAO.findById(groupid);
+        List<Message> msgs = msgDAO.getMessagesByGroup(grupo.get().getId());
+        grupo.get().setChat(grupo.get().getId());
+        grupo.get().setMessages(msgs);
+        Group grp=grupo.get();
+        return grp;
     }
 
     @Override
