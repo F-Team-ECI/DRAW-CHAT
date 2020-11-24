@@ -1586,7 +1586,7 @@ public class DrawChatServiceTest {
 			grupo.setMembers(newUsers);
 			service.addUsersToGroup(user.getTelefono(),grupo);
 			//System.out.println(service.getContactsExGroup(user.getTelefono(), grp2.getId()));
-			//service.deleteUserFromGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
+			service.deleteUserFromGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
 			Group grp3 = service.getGroup(nombre);
 			System.out.println(grp3.getMembers());
 			//System.out.println(grp2.getMembers());
