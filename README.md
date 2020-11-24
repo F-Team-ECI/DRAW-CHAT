@@ -19,7 +19,7 @@ donde todos los integrantes de grupo serán capaces de realizar dibujos básicos
 
 [Jira](https://f-team-eci.atlassian.net/jira/software/projects/DCARSW/boards/1)
 
-[Azure App Service](http://draw-chat-1605566864871.azurewebsites.net/login)
+[Azure App Service](http://draw-chat.azurewebsites.net)
 
 [GitBook](https://alejo-704.gitbook.io/draw-chat/)  
 
