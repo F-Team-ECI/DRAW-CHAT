@@ -1459,8 +1459,6 @@ public class DrawChatServiceTest {
 			assertTrue(e.getMessage().equals(AppException.CHAT_NOT_EXISTS));
 		}
 	}
-<<<<<<< HEAD
-=======
 	 
 	
 	
@@ -1517,9 +1515,7 @@ public class DrawChatServiceTest {
 		
 		assertTrue(res);
 	}
->>>>>>> cc672995a61cc0f83b4ace6f49d6da2d45c0d1ad
-	
-	
+
 	@Test
 	public void shouldAddUsersToGroup() {
 		User user1 = new User(1661711122, // telefono,
