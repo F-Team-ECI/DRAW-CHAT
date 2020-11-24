@@ -1458,57 +1458,6 @@ public class DrawChatServiceTest {
 			assertTrue(e.getMessage().equals(AppException.CHAT_NOT_EXISTS));
 		}
 	}
-	 
-	// BORRAR ESTO
-	@Test
-	public void producttest2() {
-		User user = new User(1661111111, // telefono,
-				"Julian", // nombre,
-				"Prueba", // apellido,
-				"abcdefg", // contraseña,
-				new Date(), // fecharegistro,
-				new Date(), // fechaconexion,
-				StateEnum.DISCONNECTED.toString()/* estado */);
-		User userContact = new User(1631111111, // telefono,
-				"Federico", // nombre,
-				"Prueba", // apellido,
-				"abcdefg", // contraseña,
-				new Date(), // fecharegistro,
-				new Date(), // fechaconexion,
-				StateEnum.DISCONNECTED.toString()/* estado */);
-		try {
-			service.addUser(user);
-			service.addUser(userContact);
-			service.addContact(user.getTelefono(), userContact.getTelefono());
-			List<User> usuariosTemp = service.getContacts(user.getTelefono());
-			System.out.println(usuariosTemp);
-			// List<User> usuariosTemp = service.getContacts(user.getTelefono());
-			// System.out.println(usuariosTemp);
-			service.addChat(user.getTelefono(), userContact.getTelefono());
-			System.out.println("ok");
-			// System.out.println("ok new chat");
-			Chat chat = service.getChat(user.getTelefono(), userContact.getTelefono());
-			System.out.println(chat);
-			// System.out.println(chat);
-			Message msg11 = new Message(0, chat, user, "hola", new Date());
-			service.addMessage(msg11);
-			Message msg21 = new Message(0, chat, userContact, "hey", new Date());
-			service.addMessage(msg21);
-			Message msg12 = new Message(0, chat, user, "que hace", new Date());
-			service.addMessage(msg12);
-			Message msg22 = new Message(0, chat, userContact, "trabajo en el proyecto", new Date());
-			service.addMessage(msg22);
-			System.out.println("ok msg");
-			Chat chat2 = service.getChat(user.getTelefono(), userContact.getTelefono());
-			System.out.println(chat2);
-			System.out.println("Messages");
-			System.out.println(service.getChatMessages(chat2.getId()));
-		} catch (AppException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	
 	// BORRAR ESTO
 	@Test
@@ -1586,9 +1535,20 @@ public class DrawChatServiceTest {
 			grupo.setMembers(newUsers);
 			service.addUsersToGroup(user.getTelefono(),grupo);
 			//System.out.println(service.getContactsExGroup(user.getTelefono(), grp2.getId()));
-			service.deleteUserFromGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
+			//service.deleteUserFromGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
 			Group grp3 = service.getGroup(nombre);
+			System.out.println("antes");
 			System.out.println(grp3.getMembers());
+
+			Set<User> delUsers = new HashSet<>();
+			delUsers.add(userContact1); 
+			delUsers.add(userContact2); 
+			grupo.setMembers(delUsers);
+			service.deleteUsersFromGroup(user.getTelefono(), grupo);
+
+			Group grp4 = service.getGroup(nombre);
+			System.out.println("despues");
+			System.out.println(grp4.getMembers());
 			//System.out.println(grp2.getMembers());
 
 			

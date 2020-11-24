@@ -109,5 +109,7 @@ public interface DrawChatService {
 
     public void deleteUserFromGroup(long tUsuario1,long tUsDel, Group grupo) throws AppException;
 
+    public void deleteUsersFromGroup(long tUsuario1,Group grupo) throws AppException;
+
     public void addDrawSession(Group grupo) throws AppException;
 }

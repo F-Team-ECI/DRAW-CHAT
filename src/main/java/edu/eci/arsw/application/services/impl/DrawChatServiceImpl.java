@@ -149,4 +149,12 @@ public class DrawChatServiceImpl implements DrawChatService {
             addUserToGroup(tUsuario1, userAdd.getTelefono(), grupo);
         }
     }
+
+    @Override
+    public void deleteUsersFromGroup(long tUsuario1, Group grupo) throws AppException {
+        Set<User> tUsersDel = grupo.getMembers();
+        for (User userDel : tUsersDel) {
+            deleteUserFromGroup(tUsuario1,userDel.getTelefono(), grupo);
+        }
+    }
 }
