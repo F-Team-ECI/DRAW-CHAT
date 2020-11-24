@@ -1,6 +1,5 @@
 package edu.eci.arsw.application.controllers.impl.messages;
 
-import edu.eci.arsw.application.entities.Group;
 import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.services.DrawChatService;

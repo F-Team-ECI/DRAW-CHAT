@@ -1,7 +1,6 @@
 package edu.eci.arsw.application.controllers.impl;
 
 import edu.eci.arsw.application.entities.Group;
-import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.services.DrawChatService;
@@ -9,14 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
 
 import edu.eci.arsw.application.controllers.BaseController;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -61,7 +57,6 @@ public class GroupController implements BaseController {
 
     @GetMapping("/{id}/messages")
     public ResponseEntity<?> getGroupMessages(@PathVariable int id) throws AppException {
-        List<Message> ans = new ArrayList<>();
         return new ResponseEntity<>(drawChatService.getGroupChatMessages(id), HttpStatus.OK);
     }
 

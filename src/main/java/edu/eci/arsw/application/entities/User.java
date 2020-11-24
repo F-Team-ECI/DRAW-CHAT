@@ -3,8 +3,6 @@ package edu.eci.arsw.application.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;

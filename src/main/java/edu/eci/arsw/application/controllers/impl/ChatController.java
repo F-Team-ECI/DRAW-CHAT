@@ -1,18 +1,14 @@
 package edu.eci.arsw.application.controllers.impl;
 
-import edu.eci.arsw.application.entities.Chat;
 import edu.eci.arsw.application.entities.Message;
 import edu.eci.arsw.application.exceptions.AppException;
 
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
