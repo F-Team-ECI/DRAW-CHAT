@@ -74,11 +74,29 @@ public class GroupController implements BaseController {
         drawChatService.addUsersToGroup(drawChatService.getCurrentUserSession().getTelefono(), grupo);
         return new ResponseEntity<>("200 ACCEPTED", HttpStatus.ACCEPTED);
     }
-/*
-    @GetMapping("{name}")
-    public ResponseEntity<?> getGroup(@PathVariable String name){
 
+    @PutMapping("/deletemembers")
+    public ResponseEntity<?> deleteMembers(@RequestBody Group grupo)  {
+        System.out.println(grupo.getMembers());
+        System.out.println(grupo.getId());
+        try {
+            drawChatService.deleteUsersFromGroup(drawChatService.getCurrentUserSession().getTelefono(), grupo);
+            return new ResponseEntity<>("200 ACCEPTED", HttpStatus.ACCEPTED);
+        } catch (AppException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
-*/
+
+    @GetMapping("{id}/members")
+    public ResponseEntity<?> getGroup(@PathVariable int id){
+        Group a = null;
+        try {
+            a = drawChatService.getGroupById(id);
+        } catch (AppException e) {
+            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(a.getMembers(), HttpStatus.OK);
+    }
+
 
 }

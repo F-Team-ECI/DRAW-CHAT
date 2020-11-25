@@ -66,15 +66,13 @@ var groupHanlder = (function(){
         })
     }
 
-    var loadGroupUsers = function(name){
-        console.log(conversationChat.getCurrentGroupName())
+    var loadGroupUsers = function(callback){
         var req = $.ajax({
-            url: '/groups/' + currentId +'/remaining',
+            url: '/groups/' + currentId + "/members",
             type: "GET",
             success: function (data, status, xhr) {
                 console.log('status: ' + status +"code" + xhr + ', data: ' + data);
-                console.log(xhr.status);
-                console.log(data);
+
                 callback(data, status, xhr)
             },
             error: function (jqXhr, textStatus, errorMessage) {
@@ -84,7 +82,29 @@ var groupHanlder = (function(){
         return req;
     }
 
-    var addMembersToView = function(){
+    var addMembersToView = function(data, status, xhr){
+        $("#deleteMemberLoad").css({ display: "none" })
+        $("#deleteMemberMain").append("<tbody>"
+            + "<tr>"
+            + "<th>TELÉFONO</th>"
+            + "<th>NOMBRE</th>"
+            + "<th>APELLIDO</th>"
+            + "<th>ESTADO</th>"
+            + "<th>ELIMINAR</th>"
+            + "</tr>"
+            + "</tbody>"
+        );
+        data.map(function (con) {
+            if (con.telefono != drawapp.getPhone()) {
+                $("#deleteMemberMain tbody").append("<tr class='groupDel'>"
+                    + "<td>" + con.telefono + "</td>"
+                    + "<td>" + con.nombre + "</td>"
+                    + "<td>" + con.apellido + "</td>"
+                    + "<td>" + con.estado + "</td>"
+                    + "<td> <input type='checkbox'></input> </td>"
+                    + "</tr>")
+            }
+        })
 
     }
 
@@ -111,6 +131,29 @@ var groupHanlder = (function(){
         });
     }
 
+    var sendPutDeleteMembers = function(members){
+        var object = {
+            "id": currentId,
+            "members": members
+        }
+        $.ajax({
+            url: '/groups/deletemembers',
+            type: "PUT",
+            data: JSON.stringify(object),
+            contentType: 'application/json;charset=UTF-8',
+            success: function (data, status, xhr) {
+                console.log('status: ' + status + ', data: ' + data);
+                $("#deleteMemberIncorrect").css({ display: "none" })
+                $("#deleteMemberCorrect").css({ display: "block" })
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log('Error' + errorMessage);
+                $("#deleteMemberIncorrect").css({ display: "block" })
+                $("#deleteMemberCorrect").css({ display: "none" })
+            }
+        });
+    }
+
     
     return {
 
@@ -130,7 +173,6 @@ var groupHanlder = (function(){
         }, 
         
         addMembers: function(){
-            var $set = $('.groupAdd');
             var members = [];
             var elemen = 0;
             var table = $('#addMemberMain tr').each(function () {
@@ -161,6 +203,19 @@ var groupHanlder = (function(){
         },
 
         deleteMembers: function(){
+            var members = [];
+            var elemen = 0;
+            var table = $('#deleteMemberMain tr').each(function () {
+                var row = $(this);
+                var tel = row.find('td').first().text();
+                if (elemen != 0) {
+                    if (row.find('td').last().find('input').is(':checked')) {
+                        members.push({ "telefono": Number(tel) })
+                    }
+                }
+                elemen += 1;
+            });
+            sendPutDeleteMembers(members)
             
         }
 

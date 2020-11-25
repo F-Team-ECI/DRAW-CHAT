@@ -1,5 +1,7 @@
 package edu.eci.arsw.application.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -35,6 +37,7 @@ public class Message {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "grupo")
+    @JsonIgnore
     private Group grupo;
     
     private String contenido;
