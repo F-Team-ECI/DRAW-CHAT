@@ -1450,7 +1450,6 @@ public class DrawChatServiceTest {
 		assertTrue(check);
 	}
 
-	
 	@Test 
 	public void shouldNotGetChatMessages() {
 		try {
@@ -1515,7 +1514,6 @@ public class DrawChatServiceTest {
 		
 		assertTrue(res);
 	}
-
 	@Test
 	public void shouldAddUsersToGroup() {
 		User user1 = new User(1661711122, // telefono,
@@ -1715,5 +1713,133 @@ public class DrawChatServiceTest {
 	public void shouldNotAddUserToGroup() {
 		
 	}
+
+	//BORRAR ESTO
+	@Test
+	public void producttest() {
+		User user = new User(1661111111, // telefono,
+				"Julian", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User userContact1  = new User(1631111111, // telefono,
+				"Federico", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User userContact2  = new User(1561111111, // telefono,
+				"Ximena", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User newUser  = new User(1331111111, // telefono,
+				"Argemiro", // nombre,
+				"Prueba", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		User lastUser  = new User(1531115111, // telefono,
+				"Pedro", // nombre,
+				"Infante", // apellido,
+				"abcdefg", // contraseña,
+				new Date(), // fecharegistro,
+				new Date(), // fechaconexion,
+				StateEnum.DISCONNECTED.toString()/* estado */);
+		try {
+				service.addUser(user);
+				service.addUser(userContact1);
+				service.addUser(userContact2);
+				//service.addUser(userContact3);
+				service.addContact(user.getTelefono(), userContact1.getTelefono());
+				service.addContact(user.getTelefono(), userContact2.getTelefono());
+				//service.addContact(user.getTelefono(), userContact3.getTelefono());
+				// List<User> usuariosTemp = service.getContacts(user.getTelefono());
+				// System.out.println(usuariosTemp);
+				String nombre = "grupo de apoyo";
+				Set<User> members = new HashSet<>();
+				//members.add(userContact1);
+				//members.add(userContact2);
+				//members.add(userContact3);
+				Group grupo = new Group(0, "grupo de apoyo", "te ayudamos con apoyo", new Date(),members);
+				service.addGroup(user.getTelefono(),grupo);
+				System.out.println("ok");
+				Group grp = service.getGroup(nombre);
+				System.out.println(grp);
+				Message msg1 = new Message(0, grp, user, "hola a todos", new Date());
+				service.addMessage(msg1);
+				System.out.println("ok msg1");
+
+				service.addUser(newUser);
+				service.addContact(user.getTelefono(), newUser.getTelefono());
+				service.addContact(newUser.getTelefono(), userContact1.getTelefono());
+				service.addContact(newUser.getTelefono(), userContact2.getTelefono());
+				service.addUserToGroup(user.getTelefono(), newUser.getTelefono(), grp);
+
+				Message msg2 = new Message(0, grp, newUser, "soy el nuevo", new Date());
+				service.addMessage(msg2);
+				System.out.println("ok msg2");
+
+				Group grp2 = service.getGroup(nombre);
+				System.out.println(grp2.getMembers());
+				System.out.println(service.getGroupChatMessages(grp2.getId()));
+				Set<User> newUsers = new HashSet<>();
+				newUsers.add(userContact1); 
+				newUsers.add(userContact2); 
+				grupo.setMembers(newUsers);
+
+				service.upgradeUserOnGroup(user.getTelefono(), newUser.getTelefono(), grupo);
+
+				//service.upgradeUserOnGroup(newUser.getTelefono(), userContact1.getTelefono(), grupo);
+
+				service.addUsersToGroup(newUser.getTelefono(),grupo);
+
+				Set<User> upUsers = new HashSet<>();
+				upUsers.add(userContact1); 
+				upUsers.add(userContact2); 
+				grupo.setMembers(upUsers);
+
+				service.upgradeUsersOnGroup(user.getTelefono(),grupo);
+
+				service.addUser(lastUser);
+				service.addContact(userContact1.getTelefono(), lastUser.getTelefono());
+
+				service.addUserToGroup(userContact1.getTelefono(), lastUser.getTelefono(), grupo);
+
+				//System.out.println(service.getContactsExGroup(user.getTelefono(), grp2.getId()));
+				
+				Group grp3 = service.getGroup(nombre);
+				//System.out.println("antes");
+				System.out.println(grp3.getMembers());
+
+				//service.upgradeUserOnGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
+				//System.out.println("de nuevo");
+				//service.upgradeUserOnGroup(userContact1.getTelefono(), userContact2.getTelefono(), grupo);
+				//service.upgradeUserOnGroup(tUsuario1, tUsUp, grupo);
+
+
+				//service.deleteUserFromGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
+				//Set<User> delUsers = new HashSet<>();
+				//delUsers.add(userContact1); 
+				//delUsers.add(newUser);
+				//grupo.setMembers(delUsers);
+				//service.deleteUsersFromGroup(user.getTelefono(), grupo);
+				
+				//Group grp4 = service.getGroup(nombre);
+				//System.out.println("despues");
+				//System.out.println(grp4.getMembers());
+
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 			
 }

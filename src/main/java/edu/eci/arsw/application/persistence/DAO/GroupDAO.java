@@ -20,6 +20,10 @@ public interface GroupDAO extends JpaRepository<Group, Integer> {
     public void addUserToGroup(long tUsuario, int groupId, String role);
 
     @Modifying
+    @Query(value = "update gruposusuario set rol = 'ADMIN' where usuario = :tUsuario and grupo = :groupId", nativeQuery = true)
+    public void updateUserOnGroup(long tUsuario, int groupId);
+
+    @Modifying
     @Query(value = "delete from gruposusuario g where g.grupo =:groupId and g.usuario =:tUsuario", nativeQuery = true)
     public void deleteUserFromGroup(long tUsuario, int groupId);
 

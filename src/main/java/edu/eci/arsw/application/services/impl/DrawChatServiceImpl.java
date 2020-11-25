@@ -122,6 +122,15 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
+    public void upgradeUsersOnGroup(long tUsuario1, Group grupo) throws AppException {
+        Set<User> tUsersUp = grupo.getMembers();
+        for (User userUp : tUsersUp) {
+            upgradeUserOnGroup(tUsuario1, userUp.getTelefono(), grupo);
+        }
+
+    }
+
+    @Override
     public void deleteUserFromGroup(long tUsuario1,long tUsDel, Group grupo) throws AppException {
         drawPersistenceService.deleteUserFromGroup(tUsuario1, tUsDel, grupo);
     }
@@ -157,4 +166,11 @@ public class DrawChatServiceImpl implements DrawChatService {
             deleteUserFromGroup(tUsuario1,userDel.getTelefono(), grupo);
         }
     }
+
+    @Override
+    public Group getGroupById(int idgrupo) throws AppException {
+        return drawPersistenceService.getGroupById(idgrupo);
+    }
+
+    
 }

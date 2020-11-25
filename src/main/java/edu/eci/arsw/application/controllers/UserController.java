@@ -3,7 +3,6 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.eci.arsw.application.controllers.impl.DrawController;
-import edu.eci.arsw.application.entities.StateEnum;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.services.DrawChatService;
@@ -11,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,14 +66,11 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<?> updateUser(@RequestBody String user) {
-		//System.out.println(user);
 		try {
 			User nuevo = mapper.readValue(user, User.class);
-			//System.out.println(nuevo);
 			if (drawChatService.getCurrentUserSession().getTelefono() != nuevo.getTelefono()) {
 				return new ResponseEntity<>("401 Unauthorized", HttpStatus.UNAUTHORIZED);
 			}
-			//System.out.println("AUTH");
 			if (nuevo.getContraseña() != null) {
 				nuevo.setContraseña(new BCryptPasswordEncoder().encode(nuevo.getContraseña()));
 			}

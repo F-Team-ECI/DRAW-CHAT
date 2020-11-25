@@ -271,27 +271,31 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         if (user1==null || user2==null) {
             throw new AppException(AppException.USER_NOT_REGISTERED);
         }
-        Group grupo1 = getGroup(grupo.getNombre());
+        Group grupo1 = getGroupById(grupo.getId());
         if (grupo1==null){
             throw new AppException(AppException.GROUP_NOT_EXISTS);
         }
         String rol1 = groupDAO.getRole(tUsuario1, grupo1.getId());
         String rol2 = groupDAO.getRole(tUsUp, grupo1.getId());
 
+        System.out.println(rol1 + "|" +rol2);
         if (rol1==null || rol2==null){
             throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
         }
 
         if ((rol1=="MEMBER" && rol2 == "ADMIN")
+            || (rol1=="MEMBER" && rol2 == "MEMBER")
             || (rol1=="MEMBER" && rol2 == "OWNER")){
             throw new AppException(AppException.NOT_PERMISSION_ON_GROUP);
         }
 
         if ((rol1=="ADMIN" && rol2 == "ADMIN")
+            || (rol1=="OWNER" && rol2 == "ADMIN")
             || (rol1=="ADMIN" && rol2 == "OWNER")){
             throw new AppException(AppException.FULL_PERMISSION_ON_GROUP);
         }
-        //implementar
+
+        groupDAO.updateUserOnGroup(tUsUp, grupo1.getId());
 
     }
 
@@ -338,17 +342,12 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Override
     public Group getGroupById(int groupid) {
-        List<Group> grupos = groupDAO.findAll();
-        Group grupo = null;
-        for (Group grp : grupos) {
-            if (grp.getId()==groupid) {
-                grupo=grp;
-                List<Message> msgs = msgDAO.getMessagesByGroup(grupo.getId());
-                grupo.setChat(grupo.getId());
-                grupo.setMessages(msgs);
-            }
-        }
-        return grupo;
+        Optional<Group> grupo = groupDAO.findById(groupid);
+        List<Message> msgs = msgDAO.getMessagesByGroup(grupo.get().getId());
+        grupo.get().setChat(grupo.get().getId());
+        grupo.get().setMessages(msgs);
+        Group grp=grupo.get();
+        return grp;
     }
 
     @Override
