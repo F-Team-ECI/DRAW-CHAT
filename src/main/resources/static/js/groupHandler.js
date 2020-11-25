@@ -66,6 +66,28 @@ var groupHanlder = (function(){
         })
     }
 
+    var loadGroupUsers = function(name){
+        console.log(conversationChat.getCurrentGroupName())
+        var req = $.ajax({
+            url: '/groups/' + currentId +'/remaining',
+            type: "GET",
+            success: function (data, status, xhr) {
+                console.log('status: ' + status +"code" + xhr + ', data: ' + data);
+                console.log(xhr.status);
+                console.log(data);
+                callback(data, status, xhr)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log('Error' + errorMessage);
+            }
+        });
+        return req;
+    }
+
+    var addMembersToView = function(){
+
+    }
+
     var sendPutAddMembers = function(members){
         var object = {
             "id": currentId,
@@ -132,10 +154,10 @@ var groupHanlder = (function(){
         },
 
         openDeleteModal: function(){
-            deleteMemberModal.css({ display: "flex" });  
-            $("#deleteMemberLoad").css({ display: "block" })
-            currentId = conversationChat.getCurrentID() 
-
+            deleteMemberModal.css({ display: "flex" });
+            $("#deleteMemberLoad").css({ display: "block" });
+            currentId = conversationChat.getCurrentID();
+            loadGroupUsers(addMembersToView);
         },
 
         deleteMembers: function(){

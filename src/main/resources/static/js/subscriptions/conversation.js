@@ -2,6 +2,7 @@ var conversationChat = (function () {
 
     var selectedchat = null;
     var currentId = null;
+
     var stompClient = null;
     var connected = false;
     var loading = false;
@@ -152,6 +153,7 @@ var conversationChat = (function () {
             }
             selectedchat = cell;
             currentId = $(cell).children().eq(4).text();
+            CurrentGroupName = $(cell).children().eq(5).text();
             $(cell).css("background-color", "#c2bbbb");
             getConversation();
         },
@@ -207,7 +209,7 @@ var conversationChat = (function () {
 
         getCurrentID: function(){
             return currentId;
-        }
+        },
 
     }
 })();

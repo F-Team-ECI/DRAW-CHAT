@@ -36,6 +36,7 @@ chatSub = (function () {
         + "<i>" + user.apellido + "</i>"
         + "<span>" + user.telefono + "</span>"
         +"<i style='display: none;'>" + chat.id + "</i>"
+        +"<i style='display: none;'>" + chat.id + "</i>"
         + "</div>"
         $("#chatsContainer").append(element).hide().show(200);
     }

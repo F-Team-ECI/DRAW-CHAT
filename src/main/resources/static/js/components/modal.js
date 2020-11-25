@@ -58,6 +58,10 @@ $(document).ready(function () {
         if (event.target.id === "addMemberModal") {
             groupHanlder.closeAddModal();
         }
+
+        if (event.target.id === "deleteMemberModal") {
+            groupHanlder.closeDeleteModal();
+        }
     }
     //  DROPDOWN
     dropdown =  function() {

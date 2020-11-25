@@ -79,6 +79,11 @@ public class GroupController implements BaseController {
         drawChatService.addUsersToGroup(drawChatService.getCurrentUserSession().getTelefono(), grupo);
         return new ResponseEntity<>("200 ACCEPTED", HttpStatus.ACCEPTED);
     }
+/*
+    @GetMapping("{name}")
+    public ResponseEntity<?> getGroup(@PathVariable String name){
 
+    }
+*/
 
 }

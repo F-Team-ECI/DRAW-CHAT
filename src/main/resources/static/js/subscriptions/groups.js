@@ -8,6 +8,7 @@ groupSub = (function () {
         + "<i> </i>"
         + "<span>" + group.lema + "</span>"
         +"<i style='display: none;'>" + group.id + "</i>"
+        +"<i style='display: none;'>" + group.nombre + "</i>"
         + "</div>"
         $("#groupsContainer").append(element).hide().show(200);
     }
