@@ -350,6 +350,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         return grp;
     }
 
+
     @Override
     public List<Message> getGroupChatMessages(int groupid) throws AppException {
         List<Message> msgs = msgDAO.getMessagesByGroup(groupid);
