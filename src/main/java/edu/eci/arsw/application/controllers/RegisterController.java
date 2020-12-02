@@ -2,7 +2,7 @@ package edu.eci.arsw.application.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.eci.arsw.application.controllers.impl.DrawController;
+import edu.eci.arsw.application.controllers.impl.messages.DrawController;
 import edu.eci.arsw.application.entities.StateEnum;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;

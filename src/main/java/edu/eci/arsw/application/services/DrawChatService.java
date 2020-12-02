@@ -2,6 +2,7 @@ package edu.eci.arsw.application.services;
 
 import java.util.List;
 
+import edu.eci.arsw.application.entities.util.Line;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.application.entities.Chat;
@@ -237,4 +238,10 @@ public interface DrawChatService {
      * @throws AppException
      */
     public void addDrawSession(Group grupo) throws AppException;
+
+    public void saveDrawLine(int group, Line line) throws AppException;
+
+    public List<Line> getDrawLines(int group) throws AppException;
+
+    public void createNewSession(int group) throws AppException;
 }

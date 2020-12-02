@@ -1,4 +1,4 @@
-package edu.eci.arsw.application.controllers.impl;
+package edu.eci.arsw.application.controllers.impl.messages;
 
 import edu.eci.arsw.application.entities.util.Line;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,13 @@ public class DrawController implements BaseController {
     @Autowired
     private DrawChatService drawChatService;
 
-    @MessageMapping("/paint.{group}")
-    public void handleBuyEvent(Line st, @DestinationVariable String group) throws Exception {
-        System.out.println("Nuevo punto recibido en el servidor!:"+st);
-        System.out.println("Session!:"+group);
-        System.out.println("HERE " + drawChatService.getCurrentUserSession());
-        msgt.convertAndSend("/topic/paint."+group, st);
+    @MessageMapping("/paint.{id}")
+    public void handleBuyEvent(Line line, @DestinationVariable int id) throws Exception {
+        System.out.println(line);
+
+        System.out.println("Nuevo punto recibido en el servidor!:"+id);
+        msgt.convertAndSend("/topic/paint."+id, line);
+        drawChatService.saveDrawLine(id, line);
     }
 
 }

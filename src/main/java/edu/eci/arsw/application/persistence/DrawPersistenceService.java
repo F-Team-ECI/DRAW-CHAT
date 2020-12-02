@@ -2,6 +2,7 @@ package edu.eci.arsw.application.persistence;
 
 import java.util.List;
 
+import edu.eci.arsw.application.entities.util.Line;
 import edu.eci.arsw.application.exceptions.AppException;
 import org.springframework.stereotype.Service;
 
@@ -190,4 +191,10 @@ public interface DrawPersistenceService {
      * @throws AppException error consultando usuario
      */
 	public boolean belongAdminToGroup(long tUsuario1, Group grupo)throws AppException;
+
+	public void saveDrawLine(int group, Line line) throws AppException;
+
+    public List<Line> getDrawLines(int group) throws AppException;
+
+    public void createNewSession(int group) throws AppException;
 }

@@ -2,6 +2,8 @@ package edu.eci.arsw.application.persistence.impl;
 
 import java.util.*;
 
+import edu.eci.arsw.application.entities.util.Line;
+import edu.eci.arsw.application.cache.redis.DrawDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Autowired
     private GroupDAO groupDAO;
+
+    @Autowired
+    private DrawDAO drawDAO;
 
     @Override
     public void addUser(User user) throws AppException {
@@ -387,5 +392,20 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
             isAdmin=true;
         }
         return isAdmin;
+    }
+
+    @Override
+    public void saveDrawLine(int group, Line line) throws AppException {
+        drawDAO.save(group, line);
+    }
+
+    @Override
+    public List<Line> getDrawLines(int group) throws AppException {
+        return drawDAO.getLines(group);
+    }
+
+    @Override
+    public void createNewSession(int group) throws AppException {
+        drawDAO.createSession(group);
     }
 }
