@@ -110,18 +110,12 @@ public interface DrawChatService {
     public Chat addChat(long tUsuario1,long tUsuario2) throws AppException;
 
     /**
-     * Agregar un mensaje a la aplicacion
-     * @param msg mensaje a registrar
-     * @throws AppException error en la construccion del mensaje
+     * Agrega un mensaje a la aplicacion
+     * @param msg el mensaje a agregar en la aplicacion
+     * @return Message donde indica como se guardo en la aplicacion
+     * @throws AppException
      */
-    public void addMessage(Message msg) throws AppException;
-
-    /**
-     * Borrar un mensaje de la aplicacion
-     * @param msg mensage a borrar
-     * @throws AppException error en el borrado del mensaje
-     */
-    public void deleteMessage(Message msg) throws AppException;
+    public Message addMessage(Message msg) throws AppException;
 
     /**
      * Agregar un grupo a la aplicacion
@@ -231,6 +225,13 @@ public interface DrawChatService {
      */
     public boolean belongAdminToGroup(long tUsuario1,Group grupo) throws AppException;
 
+
+    /**
+     * Borrar un mensaje de la aplicacion si cumple con los criterios(tiempo,existencia)
+     * @param msg mensage a borrar
+     * @throws AppException error en el borrado del mensaje
+     */
+    public void deleteMessage(Message msg) throws AppException;
 
     /**
      * Sesion de dibujo a un grupo

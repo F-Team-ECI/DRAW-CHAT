@@ -81,8 +81,8 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
-    public void addMessage(Message msg) throws AppException {
-        drawPersistenceService.addMessage(msg);
+    public Message addMessage(Message msg) throws AppException {
+        return drawPersistenceService.addMessage(msg);
     }
 
     @Override
@@ -103,12 +103,6 @@ public class DrawChatServiceImpl implements DrawChatService {
     @Override
     public List<Message> getChatMessages(int chatid) throws AppException {
         return drawPersistenceService.getChatMessages(chatid);
-    }
-
-    @Override
-    public void deleteMessage(Message msg) throws AppException {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -198,5 +192,8 @@ public class DrawChatServiceImpl implements DrawChatService {
         return drawPersistenceService.belongAdminToGroup(tUsuario1, grupo);
     }
 
-    
+    @Override
+    public void deleteMessage(Message msg) throws AppException {
+        drawPersistenceService.deleteMessage(msg);
+    }
 }
