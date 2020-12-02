@@ -3,8 +3,10 @@ package edu.eci.arsw.application.sockets;
 import edu.eci.arsw.application.entities.Group;
 import edu.eci.arsw.application.exceptions.AppException;
 import edu.eci.arsw.application.services.DrawChatService;
+import edu.eci.arsw.application.services.impl.DrawChatServiceImpl;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -14,13 +16,13 @@ import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import java.security.Principal;
 import java.util.Arrays;
 
+@Configuration
 public class TopicSubscriptionInterceptor extends ChannelInterceptorAdapter {
 
     private static Logger logger = org.slf4j.LoggerFactory.getLogger(TopicSubscriptionInterceptor.class);
 
 
-    @Autowired
-    private DrawChatService drawChatService;
+    public DrawChatService drawChatService = new DrawChatServiceImpl();
 
 
     @Override
@@ -29,34 +31,43 @@ public class TopicSubscriptionInterceptor extends ChannelInterceptorAdapter {
         if (StompCommand.SUBSCRIBE.equals(headerAccessor.getCommand())) {
             Principal userPrincipal = headerAccessor.getUser();
             System.out.println(userPrincipal);
-            if (!validateSubscription(userPrincipal, headerAccessor.getDestination())) {
-                throw new IllegalArgumentException("No permission for this topic");
+            try {
+                if (!validateSubscription(userPrincipal, headerAccessor.getDestination())) {
+                    throw new IllegalArgumentException("No permission for this topic");
+                }
+            } catch (AppException e) {
+                e.printStackTrace();
             }
         }
         return message;
     }
 
-    private boolean validateSubscription(Principal principal, String topicDestination) {
+    private boolean validateSubscription(Principal principal, String topicDestination) throws AppException {
         String list[] = topicDestination.split("\\.", -1);
         System.out.println(Arrays.toString(list));
         String dest = list[0];
-        long user = Long.parseLong(principal.getName());
-        int var;
+        System.out.println(drawChatService);
+        long phone;
         try {
-            var = Integer.parseInt(list[1]);
+            phone = Long.parseLong(principal.getName());
+            System.out.println(phone);
         }catch (NumberFormatException e){
+            e.printStackTrace();
             return true;
         }
         Group group = new Group();
-        group.setId(var);
-        System.out.println(var + user);
+        System.out.println(phone);
         if (principal == null) {
             // unauthenticated user
             return false;
-        } else if (dest.equals("/topic/paint") || dest.equals("/groupsMessages")){
+        } else if (dest.equals("/topic/paint") || dest.equals("/topic/groupsMessages")){
             try {
-                //drawChatService.belongMemberToGroup(user, group);
+                int gId = Integer.parseInt(list[1]);
+                group.setId(gId);
+                System.out.println(drawChatService);
+                //drawChatService.belongMemberToGroup(phone, group);
             }catch (Exception e){
+                e.printStackTrace();
                 return false;
             }
 
@@ -66,6 +77,11 @@ public class TopicSubscriptionInterceptor extends ChannelInterceptorAdapter {
         logger.debug("Validate subscription for {} to topic {}", principal.getName(), topicDestination);
         //Additional validation logic coming here
         return true;
+    }
+
+    @Bean
+    public DrawChatService drawChatService() {
+        return new DrawChatServiceImpl();
     }
 
 }

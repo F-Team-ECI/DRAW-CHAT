@@ -368,6 +368,8 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     public boolean belongMemberToGroup(long tUsuario1, Group grupo) throws AppException {
         boolean isMember =false;
         User user1 = getUser(tUsuario1);
+        System.out.println(user1);
+        System.out.println(grupo);
         if (user1==null) {
             throw new AppException(AppException.USER_NOT_REGISTERED);
         }

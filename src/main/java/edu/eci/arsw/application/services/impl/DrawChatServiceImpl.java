@@ -184,6 +184,7 @@ public class DrawChatServiceImpl implements DrawChatService {
 
     @Override
     public boolean belongMemberToGroup(long tUsuario1, Group grupo) throws AppException {
+        System.out.println("HERE " + drawPersistenceService);
         return drawPersistenceService.belongMemberToGroup(tUsuario1, grupo);
     }
 
