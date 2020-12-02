@@ -1815,7 +1815,7 @@ public class DrawChatServiceTest {
 				//System.out.println(service.getContactsExGroup(user.getTelefono(), grp2.getId()));
 				
 				Group grp3 = service.getGroup(nombre);
-				//System.out.println("antes");
+				System.out.println("antes");
 				System.out.println(grp3.getMembers());
 
 				//service.upgradeUserOnGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
@@ -1825,15 +1825,15 @@ public class DrawChatServiceTest {
 
 
 				//service.deleteUserFromGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
-				//Set<User> delUsers = new HashSet<>();
-				//delUsers.add(userContact1); 
-				//delUsers.add(newUser);
-				//grupo.setMembers(delUsers);
-				//service.deleteUsersFromGroup(user.getTelefono(), grupo);
+				Set<User> delUsers = new HashSet<>();
+				delUsers.add(userContact1); 
+				delUsers.add(newUser);
+				grupo.setMembers(delUsers);
+				service.deleteUsersFromGroup(user.getTelefono(), grupo);
 				
-				//Group grp4 = service.getGroup(nombre);
-				//System.out.println("despues");
-				//System.out.println(grp4.getMembers());
+				Group grp4 = service.getGroup(nombre);
+				System.out.println("despues");
+				System.out.println(grp4.getMembers());
 
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
