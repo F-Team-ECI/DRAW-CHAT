@@ -1818,6 +1818,14 @@ public class DrawChatServiceTest {
 				System.out.println("antes");
 				System.out.println(grp3.getMembers());
 
+				Message msg3 = new Message(0, grp3, userContact1, "hola nuevo", new Date());
+				Message msg4 = new Message(0, grp3, newUser, "soy el nuevo", new Date());
+				Message msg5 = new Message(0, grp3, newUser, "soy el nuevo", new Date());
+				Message msg6 = new Message(0, grp3, newUser, "soy el nuevo", new Date());
+				Message msg7 = new Message(0, grp3, newUser, "soy el nuevo", new Date());
+				//service.addMessage(msg2);
+				//System.out.println("ok msg2");
+
 				//service.upgradeUserOnGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
 				//System.out.println("de nuevo");
 				//service.upgradeUserOnGroup(userContact1.getTelefono(), userContact2.getTelefono(), grupo);
@@ -1825,20 +1833,15 @@ public class DrawChatServiceTest {
 
 
 				//service.deleteUserFromGroup(user.getTelefono(), userContact1.getTelefono(), grupo);
-				Set<User> delUsers = new HashSet<>();
-				delUsers.add(userContact1); 
-				delUsers.add(newUser);
-				grupo.setMembers(delUsers);
-				service.deleteUsersFromGroup(user.getTelefono(), grupo);
+				//Set<User> delUsers = new HashSet<>();
+				//delUsers.add(userContact1); 
+				//delUsers.add(newUser);
+				//grupo.setMembers(delUsers);
+				//service.deleteUsersFromGroup(user.getTelefono(), grupo);
 				
 				Group grp4 = service.getGroup(nombre);
 				System.out.println("despues");
 				System.out.println(grp4.getMembers());
-
-				System.out.println(service.belongMemberToGroup(user.getTelefono(), grp4));
-				System.out.println(service.belongAdminToGroup(user.getTelefono(), grp4));
-				System.out.println(service.belongMemberToGroup(userContact2.getTelefono(), grp4));
-				System.out.println(service.belongAdminToGroup(userContact2.getTelefono(), grp4));
 
 		} catch (AppException e) {
 			// TODO Auto-generated catch block

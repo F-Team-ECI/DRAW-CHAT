@@ -2,7 +2,10 @@ package edu.eci.arsw.application.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -122,6 +125,35 @@ public class Message {
     public void setGrupo(Group grupo) {
         this.grupo = grupo;
     }
+
+    /**
+     * Verifica si el mensaje se puede borrar, solo puede 
+     * borrar el mensaje si han pasado menos de 10 minutos.
+     * @return boolean indicando si puede borrarlo, false si no puede
+     */
+    public boolean allowedToDelete() {
+        boolean isAllowed=false;
+        Date currentDate = new Date();
+        long diff = currentDate.getTime() - fecha.getTime();
+        long minutes = TimeUnit.MINUTES.convert(diff, TimeUnit.MILLISECONDS);
+        if (minutes<10) {
+            isAllowed=true;
+        }
+        return isAllowed;
+    }
+
+    /*
+    public static void main(String[] args) throws ParseException{
+        Message msg = new Message();
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d1 = objSDF.parse("2020-12-10 00:00:00");
+        Date d2 = objSDF.parse("2020-12-10 00:10:54");
+        System.out.println("Date1:" + objSDF.format(d1));
+        System.out.println("Date2:" + objSDF.format(d2));
+        long diff = d2.getTime() - d1.getTime();
+        long en = TimeUnit.MINUTES.convert(diff, TimeUnit.MILLISECONDS);
+        System.out.println(en);
+    }*/
 
     @Override
     public String toString() {

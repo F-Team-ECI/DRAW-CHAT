@@ -83,11 +83,12 @@ public interface DrawPersistenceService {
 	public Chat getChat(long tUsuario1, long tUsuario2) throws AppException;
 
     /**
-     * Insertar un mensaje de la base de datos
-     * @param msg mensaje a insertar en la base de datos 
-     * @throws AppException error insertando el mensaje
+     * Inserta el mensaje en la base de datos
+     * @param msg la estructura del mensaje a enviar con el contenido
+     * @return el mensaje guardado en la base de datos
+     * @throws AppException
      */
-    public void addMessage(Message msg)throws AppException;
+    public Message addMessage(Message msg)throws AppException;
 
     /**
      * Consultar los chats de un usuario
@@ -190,4 +191,11 @@ public interface DrawPersistenceService {
      * @throws AppException error consultando usuario
      */
 	public boolean belongAdminToGroup(long tUsuario1, Group grupo)throws AppException;
+
+    /**
+     * Borrar un mensaje
+     * @param msg el mensaje a borrar
+     * @throws AppException
+     */
+	public void deleteMessage(Message msg) throws AppException;
 }

@@ -173,10 +173,10 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
-    public void addMessage(Message msg) {
+    public Message addMessage(Message msg) {
         System.out.println("Dice " + msg.getEmisor().getNombre() + " que " + msg.getContenido());
         System.out.println(msg);
-        msgDAO.save(msg);
+        return msgDAO.save(msg);
     }
 
     @Override
@@ -217,10 +217,7 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         for (User usr : members) {
             addUserToGroup(user.getTelefono(),usr.getTelefono(),groupP);
         }
-        
     }
-
-
 
     @Override
     public void addUserToGroup(long tUsuario1, long tUsAdd, Group grupo) throws AppException {
@@ -350,7 +347,6 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         return grp;
     }
 
-
     @Override
     public List<Message> getGroupChatMessages(int groupid) throws AppException {
         List<Message> msgs = msgDAO.getMessagesByGroup(groupid);
@@ -366,11 +362,19 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     @Override
     public boolean belongMemberToGroup(long tUsuario1, Group grupo) throws AppException {
         boolean isMember =false;
+        User user1 = getUser(tUsuario1);
+        if (user1==null) {
+            throw new AppException(AppException.USER_NOT_REGISTERED);
+        }
+        Group grupo1 = getGroupById(grupo.getId());
+        if (grupo1==null){
+            throw new AppException(AppException.GROUP_NOT_EXISTS);
+        }
         String rol1 = groupDAO.getRole(tUsuario1, grupo.getId());
         if (rol1==null){
             throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
         }
-        if (rol1=="MEMBER"){
+        if (rol1=="MEMBER"|| rol1=="ADMIN" || rol1=="OWNER"){
             isMember=true;
         }
         return isMember;
@@ -379,6 +383,14 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     @Override
     public boolean belongAdminToGroup(long tUsuario1, Group grupo) throws AppException {
         boolean isAdmin=false;
+        User user1 = getUser(tUsuario1);
+        if (user1==null) {
+            throw new AppException(AppException.USER_NOT_REGISTERED);
+        }
+        Group grupo1 = getGroupById(grupo.getId());
+        if (grupo1==null){
+            throw new AppException(AppException.GROUP_NOT_EXISTS);
+        }
         String rol1 = groupDAO.getRole(tUsuario1, grupo.getId());
         if (rol1==null){
             throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
@@ -386,6 +398,21 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         if (rol1=="ADMIN" || rol1=="OWNER"){
             isAdmin=true;
         }
+        if (rol1=="MEMBER"){
+            isAdmin=false;
+        }
         return isAdmin;
+    }
+
+    @Override
+    public void deleteMessage(Message msg) throws AppException {
+        Optional<Message> message= msgDAO.findById(msg.getId());
+        if (message==null){
+            throw new AppException(AppException.MESSAGE_NOT_EXISTS);
+        }
+        if (msg.allowedToDelete()) {
+            msg.setContenido("Mensaje Borrado");
+            msgDAO.save(msg);
+        }
     }
 }
