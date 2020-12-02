@@ -108,6 +108,11 @@ var drawapp = (function () {
 
         getUser: function(){
             return userR;
+        }, 
+
+        goToPainting: function(){
+            window.open( 
+                window.location + "draw?group=" + conversationChat.getCurrentID(), "_blank"); 
         }
     }
 

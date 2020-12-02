@@ -137,8 +137,8 @@ var groupHanlder = (function(){
             "members": members
         }
         $.ajax({
-            url: '/groups/deletemembers',
-            type: "PUT",
+            url: '/groups/members',
+            type: "DELETE",
             data: JSON.stringify(object),
             contentType: 'application/json;charset=UTF-8',
             success: function (data, status, xhr) {

@@ -12,6 +12,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import edu.eci.arsw.application.controllers.BaseController;
 import org.springframework.web.bind.annotation.*;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.util.Date;
 import java.util.Set;
 
@@ -75,7 +76,7 @@ public class GroupController implements BaseController {
         return new ResponseEntity<>("200 ACCEPTED", HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/deletemembers")
+    @DeleteMapping("/members")
     public ResponseEntity<?> deleteMembers(@RequestBody Group grupo)  {
         System.out.println(grupo.getMembers());
         System.out.println(grupo.getId());
@@ -83,6 +84,7 @@ public class GroupController implements BaseController {
             drawChatService.deleteUsersFromGroup(drawChatService.getCurrentUserSession().getTelefono(), grupo);
             return new ResponseEntity<>("200 ACCEPTED", HttpStatus.ACCEPTED);
         } catch (AppException e){
+            e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
@@ -96,6 +98,28 @@ public class GroupController implements BaseController {
             return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(a.getMembers(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("{id}/paint")
+    public ResponseEntity<?> getLines(@PathVariable int id){
+        try {
+            Group a = drawChatService.getGroupById(id);
+            return new ResponseEntity<>(drawChatService.getDrawLines(id), HttpStatus.OK);
+        } catch (AppException e) {
+            return new ResponseEntity<>("404", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("{id}/paint")
+    public ResponseEntity<?> createNewSession(@PathVariable int id){
+        try {
+            Group a = drawChatService.getGroupById(id);
+            drawChatService.createNewSession(id);
+            return new ResponseEntity<>("201 OK", HttpStatus.CREATED);
+        } catch (AppException e) {
+            return new ResponseEntity<>("404", HttpStatus.NOT_FOUND);
+        }
     }
 
 

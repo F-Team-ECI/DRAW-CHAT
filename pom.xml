@@ -242,7 +242,15 @@
       <groupId>org.webjars</groupId>  
       <artifactId>js-cookie</artifactId>  
       <version>2.2.1</version> 
-    </dependency> 
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>3.3.0</version>
+    </dependency>
+
   </dependencies>  
   <reporting> 
     <plugins> 
