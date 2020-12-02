@@ -362,4 +362,30 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
         List<User> contacts = userDAO.getContactsExGroup(telefono, idgrupo);
         return contacts;
     }
+
+    @Override
+    public boolean belongMemberToGroup(long tUsuario1, Group grupo) throws AppException {
+        boolean isMember =false;
+        String rol1 = groupDAO.getRole(tUsuario1, grupo.getId());
+        if (rol1==null){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
+        }
+        if (rol1=="MEMBER"){
+            isMember=true;
+        }
+        return isMember;
+    }
+
+    @Override
+    public boolean belongAdminToGroup(long tUsuario1, Group grupo) throws AppException {
+        boolean isAdmin=false;
+        String rol1 = groupDAO.getRole(tUsuario1, grupo.getId());
+        if (rol1==null){
+            throw new AppException(AppException.USER_NOT_EXISTS_ON_GROUP);
+        }
+        if (rol1=="ADMIN" || rol1=="OWNER"){
+            isAdmin=true;
+        }
+        return isAdmin;
+    }
 }

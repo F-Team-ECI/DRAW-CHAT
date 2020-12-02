@@ -1633,75 +1633,75 @@ public class DrawChatServiceTest {
 		assertTrue(res);
 	}
 	
-	@Test
-	public void shouldDeleteUserFromGroup() {
-		User user1 = new User(1682211122, // telefono,
-				"Prueba", // nombre,
-				"Prueba", // apellido,
-				"abcdefg", // contraseña,
-				new Date(), // fecharegistro,
-				new Date(), // fechaconexion,
-				StateEnum.DISCONNECTED.toString()/* estado */);
-		User user2 = new User(1679311133, // telefono,
-				"Prueba", // nombre,
-				"Prueba", // apellido,
-				"abcdefg", // contraseña,
-				new Date(), // fecharegistro,
-				new Date(), // fechaconexion,
-				StateEnum.DISCONNECTED.toString()/* estado */);
-		User user3 = new User(1612182133, // telefono,
-				"Prueba", // nombre,
-				"Prueba", // apellido,
-				"abcdefg", // contraseña,
-				new Date(), // fecharegistro,
-				new Date(), // fechaconexion,
-				StateEnum.DISCONNECTED.toString()/* estado */);
-		boolean res = true;
-		boolean resEliminado = false;
-		try {
-			service.addUser(user1);
-			service.addUser(user2);
-			service.addUser(user3);
-			service.addContact(user1.getTelefono(), user2.getTelefono());
-			service.addContact(user1.getTelefono(), user3.getTelefono());
-			Set<User> members = new HashSet<User>();
-			Group grupo = new Group(135, "Prueba4", "Prueba4", new Date(), members);
+	// @Test
+	// public void shouldDeleteUserFromGroup() {
+	// 	User user1 = new User(1682211122, // telefono,
+	// 			"Prueba", // nombre,
+	// 			"Prueba", // apellido,
+	// 			"abcdefg", // contraseña,
+	// 			new Date(), // fecharegistro,
+	// 			new Date(), // fechaconexion,
+	// 			StateEnum.DISCONNECTED.toString()/* estado */);
+	// 	User user2 = new User(1679311133, // telefono,
+	// 			"Prueba", // nombre,
+	// 			"Prueba", // apellido,
+	// 			"abcdefg", // contraseña,
+	// 			new Date(), // fecharegistro,
+	// 			new Date(), // fechaconexion,
+	// 			StateEnum.DISCONNECTED.toString()/* estado */);
+	// 	User user3 = new User(1612182133, // telefono,
+	// 			"Prueba", // nombre,
+	// 			"Prueba", // apellido,
+	// 			"abcdefg", // contraseña,
+	// 			new Date(), // fecharegistro,
+	// 			new Date(), // fechaconexion,
+	// 			StateEnum.DISCONNECTED.toString()/* estado */);
+	// 	boolean res = true;
+	// 	boolean resEliminado = false;
+	// 	try {
+	// 		service.addUser(user1);
+	// 		service.addUser(user2);
+	// 		service.addUser(user3);
+	// 		service.addContact(user1.getTelefono(), user2.getTelefono());
+	// 		service.addContact(user1.getTelefono(), user3.getTelefono());
+	// 		Set<User> members = new HashSet<User>();
+	// 		Group grupo = new Group(135, "Prueba4", "Prueba4", new Date(), members);
 			
-			service.addGroup(user1.getTelefono(), grupo);
-			Group temp = service.getGroup("Prueba4");
-			service.addUserToGroup(user1.getTelefono(), user2.getTelefono(), temp);
-			service.addUserToGroup(user1.getTelefono(), user3.getTelefono(), temp);
-			
-			
-			
-			service.deleteUserFromGroup(user1.getTelefono(), user3.getTelefono(), grupo);
-			Set<User> listTemp = service.getGroup("Prueba4").getMembers();
-			List<Long> numeros = new ArrayList<Long>();
-			for(User u: listTemp) {
-				numeros.add(u.getTelefono());
-			}
+	// 		service.addGroup(user1.getTelefono(), grupo);
+	// 		Group temp = service.getGroup("Prueba4");
+	// 		service.addUserToGroup(user1.getTelefono(), user2.getTelefono(), temp);
+	// 		service.addUserToGroup(user1.getTelefono(), user3.getTelefono(), temp);
 			
 			
-			res = numeros.contains(user2.getTelefono()) && numeros.contains(user3.getTelefono());
 			
-			/**
-			Set<User> setTemp = persistence.getGroupById(135).getMembers();
-			System.out.println(setTemp);
-			List<User> listTempElminado = new ArrayList<User>();
-			listTempElminado.addAll(setTemp);
-			List<Long> numerosEliminado = new ArrayList<Long>();
-			for(User u: listTempElminado) {
-				numerosEliminado.add(u.getTelefono());
-			}
+	// 		service.deleteUserFromGroup(user1.getTelefono(), user3.getTelefono(), grupo);
+	// 		Set<User> listTemp = service.getGroup("Prueba4").getMembers();
+	// 		List<Long> numeros = new ArrayList<Long>();
+	// 		for(User u: listTemp) {
+	// 			numeros.add(u.getTelefono());
+	// 		}
 			
-			resEliminado = numerosEliminado.contains(user2.getTelefono());
-			*/
 			
-		}catch (Exception e) {
-			System.out.println(e.getStackTrace());
-		}
-		assertTrue(!res);
-	}
+	// 		res = numeros.contains(user2.getTelefono()) && numeros.contains(user3.getTelefono());
+			
+	// 		/**
+	// 		Set<User> setTemp = persistence.getGroupById(135).getMembers();
+	// 		System.out.println(setTemp);
+	// 		List<User> listTempElminado = new ArrayList<User>();
+	// 		listTempElminado.addAll(setTemp);
+	// 		List<Long> numerosEliminado = new ArrayList<Long>();
+	// 		for(User u: listTempElminado) {
+	// 			numerosEliminado.add(u.getTelefono());
+	// 		}
+			
+	// 		resEliminado = numerosEliminado.contains(user2.getTelefono());
+	// 		*/
+			
+	// 	}catch (Exception e) {
+	// 		System.out.println(e.getStackTrace());
+	// 	}
+	// 	assertTrue(!res);
+	// }
 	
 
 	@Test
@@ -1834,6 +1834,11 @@ public class DrawChatServiceTest {
 				Group grp4 = service.getGroup(nombre);
 				System.out.println("despues");
 				System.out.println(grp4.getMembers());
+
+				System.out.println(service.belongMemberToGroup(user.getTelefono(), grp4));
+				System.out.println(service.belongAdminToGroup(user.getTelefono(), grp4));
+				System.out.println(service.belongMemberToGroup(userContact2.getTelefono(), grp4));
+				System.out.println(service.belongAdminToGroup(userContact2.getTelefono(), grp4));
 
 		} catch (AppException e) {
 			// TODO Auto-generated catch block

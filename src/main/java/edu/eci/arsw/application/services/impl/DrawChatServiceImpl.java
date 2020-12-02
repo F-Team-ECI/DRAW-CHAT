@@ -172,5 +172,15 @@ public class DrawChatServiceImpl implements DrawChatService {
         return drawPersistenceService.getGroupById(idgrupo);
     }
 
+    @Override
+    public boolean belongMemberToGroup(long tUsuario1, Group grupo) throws AppException {
+        return drawPersistenceService.belongMemberToGroup(tUsuario1, grupo);
+    }
+
+    @Override
+    public boolean belongAdminToGroup(long tUsuario1, Group grupo) throws AppException {
+        return drawPersistenceService.belongAdminToGroup(tUsuario1, grupo);
+    }
+
     
 }

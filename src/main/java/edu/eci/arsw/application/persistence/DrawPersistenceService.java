@@ -172,4 +172,22 @@ public interface DrawPersistenceService {
      * @throws AppException
      */
 	public List<User> getContactsExGroup(long telefono, int idgrupo)throws AppException;
+
+    /**
+     * Consultar si el usuario es miembro del grupo
+     * @param tUsuario1 el telefono del usuario
+     * @param grupo el grupo al que puede pertenecer
+     * @return verdadero si esta, falso si no
+     * @throws AppException error consultando usuario
+     */
+	public boolean belongMemberToGroup(long tUsuario1, Group grupo)throws AppException;
+
+    /**
+     * Consultar si el usuario es admin del grupo
+     * @param tUsuario1 el telefono del usuario
+     * @param grupo el grupo al que puede pertenecer
+     * @return verdadero si esta, falso si no
+     * @throws AppException error consultando usuario
+     */
+	public boolean belongAdminToGroup(long tUsuario1, Group grupo)throws AppException;
 }

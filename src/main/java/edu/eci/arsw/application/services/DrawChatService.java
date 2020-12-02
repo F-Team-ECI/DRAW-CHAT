@@ -215,6 +215,23 @@ public interface DrawChatService {
     public void deleteUsersFromGroup(long tUsuario1,Group grupo) throws AppException;
 
     /**
+     * Pertenecer a un grupo
+     * @param tUsuario1 el usuario que puede o no pertenecer al grupo
+     * @param grupo el grupo al que pertenecen
+     * @throws AppException error buscando el usuario o el grupo
+     */
+    public boolean belongMemberToGroup(long tUsuario1,Group grupo) throws AppException;
+
+    /**
+     * Pertenecer a un grupo como admin
+     * @param tUsuario1 el usuario que puede o no pertenecer al grupo
+     * @param grupo el grupo al que pertenecen
+     * @throws AppException error buscando el usuario o el grupo
+     */
+    public boolean belongAdminToGroup(long tUsuario1,Group grupo) throws AppException;
+
+
+    /**
      * Sesion de dibujo a un grupo
      * @param grupo
      * @throws AppException
