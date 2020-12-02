@@ -16,7 +16,7 @@ import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import java.security.Principal;
 import java.util.Arrays;
 
-@Configuration
+
 public class TopicSubscriptionInterceptor extends ChannelInterceptorAdapter {
 
     private static Logger logger = org.slf4j.LoggerFactory.getLogger(TopicSubscriptionInterceptor.class);
