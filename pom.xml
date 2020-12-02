@@ -52,7 +52,20 @@
       </plugin>  
       <plugin> 
         <groupId>org.jacoco</groupId>  
-        <artifactId>jacoco-maven-plugin</artifactId>  
+        <artifactId>jacoco-maven-plugin</artifactId> 
+        <configuration>
+        	<excludes>
+        		<exclude>**/*CsrfController.class</exclude>
+        		<exclude>**/*DrawController.class</exclude>
+        		<exclude>**/*ChatMessageHandler.class</exclude>
+        		<exclude>**/*GroupMessageHandler.class</exclude>
+        		<exclude>**/*DrawSession.class</exclude>
+        		<exclude>**/*DrawChatApp.class</exclude>
+        		<exclude>**/*Line.class</exclude>
+        		<exclude>**/*Point.class</exclude>
+        		<exclude>**/*GroupController.class</exclude>
+        	</excludes>
+        </configuration> 
         <version>0.8.2</version>  
         <executions> 
           <execution> 
