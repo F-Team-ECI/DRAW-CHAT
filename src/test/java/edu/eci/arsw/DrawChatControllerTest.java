@@ -575,7 +575,7 @@ public class DrawChatControllerTest {
 	public void shouldDeleteMembers() throws Exception {
 		Group groupTemp = new Group();
 		mockMvc.perform(MockMvcRequestBuilders.
-				put("/groups/deletemembers")
+				delete("/groups/members")
 			    .contentType(MediaType.APPLICATION_JSON_UTF8)
 			    .content(asJsonString(groupTemp)))
 				.andExpect(status().isAccepted());
