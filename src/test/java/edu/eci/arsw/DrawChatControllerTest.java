@@ -20,11 +20,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.util.NestedServletException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.eci.arsw.application.DrawChatApp;
 import edu.eci.arsw.application.entities.Chat;
+import edu.eci.arsw.application.entities.Group;
 import edu.eci.arsw.application.entities.StateEnum;
 import edu.eci.arsw.application.entities.User;
 import edu.eci.arsw.application.exceptions.AppException;
@@ -37,7 +39,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -471,6 +475,126 @@ public class DrawChatControllerTest {
 		int status = result.getResponse().getStatus();
 		assertEquals(400, status);
 	}
+	
+	@Test
+	public void shouldGetChatMessages() throws Exception {
+		String uri = "/chats/1111111111/messages";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		String body = mvcResult.getResponse().getContentAsString();
+		assertTrue(body.toString().equals("[]"));
+	}
+	
+	
+	
+	@Test
+	public void shouldNotGetChatMessages() throws Exception {
+		String uri = "/chats/1113111131/messages";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		String body = mvcResult.getResponse().getContentAsString();
+		assertTrue(body.toString().equals("[]"));
+	}
+	
+	@Test
+	@WithMockUser(username = "1651111111", password = "pwd", roles = "USER")
+	public void shouldGetGroupsOfCurrentUser() throws Exception {
+		String uri = "/groups";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+	}
+	
+	@Test
+	public void shouldGetGroupMessages() throws Exception {
+		String uri = "/groups/1/messages";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+	}
+	
+	@Test
+	@WithMockUser(username = "1651111111", password = "pwd", roles = "USER")
+	public void shouldGetMemebersNotInGroup() throws Exception {
+		String uri = "/groups/1/remaining";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "1111111111", password = "pwd", roles = "USER")
+	public void shouldCreateGroup() throws Exception {
+		Group groupTemp = new Group();
+		mockMvc.perform(MockMvcRequestBuilders.
+				post("/groups/1111111111")
+			    .contentType(MediaType.APPLICATION_JSON_UTF8)
+			    .content(asJsonString(groupTemp)))
+				.andExpect(status().isCreated());
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "1111114111", password = "pwd", roles = "USER")
+	public void shouldAddMembers() throws Exception {
+		Set<User> members = new HashSet<>();
+		Group groupTemp = new Group(0, "grupo de apoyo", "te ayudamos con apoyo", new Date(),members);
+		mockMvc.perform(MockMvcRequestBuilders.
+				put("/groups/addmembers")
+			    .contentType(MediaType.APPLICATION_JSON_UTF8)
+			    .content(asJsonString(groupTemp)))
+				.andExpect(status().isAccepted());
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "1111111111", password = "pwd", roles = "USER")
+	public void shouldDeleteMembers() throws Exception {
+		Group groupTemp = new Group();
+		mockMvc.perform(MockMvcRequestBuilders.
+				delete("/groups/members")
+			    .contentType(MediaType.APPLICATION_JSON_UTF8)
+			    .content(asJsonString(groupTemp)))
+				.andExpect(status().isAccepted());
+	}
+	
+	@Test(expected = NestedServletException.class)
+	public void shouldGetGroup() throws Exception {
+		String uri = "/groups/1/members";
+		MvcResult mvcResult = mockMvc
+				.perform(MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+	}
+	
+	
 	
 	public static String asJsonString(final Object obj) {
         try {

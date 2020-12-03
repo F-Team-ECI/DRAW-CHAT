@@ -2,6 +2,8 @@ package edu.eci.arsw.application.persistence.impl;
 
 import java.util.*;
 
+import edu.eci.arsw.application.entities.util.Line;
+import edu.eci.arsw.application.cache.redis.DrawDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,9 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
 
     @Autowired
     private GroupDAO groupDAO;
+
+    @Autowired
+    private DrawDAO drawDAO;
 
     @Override
     public void addUser(User user) throws AppException {
@@ -365,6 +370,8 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     public boolean belongMemberToGroup(long tUsuario1, Group grupo) throws AppException {
         boolean isMember =false;
         User user1 = getUser(tUsuario1);
+        System.out.println(user1);
+        System.out.println(grupo);
         if (user1==null) {
             throw new AppException(AppException.USER_NOT_REGISTERED);
         }
@@ -407,6 +414,20 @@ public class DrawPersistenceImpl implements DrawPersistenceService {
     }
 
     @Override
+    public void saveDrawLine(int group, Line line) throws AppException {
+        drawDAO.save(group, line);
+    }
+
+    @Override
+    public List<Line> getDrawLines(int group) throws AppException {
+        return drawDAO.getLines(group);
+    }
+
+    @Override
+    public void createNewSession(int group) throws AppException {
+        drawDAO.createSession(group);
+    }
+
     public void deleteMessage(Message msg) throws AppException {
         Optional<Message> message= msgDAO.findById(msg.getId());
         if (message==null){

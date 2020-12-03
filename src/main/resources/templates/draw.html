@@ -23,6 +23,7 @@
 
 
     <div id="upperDiv" class="navbar">
+        <button onclick="canvas.createSession()">Nueva sesión</button>
         <a>DRAW CHAT - CANVAS</a>
         <button id="red" style="background-color: #d41919;" onclick="canvas.setColor(this)"></button>
         <button id="green" style="background-color: #19d429;" onclick="canvas.setColor(this)"></button>
@@ -34,7 +35,9 @@
         <button id="black" style="background-color: #000000;" onclick="canvas.setColor(this)"></button>
         
         <input id="custom" name="Color Picker" type="color" onchange="canvas.setCustomColor()"></input>
+        
     </div>
+    
 
     <div class="grid=item">
         <canvas id="myCanvas" class="myCanvas"></canvas>

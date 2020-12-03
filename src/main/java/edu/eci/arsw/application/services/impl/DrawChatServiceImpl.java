@@ -3,6 +3,7 @@ package edu.eci.arsw.application.services.impl;
 import java.util.List;
 import java.util.Set;
 
+import edu.eci.arsw.application.entities.util.Line;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -136,6 +137,21 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
+    public void saveDrawLine(int group, Line line) throws AppException {
+        drawPersistenceService.saveDrawLine(group, line);
+    }
+
+    @Override
+    public List<Line> getDrawLines(int group) throws AppException {
+        return drawPersistenceService.getDrawLines(group);
+    }
+
+    @Override
+    public void createNewSession(int group) throws AppException {
+        drawPersistenceService.createNewSession(group);
+    }
+
+    @Override
     public List<Message> getGroupChatMessages(int groupid) throws AppException {
         return drawPersistenceService.getGroupChatMessages(groupid);
     }
@@ -168,6 +184,7 @@ public class DrawChatServiceImpl implements DrawChatService {
 
     @Override
     public boolean belongMemberToGroup(long tUsuario1, Group grupo) throws AppException {
+        System.out.println("HERE " + drawPersistenceService);
         return drawPersistenceService.belongMemberToGroup(tUsuario1, grupo);
     }
 

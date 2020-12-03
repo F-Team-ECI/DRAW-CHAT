@@ -12,7 +12,7 @@ var canvas = (function () {
     var stompClient = null;
 
     var getMousePosition = function (evt) {
-        $('#myCanvas').on("mousedown",function (e) {
+        $('#myCanvas').on("mousedown", function (e) {
             var rect = canvas.getBoundingClientRect();
             var x = e.clientX - rect.left;
             var y = e.clientY - rect.top;
@@ -22,9 +22,9 @@ var canvas = (function () {
                 "y": y,
             }
             startPoint = point;
-            
+
         });
-        $('#myCanvas').on("mouseup",function (e) {
+        $('#myCanvas').on("mouseup", function (e) {
             var rect = canvas.getBoundingClientRect();
             var x = e.clientX - rect.left;
             var y = e.clientY - rect.top;
@@ -35,7 +35,7 @@ var canvas = (function () {
             }
             finishPoint = point;
             buildLine();
-            
+
         });
     }
 
@@ -98,6 +98,28 @@ var canvas = (function () {
         return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
     }
 
+    var loadLines = function(callback){
+        var req = $.ajax({
+            url: '/groups/' + currentGroup + "/paint",
+            type: "GET",
+            success: function (data, status, xhr) {
+                console.log('status: ' + status +"code" + xhr + ', data: ' + data);
+
+                callback(data, status, xhr)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log('Error' + errorMessage);
+            }
+        });
+        return req;
+    }
+
+    var paintLines= function(data, status, xhr){
+        data.map(function(line){
+            drawPoint(line);
+        })
+    }
+
     return {
 
         init: function () {
@@ -105,14 +127,19 @@ var canvas = (function () {
             canvas.width = window.innerWidth * 0.998;
             canvas.height = window.innerHeight * 0.993 - $("#upperDiv").height();
             canvas.addEventListener('click', getMousePosition(), false);
-            suscribe("test");
+
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var group = parseInt(url.searchParams.get("group"))
+            suscribe(group);
             color = rgb2hex($("#red").css("background-color"));
+            loadLines(paintLines);
         },
         setColor: function (butt) {
             var el = "#" + butt.id;
             color = rgb2hex($(el).css("background-color"));
 
-            
+
         },
 
         setCustomColor: function () {
@@ -125,6 +152,20 @@ var canvas = (function () {
             }
             console.log("Disconnected");
         },
+        
+        createSession: function(){
+            var req = $.ajax({
+                url: '/groups/' + currentGroup + "/paint",
+                type: "POST",
+                success: function (data, status, xhr) {
+                    console.log('status: ' + status +"code" + xhr + ', data: ' + data);
+                    location.reload();
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    console.log('Error' + errorMessage);
+                }
+            });
+        }
 
 
 
