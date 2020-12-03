@@ -90,8 +90,8 @@ public class DrawChatServiceImpl implements DrawChatService {
     }
 
     @Override
-    public void addGroup(long tUsuario, Group grupo) throws AppException {
-        drawPersistenceService.addGroup(tUsuario,grupo);
+    public Group addGroup(long tUsuario, Group grupo) throws AppException {
+        return drawPersistenceService.addGroup(tUsuario,grupo);
     }
 
     @Override

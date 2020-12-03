@@ -112,7 +112,7 @@ public interface DrawPersistenceService {
      * @param grupo el grupo con sus respectivos miembros
      * @throws AppException error insertando grupo
      */
-    public void addGroup(long tUsuario, Group grupo)throws AppException;
+    public Group addGroup(long tUsuario, Group grupo)throws AppException;
 
     /**
      * Consultar un grupo por el nombre

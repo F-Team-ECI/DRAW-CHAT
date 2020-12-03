@@ -122,7 +122,7 @@ public interface DrawChatService {
      * @param grupo el grupo a agregar
      * @throws AppException error en la construccion del grupo
      */
-    public void addGroup(long tUsuario, Group grupo) throws AppException;
+    public Group addGroup(long tUsuario, Group grupo) throws AppException;
 
     /**
      * Mensajes de un grupo
