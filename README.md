@@ -291,6 +291,21 @@ Al promover a un miembro como administrador, este miembro debería ser capaz de 
 
 ![](design/use-cases/ADMIN.png)
 
+## Unit Tests                   
+![](test/Service_test.PNG)
+![](test/Controller_test_1.PNG)
+![](test/Controller_test_2.PNG)
+![](test/general_test.PNG)
+![](test/surefire-report.PNG)
+
+## API Testing    
+![](test/Postman.png)
+![](test/Postman_Chat.png)
+![](test/Postman_Contact.png)
+![](test/Postman_Group.PNG)
+![](test/Postman_Register.png)
+![](test/Postman_Users.png)
+
 ## Atributos de calidad
 
 ### Escalabilidad
@@ -302,13 +317,28 @@ Al promover a un miembro como administrador, este miembro debería ser capaz de 
 - **Environment**: Bajo condiciones de estrés
 - **Artefact**: Sistema (API)
 - **Response**: Solicitudes respondidas satisfactoriamente
-- **Response measure**: Responder al 85% de todas las solicitudes, con 1000 usuarios concurrentes
+- **Response measure**: Responder al 85% de todas las solicitudes, con 1000 usuarios concurrentes (10 solicitudes cada uno) en un tiempo de 100 segundos (0.1s/req)
+
+### Prueba en Heroku
+![](test/JMeter_Heroku_Resumen.PNG)
+![](test/JMeter_Heroku_HTTPRequest.PNG)
 
 #### Prueba 1
-Hacer 1000 peticiones, para obtener los chats de un usuario específico, de manera concurrente variando el número de instancias correspondientes al escalado horizontal.
+Hacer 10000 peticiones, para obtener los chats de un usuario específico, de manera concurrente variando el número de instancias correspondientes al escalado horizontal.        
+![](test/Prueba1_1.png)
+![](test/Prueba1_2.png)
+![](test/Prueba1_3.png)
+![](test/Prueba1_4.png)
+
 
 #### Prueba 2
 Añadir usuario - Obtener usuario - Añadir contacto - Obtener contacto - Añadir chat - Obtener chats
+![](test/Prueba2_1.png)
+![](test/Prueba2_2.png)
+![](test/Prueba2_3.png)
+![](test/Prueba2_4.png)
+![](test/Prueba2_5.png)
+![](test/Prueba2_6.png)
 
 ## Construido con
 
